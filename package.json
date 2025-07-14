@@ -13,7 +13,10 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@types/axios": "^0.9.36",
     "@unocss/vite": "^66.3.3",
+    "axios": "^1.10.0",
+    "lodash": "^4.17.21",
     "pinia": "^3.0.3",
     "unocss": "^66.3.3",
     "vant": "^4.9.21",
