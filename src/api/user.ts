@@ -1,6 +1,6 @@
 import { httpClient } from '../modules/service'
 import type { ResponseData } from '../types/api'
-import { API_CONFIG } from '../config/api'
+import { setToken } from '../modules/auth'
 
 interface LoginParams {
     user_name: string
@@ -18,20 +18,16 @@ interface UserData {
     token: string
 }
 
-const saveToken = (token: string): void => {
-    localStorage.setItem(API_CONFIG.TOKEN_KEY, token)
-}
-
-export const login = async (params: LoginParams): Promise<ResponseData<UserData>> => {
-    const response = await httpClient.request<UserData>({
+export const login = async (params: LoginParams): Promise<ResponseData<string>> => {
+    const res = await httpClient.request<string>({
         method: 'POST',
         endpoint: '/users/login',
         params
     })
-    if (response.success && response.data.token) {
-        saveToken(response.data.token)
+    if (res.success && res.data) {
+        setToken(res.data)
     }
-    return response
+    return res
 }
 
 export const register = async (params: RegisterParams): Promise<ResponseData<UserData>> => {
@@ -41,7 +37,7 @@ export const register = async (params: RegisterParams): Promise<ResponseData<Use
         params
     })
     if (response.success && response.data.token) {
-        saveToken(response.data.token)
+        setToken(response.data.token)
     }
     return response
 }

@@ -1,4 +1,3 @@
-import './assets/main.css'
 import 'uno.css'
 
 import { createApp } from 'vue'

@@ -3,7 +3,7 @@ import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
-	<div class="min-h-100vh flex flex-col">
+	<div class="min-h-100vh flex flex-col max-w-480 mx-auto">
 		<header class="flex-shrink-0">
 			<div class="wrapper">
 				<nav>

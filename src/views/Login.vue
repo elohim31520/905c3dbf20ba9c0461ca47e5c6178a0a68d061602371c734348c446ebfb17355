@@ -1,0 +1,56 @@
+<template>
+	<div class="login-container">
+		<van-nav-bar title="登入" />
+		<van-form @submit="onSubmit">
+			<van-cell-group inset>
+				<van-field
+					v-model="username"
+					name="username"
+					label="帳號"
+					placeholder="請輸入帳號"
+					:rules="[{ required: true, message: '請填寫帳號' }]"
+				/>
+				<van-field
+					v-model="password"
+					type="password"
+					name="password"
+					label="密碼"
+					placeholder="請輸入密碼"
+					:rules="[{ required: true, message: '請填寫密碼' }]"
+				/>
+			</van-cell-group>
+			<div style="margin: 16px">
+				<van-button round block type="primary" native-type="submit"> 登入 </van-button>
+			</div>
+		</van-form>
+	</div>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+import { showToast } from 'vant'
+import { useRouter } from 'vue-router'
+import { login } from '../api/user'
+
+const router = useRouter()
+const username = ref('')
+const password = ref('')
+
+const onSubmit = async (values: any) => {
+	const res = await login({
+		user_name: values.username,
+		pwd: values.password,
+	})
+	if (res.success) {
+		showToast('登入成功')
+		router.push('/')
+	}
+}
+</script>
+
+<style lang="scss" scoped>
+.login-container {
+	height: 100vh;
+	background-color: #f7f8fa;
+}
+</style>

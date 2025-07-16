@@ -1,11 +1,9 @@
 import axios from 'axios'
 import type { AxiosInstance, InternalAxiosRequestConfig, AxiosResponse, AxiosError } from 'axios'
+import { showFailToast } from 'vant'
 import { API_CONFIG } from '../config/api'
 import type { ResponseData, FailResponseData, RequestParams } from '../types/api'
-
-const getToken = (): string | null => {
-    return localStorage.getItem(API_CONFIG.TOKEN_KEY)
-}
+import { getToken } from './auth'
 
 const getHeaders = (): Record<string, string> => {
     const headers: Record<string, string> = {
@@ -56,15 +54,24 @@ class HttpClient {
         )
 
         this.service.interceptors.response.use(
-            (response: AxiosResponse) => {
+            (response: AxiosResponse<ResponseData<any>>) => {
+                const res = response.data
+                if (typeof res.success === 'boolean' && !res.success) {
+                    const message = res.message || '操作失敗'
+                    showFailToast(message)
+                    return Promise.reject(res)
+                }
                 return response
             },
-            (error: AxiosError) => {
+            (error: AxiosError<FailResponseData>) => {
+                const message = error.response?.data?.message || error.message || '請求失敗'
+                showFailToast(message)
+
                 const response: FailResponseData = {
                     success: false,
                     data: null,
                     code: error.response?.status || null,
-                    message: error.message || '請求失敗'
+                    message,
                 }
                 return Promise.reject(response)
             },
@@ -80,7 +87,7 @@ class HttpClient {
         try {
             const response: AxiosResponse<ResponseData<T>> = await this.service({
                 method,
-                url: endpoint,
+                url: import.meta.env.VITE_API_URL + endpoint,
                 ...(method.toUpperCase() === 'GET' ? { params } : { data: params }),
             })
 
