@@ -94,8 +94,8 @@ export default defineConfig({
 		[/^max-w-(\d+)px$/, ([, d]) => ({ 'max-width': `${d}px` })],
 	],
 	shortcuts: {
-		'color-primary': 'color-#34c759',
-		'bg-primary': 'bg-#34c759',
+		'color-primary': 'color-pink-400',
+		'bg-primary': 'bg-pink-400',
 		'shadow-primary': 'shadow-[0_0_1rem_0_#0000001A]',
 		'flex-center': 'flex justify-center items-center',
 		'flex-x-center': 'flex justify-center',
