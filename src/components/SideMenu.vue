@@ -5,8 +5,8 @@
 		position="left"
 		:style="{ width: '80%', height: '100%' }"
 	>
-		<div class="p-6">
-			<nav class="flex flex-col space-y-2">
+		<div class="pt-20">
+			<nav class="flex flex-col space-y-6 items-center">
 				<router-link to="/" @click="closeMenu" class="p-3 rounded-lg text-gray-700 hover:bg-gray-200">首頁</router-link>
 				<router-link to="/about" @click="closeMenu" class="p-3 rounded-lg text-gray-700 hover:bg-gray-200"
 					>關於</router-link
@@ -16,6 +16,9 @@
 				>
 				<router-link to="/login" @click="closeMenu" class="p-3 rounded-lg text-gray-700 hover:bg-gray-200"
 					>登入</router-link
+				>
+				<router-link to="/register" @click="closeMenu" class="p-3 rounded-lg text-gray-700 hover:bg-gray-200"
+					>註冊</router-link
 				>
 			</nav>
 		</div>
