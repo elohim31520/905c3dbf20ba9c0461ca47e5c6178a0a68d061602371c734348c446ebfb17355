@@ -1,6 +1,6 @@
 <template>
 	<div class="bg-white p-10 shadow-primary">
-		<div class="text-18 font-bold mb-4">標普500漲跌佔整體百分比:</div>
+		<div class="text-18 font-bold mb-4 color-#434343">標普500漲跌佔整體百分比:</div>
 		<div class="text-16 font-bold color-primary">{{ formatFloat(marketBreadth) }}%</div>
 		<v-chart class="chart" :option="chartOption" style="height: 400px" />
 	</div>
@@ -52,7 +52,7 @@ const chartOption = computed(() => {
 				type: 'pie',
 				radius: '50%',
 				center: ['50%', '60%'],
-				color: ['#16A34A', '#DC2626'],
+				color: ['#f472b6', '#FDF3F4'],
 				data: [
 					{ value: formatFloat(	marketBreadth.value), name: '上漲' },
 					{ value: formatFloat(1 - marketBreadth.value), name: '下跌' },
