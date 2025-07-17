@@ -1,5 +1,5 @@
 <template>
-	<div class="login-container">
+	<div>
 		<van-nav-bar title="登入" />
 		<van-form @submit="onSubmit">
 			<van-cell-group inset>
@@ -19,8 +19,12 @@
 					:rules="[{ required: true, message: '請填寫密碼' }]"
 				/>
 			</van-cell-group>
+			<div class="flex-y-center">
+				<div class=" color-primary font-bold px-20 pt-10">註冊</div>
+				<div class="color-primary font-bold px-20 pt-10 ml-auto">忘記密碼？</div>
+			</div>
 			<div style="margin: 16px">
-				<van-button round block type="primary" native-type="submit"> 登入 </van-button>
+				<van-button round block type="primary" color="#f472b6" native-type="submit"> 登入 </van-button>
 			</div>
 		</van-form>
 	</div>
@@ -47,10 +51,3 @@ const onSubmit = async (values: any) => {
 	}
 }
 </script>
-
-<style lang="scss" scoped>
-.login-container {
-	height: 100vh;
-	background-color: #f7f8fa;
-}
-</style>
