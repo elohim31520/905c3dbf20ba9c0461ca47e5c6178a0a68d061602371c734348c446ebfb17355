@@ -12,7 +12,10 @@
 					>關於</router-link
 				>
 				<router-link to="/transaction" @click="closeMenu" class="p-3 rounded-lg text-gray-700 hover:bg-gray-200"
-					>交易</router-link
+					>+紀錄</router-link
+				>
+				<router-link to="/records" @click="closeMenu" class="p-3 rounded-lg text-gray-700 hover:bg-gray-200"
+					>我的紀錄</router-link
 				>
 				<router-link to="/login" @click="closeMenu" class="p-3 rounded-lg text-gray-700 hover:bg-gray-200"
 					>登入</router-link
