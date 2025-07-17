@@ -1,8 +1,15 @@
+export interface Company {
+	id?: number
+	symbol: string
+	name: string
+	createdAt?: Date
+	updatedAt?: Date
+}
+
 export interface ResponseData<T> {
-    code: number
-    message: string
-    success: boolean
-    data: T
+	message: string
+	data: T
+	error?: any
 }
 
 export interface FailResponseData extends Omit<ResponseData<null>, 'code'> {
