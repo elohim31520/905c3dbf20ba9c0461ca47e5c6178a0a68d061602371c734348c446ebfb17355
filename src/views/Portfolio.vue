@@ -1,10 +1,10 @@
 <template>
-	<div class="bg-white p-4">
+	<div class="bg-white p-10">
 		<div class="text-16 font-bold mb-4 color-#656565">我的投資組合</div>
 
-		<van-tabs v-model:active="activeTab">
+		<van-tabs v-model:active="activeTab" color="#F472B6">
 			<van-tab title="持股詳情">
-				<div v-if="portfolioData.length > 0" class="pt-4">
+				<div v-if="portfolioData.length > 0" class="mt-10">
 					<van-cell-group inset>
 						<van-cell v-for="item in portfolioData" :key="item.stock_id">
 							<template #title>
