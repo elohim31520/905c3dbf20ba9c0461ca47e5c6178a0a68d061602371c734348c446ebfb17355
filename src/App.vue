@@ -1,19 +1,26 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
+import { ref } from 'vue'
+import { RouterView } from 'vue-router'
+import AppHeader from './components/AppHeader.vue'
+import SideMenu from './components/SideMenu.vue'
+
+const showMenu = ref(false)
 </script>
 
 <template>
-	<div class="min-h-100vh flex flex-col max-w-480 mx-auto">
-		<header class="flex-shrink-0">
-			<div class="wrapper">
-				<nav>
-					<RouterLink to="/">首頁</RouterLink>
-					<RouterLink to="/about">關於</RouterLink>
-					<RouterLink to="/transaction">交易</RouterLink>
-				</nav>
-			</div>
-		</header>
+	<div class="min-h-screen flex flex-col max-w-[480px] mx-auto bg-gray-100">
+		<AppHeader v-model:show-menu="showMenu" />
 
-		<RouterView />
+		<SideMenu v-model="showMenu" />
+
+		<main class="flex-grow">
+			<RouterView />
+		</main>
 	</div>
 </template>
+
+<style scoped>
+.router-link-exact-active {
+	@apply bg-gray-200 text-blue-600 font-semibold;
+}
+</style>
