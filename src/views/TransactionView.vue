@@ -41,7 +41,7 @@ const onSubmit = async () => {
 </script>
 
 <template>
-	<div class="transaction-page w-full max-w-[480px] mx-auto py-6">
+	<div class="w-full mx-auto py-6">
 		<van-form ref="formRef" @submit="onSubmit">
 			<van-cell-group inset>
 				<van-field
@@ -55,8 +55,8 @@ const onSubmit = async () => {
 				<van-field name="transaction_type" label="交易類型">
 					<template #input>
 						<van-radio-group v-model="form.transaction_type" direction="horizontal">
-							<van-radio name="buy">買入</van-radio>
-							<van-radio name="sell">賣出</van-radio>
+							<van-radio name="buy" checked-color="#f472b6"> <span class="color-green-600">買入</span></van-radio>
+							<van-radio name="sell" checked-color="#f472b6"> <span class="color-red-600">賣出</span></van-radio>
 						</van-radio-group>
 					</template>
 				</van-field>
@@ -95,16 +95,9 @@ const onSubmit = async () => {
 				/>
 			</van-cell-group>
 
-			<div class="px-4 py-4">
-				<van-button round block type="primary" native-type="submit"> 提交 </van-button>
+			<div class="px-10 py-20">
+				<van-button round block type="primary" color="#f472b6" native-type="submit"> 紀錄 </van-button>
 			</div>
 		</van-form>
 	</div>
 </template>
-
-<style scoped>
-.transaction-page {
-	min-height: 100vh;
-	background-color: #f7f8fa;
-}
-</style>
