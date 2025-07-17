@@ -1,59 +1,96 @@
 <template>
 	<van-popup
-		:show="modelValue"
-		@update:show="$emit('update:modelValue', $event)"
+		:show="props.modelValue"
+		@update:show="emit('update:modelValue', $event)"
 		position="left"
 		:style="{ width: '80%', height: '100%' }"
 	>
 		<div class="pt-20">
-			<nav class="flex flex-col space-y-6 items-center">
-				<router-link to="/" @click="closeMenu" class="p-3 rounded-lg text-gray-700 hover:bg-gray-200">首頁</router-link>
-				<router-link to="/about" @click="closeMenu" class="p-3 rounded-lg text-gray-700 hover:bg-gray-200"
-					>關於</router-link
+			<nav class="flex flex-col space-y-15">
+				<router-link
+					to="/"
+					@click="closeMenu"
+					class="flex items-center justify-center rounded-lg text-gray-700 hover:bg-gray-100"
+					active-class="color-primary"
 				>
-				<router-link to="/transaction" @click="closeMenu" class="p-3 rounded-lg text-gray-700 hover:bg-gray-200"
-					>+紀錄</router-link
+					<van-icon name="home-o" class="mr-4" />
+					<span class="text-20">首頁</span>
+				</router-link>
+				<router-link
+					to="/about"
+					@click="closeMenu"
+					class="flex items-center justify-center rounded-lg text-gray-700 hover:bg-gray-100"
+					active-class="color-primary"
 				>
-				<router-link to="/records" @click="closeMenu" class="p-3 rounded-lg text-gray-700 hover:bg-gray-200"
-					>我的紀錄</router-link
+					<van-icon name="info-o" class="mr-4" />
+					<span class="text-20">關於</span>
+				</router-link>
+				<router-link
+					to="/transaction"
+					@click="closeMenu"
+					class="flex items-center justify-center rounded-lg text-gray-700 hover:bg-gray-100"
+					active-class="color-primary"
 				>
-				<router-link to="/login" @click="closeMenu" class="p-3 rounded-lg text-gray-700 hover:bg-gray-200"
-					>登入</router-link
+					<van-icon name="add-o" class="mr-4" />
+					<span class="text-20">紀錄</span>
+				</router-link>
+				<router-link
+					to="/records"
+					@click="closeMenu"
+					class="flex items-center justify-center rounded-lg text-gray-700 hover:bg-gray-100"
+					active-class="color-primary"
 				>
-				<router-link to="/register" @click="closeMenu" class="p-3 rounded-lg text-gray-700 hover:bg-gray-200"
-					>註冊</router-link
+					<van-icon name="records" class="mr-4" />
+					<span class="text-20">我的紀錄</span>
+				</router-link>
+				<router-link
+					to="/login"
+					@click="closeMenu"
+					class="flex items-center justify-center rounded-lg text-gray-700 hover:bg-gray-100"
+					active-class="color-primary"
 				>
-				<router-link to="/portfolio" @click="closeMenu" class="p-3 rounded-lg text-gray-700 hover:bg-gray-200"
-					>我的投資組合</router-link
+					<van-icon name="manager-o" class="mr-4" />
+					<span class="text-20">登入</span>
+				</router-link>
+				<router-link
+					to="/register"
+					@click="closeMenu"
+					class="flex items-center justify-center rounded-lg text-gray-700 hover:bg-gray-100"
+					active-class="color-primary"
 				>
+					<van-icon name="user-circle-o" class="mr-4" />
+					<span class="text-20">註冊</span>
+				</router-link>
+				<router-link
+					to="/portfolio"
+					@click="closeMenu"
+					class="flex items-center justify-center rounded-lg text-gray-700 hover:bg-gray-100"
+					active-class="color-primary"
+				>
+					<van-icon name="chart-trending-o" class="mr-4" />
+					<span class="text-20">我的投資組合</span>
+				</router-link>
 			</nav>
 		</div>
 	</van-popup>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script setup lang="ts">
 import { RouterLink } from 'vue-router'
 import VanPopup from 'vant/lib/popup'
 import 'vant/lib/popup/style'
+import VanIcon from 'vant/lib/icon'
+import 'vant/lib/icon/style'
 
-export default defineComponent({
-	name: 'SideMenu',
-	components: {
-		RouterLink,
-		VanPopup,
-	},
-	props: {
-		modelValue: {
-			type: Boolean,
-			required: true,
-		},
-	},
-	emits: ['update:modelValue'],
-	methods: {
-		closeMenu() {
-			this.$emit('update:modelValue', false)
-		},
-	},
-})
+const props = defineProps<{
+	modelValue: boolean
+}>()
+
+const emit = defineEmits<{
+	(e: 'update:modelValue', value: boolean): void
+}>()
+
+const closeMenu = () => {
+	emit('update:modelValue', false)
+}
 </script>
