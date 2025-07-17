@@ -70,6 +70,15 @@
 					<van-icon name="chart-trending-o" class="mr-4" />
 					<span class="text-20">我的投資組合</span>
 				</router-link>
+				<router-link
+					to="/companies"
+					@click="closeMenu"
+					class="flex items-center justify-center rounded-lg text-gray-700 hover:bg-gray-100"
+					active-class="color-primary"
+				>
+					<van-icon name="chart-trending-o" class="mr-4" />
+					<span class="text-20">股票清單</span>
+				</router-link>
 			</nav>
 		</div>
 	</van-popup>

@@ -1,5 +1,5 @@
 import { httpClient } from '../modules/service'
-import type { ResponseData } from '../types/api'
+import type { ResponseData, Company } from '../types/api'
 
 class MarketApi {
 	async getAllMomentum(): Promise<ResponseData<any[]>> {
@@ -14,8 +14,12 @@ class MarketApi {
 		return httpClient.request<any[]>({ method: 'GET', endpoint: '/market/weights' })
 	}
 
-	async getStockSymbols(): Promise<ResponseData<any[]>> {
-		return httpClient.request<any[]>({ method: 'GET', endpoint: '/market/stock/symbols' })
+	async getStockSymbols(): Promise<ResponseData<Company[]>> {
+		return httpClient.request<Company[]>({ method: 'GET', endpoint: '/market/stock/symbols' })
+	}
+
+	async getAllCompanies(): Promise<ResponseData<Company[]>> {
+		return httpClient.request<Company[]>({ method: 'GET', endpoint: '/market/stock/symbols' })
 	}
 
 	async getMarketBreadth(): Promise<ResponseData<number>> {
