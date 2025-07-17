@@ -18,8 +18,8 @@ class MarketApi {
 		return httpClient.request<any[]>({ method: 'GET', endpoint: '/market/stock/symbols' })
 	}
 
-	async getMarketBreadth(): Promise<ResponseData<any[]>> {
-		return httpClient.request<any[]>({ method: 'GET', endpoint: '/market/stock/breadth' })
+	async getMarketBreadth(): Promise<ResponseData<number>> {
+		return httpClient.request<number>({ method: 'GET', endpoint: '/market/stock/breadth' })
 	}
 
 	async getStockWinners(): Promise<ResponseData<any[]>> {
