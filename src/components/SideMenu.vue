@@ -23,6 +23,9 @@
 				<router-link to="/register" @click="closeMenu" class="p-3 rounded-lg text-gray-700 hover:bg-gray-200"
 					>註冊</router-link
 				>
+				<router-link to="/portfolio" @click="closeMenu" class="p-3 rounded-lg text-gray-700 hover:bg-gray-200"
+					>我的投資組合</router-link
+				>
 			</nav>
 		</div>
 	</van-popup>
