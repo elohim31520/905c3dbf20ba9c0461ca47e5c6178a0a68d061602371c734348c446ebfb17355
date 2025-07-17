@@ -9,7 +9,7 @@ const showMenu = ref(false)
 
 <template>
 	<div class="min-h-screen flex flex-col max-w-[480px] mx-auto bg-gray-100">
-		<AppHeader v-model:show-menu="showMenu" />
+		<AppHeader v-model:show-menu="showMenu" class="mb-10" />
 
 		<SideMenu v-model="showMenu" />
 
@@ -21,6 +21,6 @@ const showMenu = ref(false)
 
 <style scoped>
 .router-link-exact-active {
-	@apply bg-gray-200 text-blue-600 font-semibold;
+	@apply bg-gray-200 text-pink-600 font-semibold;
 }
 </style>
