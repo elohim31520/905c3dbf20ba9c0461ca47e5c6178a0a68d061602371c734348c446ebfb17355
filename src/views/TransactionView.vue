@@ -2,17 +2,17 @@
 import { ref } from 'vue'
 import { showToast } from 'vant'
 import type { FormInstance } from 'vant'
+import { transactionApi } from '../api/transaction'
 
 interface TransactionForm {
 	stock_id: string
 	transaction_type: 'buy' | 'sell'
-	quantity: string | number
-	price: string | number
+	quantity: string
+	price: string
 	transaction_date: string
 }
 
-const formRef = ref<FormInstance>()
-const form = ref<TransactionForm>({
+const getInitialFormState = (): TransactionForm => ({
 	stock_id: '',
 	transaction_type: 'buy',
 	quantity: '',
@@ -20,16 +20,26 @@ const form = ref<TransactionForm>({
 	transaction_date: new Date().toISOString().split('T')[0],
 })
 
+const formRef = ref<FormInstance>()
+const form = ref<TransactionForm>(getInitialFormState())
+
 const onSubmit = async () => {
 	if (!formRef.value) return
 
 	try {
 		await formRef.value?.validate()
-		// TODO: 實作 API 呼叫
+		const payload = {
+			...form.value,
+			quantity: Number(form.value.quantity),
+			price: Number(form.value.price),
+		}
+		await transactionApi.recordMyTransactions(payload)
 		showToast({
 			type: 'success',
 			message: '交易紀錄已儲存',
 		})
+		form.value = getInitialFormState()
+		formRef.value?.resetValidation()
 	} catch (error) {
 		console.error(error)
 		showToast({
@@ -75,7 +85,7 @@ const onSubmit = async () => {
 
 				<van-field
 					v-model="form.price"
-					type="digit"
+					type="number"
 					name="price"
 					label="價格"
 					placeholder="請輸入交易價格"

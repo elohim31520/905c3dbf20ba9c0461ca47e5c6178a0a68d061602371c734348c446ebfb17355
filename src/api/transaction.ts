@@ -4,8 +4,8 @@ import type { ResponseData } from '../types/api'
 type Transaction = {
 	stock_id: string
 	transaction_type: 'buy' | 'sell'
-	quantity: number
-	price: number
+	quantity: number | null
+	price: number | null
 	transaction_date: string
 }
 
@@ -43,14 +43,8 @@ class TransactionApi {
 	 * 新增多筆交易紀錄
 	 * @param transactions 交易紀錄陣列
 	 */
-	async recordMyTransactions(transactions: Transaction[]): Promise<ResponseData<any>> {
-		const formattedTransactions = transactions.map((transaction) => {
-			return {
-				...transaction,
-				transaction_date: this.parseDate(transaction.transaction_date) || new Date().toISOString().split('T')[0],
-			}
-		})
-		return httpClient.request<any>({ method: 'POST', endpoint: '/transactions', params: formattedTransactions })
+	async recordMyTransactions(transaction: Transaction): Promise<ResponseData<any>> {
+		return httpClient.request<any>({ method: 'POST', endpoint: '/transactions', params: transaction })
 	}
 
 	private parseDate(dateStr: string): string | null {
