@@ -7,9 +7,7 @@
 				@click="fetchData(day)"
 				:class="[
 					'px-4 py-2 rounded-md w-50 text-center',
-					selectedDays === day
-						? 'bg-primary color-white'
-						: 'bg-gray-200 color-gray-700 hover:bg-gray-300',
+					selectedDays === day ? 'bg-primary color-white' : 'bg-gray-200 color-gray-700 hover:bg-gray-300',
 				]"
 			>
 				{{ day }}天
@@ -32,51 +30,50 @@ import { marketApi } from '../api/market'
 
 use([CanvasRenderer, LineChart, TitleComponent, TooltipComponent, GridComponent])
 
-const timeRanges = [7, 30, 60]
-const selectedDays = ref(7)
+const timeRanges = [3, 7, 30, 60]
+const selectedDays = ref(3)
 const option = ref({})
 
-const fetchData = async (days: number) => {
+const fetchData = async (days: number): Promise<void> => {
 	selectedDays.value = days
 	try {
 		const res = await marketApi.getMomentumByRange(days)
-		if (res.success) {
-			const data = res.data
-			const dates = data.map((item: any) => item.createdAt)
-			const volumes = data.map((item: any) => item.volume)
+		if (!res.success) return
+		const data = res.data
+		const dates = data.map((item: any) => item.createdAt)
+		const volumes = data.map((item: any) => item.volume)
 
-			option.value = {
-				title: {
-					text: `市場近${days}日動能`,
-					left: 'center',
-				},
-				tooltip: {
-					trigger: 'axis',
-				},
-				grid: {
-					left: '3%',
-					right: '4%',
-					bottom: '3%',
-					containLabel: true,
-				},
-				xAxis: {
-					type: 'category',
-					data: dates,
-				},
-				yAxis: {
-					type: 'value',
-				},
-				series: [
-					{
-						data: volumes,
-						type: 'line',
-						smooth: true,
-						itemStyle: {
-							color: '#f472b6',
-						},
+		option.value = {
+			title: {
+				text: `市場近${days}日動能`,
+				left: 'center',
+			},
+			tooltip: {
+				trigger: 'axis',
+			},
+			grid: {
+				left: '3%',
+				right: '4%',
+				bottom: '3%',
+				containLabel: true,
+			},
+			xAxis: {
+				type: 'category',
+				data: dates,
+			},
+			yAxis: {
+				type: 'value',
+			},
+			series: [
+				{
+					data: volumes,
+					type: 'line',
+					smooth: true,
+					itemStyle: {
+						color: '#f472b6',
 					},
-				],
-			}
+				},
+			],
 		}
 	} catch (error) {
 		console.error(`Failed to fetch ${days}-day momentum data:`, error)
