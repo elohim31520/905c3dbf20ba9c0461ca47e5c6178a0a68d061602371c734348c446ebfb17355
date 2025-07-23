@@ -3,7 +3,7 @@ import type { ResponseData } from '../types/api'
 import { setToken } from '../modules/auth'
 
 interface LoginParams {
-    user_name: string
+    name: string
     pwd: string
 }
 
@@ -13,7 +13,7 @@ interface RegisterParams extends LoginParams {
 
 interface UserData {
     id: string
-    user_name: string
+    name: string
     email: string
     token: string
 }

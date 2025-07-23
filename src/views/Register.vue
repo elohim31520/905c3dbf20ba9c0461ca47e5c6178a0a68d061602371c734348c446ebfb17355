@@ -59,7 +59,7 @@ const passwordValidator = (val: string) => {
 
 const onSubmit = async (values: any) => {
 	const res = await register({
-		user_name: values.username,
+		name: values.username,
 		pwd: values.password,
 		email: values.email,
 	})

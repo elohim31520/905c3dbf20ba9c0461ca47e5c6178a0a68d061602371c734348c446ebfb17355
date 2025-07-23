@@ -42,7 +42,7 @@ const password = ref('')
 
 const onSubmit = async (values: any) => {
 	const res = await login({
-		user_name: values.username,
+		name: values.username,
 		pwd: values.password,
 	})
 	if (res.success) {
