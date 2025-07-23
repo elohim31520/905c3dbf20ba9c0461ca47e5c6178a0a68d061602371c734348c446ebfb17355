@@ -10,6 +10,8 @@ export interface ResponseData<T> {
 	message: string
 	data: T
 	error?: any
+	success: boolean
+	code: number
 }
 
 export interface FailResponseData extends Omit<ResponseData<null>, 'code'> {

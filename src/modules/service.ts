@@ -90,10 +90,6 @@ class HttpClient {
                 url: import.meta.env.VITE_API_URL + endpoint,
                 ...(method.toUpperCase() === 'GET' ? { params } : { data: params }),
             })
-
-            if (!quiet) {
-                console.log('API Response:', response.data)
-            }
             return response.data
         } catch (err) {
             if (!quiet) {
