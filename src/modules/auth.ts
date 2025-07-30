@@ -12,3 +12,7 @@ export const setToken = (token: string): void => {
 export const removeToken = (): void => {
     Cookies.remove(API_CONFIG.TOKEN_KEY)
 } 
+
+export const isAuthenticated = (): boolean => {
+    return getToken() !== undefined
+}

@@ -8,11 +8,13 @@ const router = createRouter({
 			path: '/',
 			name: 'home',
 			component: HomeView,
+			meta: { requiresAuth: true },
 		},
 		{
 			path: '/transaction',
 			name: 'transaction',
 			component: () => import('../views/TransactionView.vue'),
+			meta: { requiresAuth: true },
 		},
 		{
 			path: '/login',
@@ -27,19 +29,36 @@ const router = createRouter({
 		{
 			path: '/records',
 			name: 'records',
-			component: () => import('../views/records.vue'),
+			component: () => import('../views/Records.vue'),
+			meta: { requiresAuth: true },
 		},
 		{
 			path: '/portfolio',
 			name: 'portfolio',
 			component: () => import('../views/Portfolio.vue'),
+			meta: { requiresAuth: true },
 		},
 		{
 			path: '/companies',
 			name: 'companies',
 			component: () => import('../views/Companies.vue'),
+			meta: { requiresAuth: true },
 		},
+		{
+			path: '/my',
+			name: 'my',
+			component: () => import('../views/My.vue'),
+		}
 	],
+})
+
+router.beforeEach((to, from, next) => {
+	const token = localStorage.getItem('token')
+	if (to.matched.some(record => record.meta.requiresAuth) && !token) {
+		next({ name: 'login' })
+	} else {
+		next()
+	}
 })
 
 export default router
