@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import { RouterView } from 'vue-router'
 import AppHeader from './components/AppHeader.vue'
 import SideMenu from './components/SideMenu.vue'
+import Footer from './components/Footer/index.vue'
 
 const showMenu = ref(false)
 </script>
@@ -16,6 +17,8 @@ const showMenu = ref(false)
 		<main class="flex-grow">
 			<RouterView />
 		</main>
+
+		<Footer />
 	</div>
 </template>
 
