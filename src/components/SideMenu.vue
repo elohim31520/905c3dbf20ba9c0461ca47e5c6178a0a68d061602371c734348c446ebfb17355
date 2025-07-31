@@ -103,3 +103,9 @@ const closeMenu = () => {
 	emit('update:modelValue', false)
 }
 </script>
+
+<style scoped lang="scss">
+.router-link-exact-active {
+	@apply text-pink-600 font-500;
+}
+</style>
