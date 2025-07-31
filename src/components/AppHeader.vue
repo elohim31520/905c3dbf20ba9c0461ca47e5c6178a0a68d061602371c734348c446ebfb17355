@@ -1,6 +1,6 @@
 <template>
 	<header class="w-100% flex-y-center bg-white h-60 shadow-primary">
-		<div class="font-bold text-24 ml-10 color-primary">TrackTrade</div>
+		<div class="font-bold text-24 ml-10 color-primary">UrTrade</div>
 		<div @click.prevent="$emit('update:showMenu', true)" class="p-2 ml-auto mr-10">
 			<van-icon name="wap-nav" size="24" />
 		</div>
