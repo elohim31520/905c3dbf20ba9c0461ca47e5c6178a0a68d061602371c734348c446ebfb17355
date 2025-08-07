@@ -44,6 +44,7 @@
 					<span class="text-20">我的紀錄</span>
 				</router-link>
 				<router-link
+					v-if="!isAuthenticated()"
 					to="/login"
 					@click="closeMenu"
 					class="flex items-center justify-center rounded-lg text-gray-700 hover:bg-gray-100"
@@ -53,6 +54,7 @@
 					<span class="text-20">登入</span>
 				</router-link>
 				<router-link
+					v-if="!isAuthenticated()"
 					to="/register"
 					@click="closeMenu"
 					class="flex items-center justify-center rounded-lg text-gray-700 hover:bg-gray-100"
@@ -90,6 +92,7 @@ import VanPopup from 'vant/lib/popup'
 import 'vant/lib/popup/style'
 import VanIcon from 'vant/lib/icon'
 import 'vant/lib/icon/style'
+import { isAuthenticated } from '@/modules/auth'
 
 const props = defineProps<{
 	modelValue: boolean
@@ -106,6 +109,6 @@ const closeMenu = () => {
 
 <style scoped lang="scss">
 .router-link-exact-active {
-	@apply text-pink-600 font-500;
+	@apply text-pink-500 font-500;
 }
 </style>
