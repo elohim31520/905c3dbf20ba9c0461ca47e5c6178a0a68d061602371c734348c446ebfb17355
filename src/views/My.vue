@@ -8,7 +8,7 @@
 			>
 				<div
 					class="bg-[url('/my/bg.webp')] bg-cover bg-center bg-no-repeat p-15 pt-40 text-white transition-all duration-300 ease-in-out"
-					:class="isScrolled ? 'h-140 pt-75' : 'h-260 pt-50'"
+					:class="isScrolled ? 'h-50 pt-75' : 'h-200 pt-50'"
 				>
 					<!-- User Info -->
 					<div class="flex-y-center transition-all duration-300 ease-in-out" :class="{ '-translate-y-40': isScrolled }">
@@ -54,7 +54,7 @@
 					</div>
 				</div>
 
-				<div class="transition-all duration-300 ease-in-out" :class="isScrolled ? '-mt-40' : '-mt-80'">
+				<div class="transition-all duration-300 ease-in-out" :class="isScrolled ? '-mt-45' : '-mt-100'">
 					<!-- Wallet Info -->
 					<div
 						class="flex-y-center justify-between transition-all duration-300 ease-in-out bg-white"
@@ -89,7 +89,7 @@
 
 			<div class="bg-white" :style="{ paddingTop: isScrolled ? headerHeight + 'px' : '0px' }">
 				<!-- My Portfolio -->
-				<div class="m-10" v-if="isLogin">
+				<div class="m-10 pt-20" v-if="isLogin">
 					<h3 class="font-500 mb-20 color-primary">My Portfolio</h3>
 					<div class="w-full h-[300px]">
 						<PortfolioChart />
