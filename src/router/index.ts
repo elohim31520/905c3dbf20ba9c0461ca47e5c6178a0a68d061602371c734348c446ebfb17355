@@ -48,7 +48,17 @@ const router = createRouter({
 			path: '/my',
 			name: 'my',
 			component: () => import('../views/My.vue'),
-		}
+		},
+		{
+			path: '/m7',
+			name: 'm7',
+			component: () => import('../views/M7.vue'),
+		},
+		{
+			path: '/svg',
+			name: 'svg',
+			component: () => import('../views/Svg.vue'),
+		},
 	],
 })
 
