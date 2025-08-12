@@ -48,6 +48,7 @@ const router = createRouter({
 			path: '/my',
 			name: 'my',
 			component: () => import('../views/My.vue'),
+			meta: { requiresAuth: true },
 		},
 		{
 			path: '/m7',
@@ -58,6 +59,15 @@ const router = createRouter({
 			path: '/svg',
 			name: 'svg',
 			component: () => import('../views/Svg.vue'),
+		},
+		{
+			path: '/404',
+			name: '404',
+			component: () => import('../views/404.vue'),
+		},
+		{
+			path: '/:pathMatch(.*)*',
+			redirect: '/404',
 		},
 	],
 })
