@@ -7,80 +7,22 @@
 	>
 		<div class="pt-20">
 			<nav class="flex flex-col space-y-15">
-				<router-link
-					to="/"
-					@click="closeMenu"
-					class="flex items-center justify-center rounded-lg text-gray-700 hover:bg-gray-100"
-					active-class="color-primary"
-				>
-					<van-icon name="home-o" class="mr-4" />
-					<span class="text-20">首頁</span>
-				</router-link>
-				<router-link
-					to="/about"
-					@click="closeMenu"
-					class="flex items-center justify-center rounded-lg text-gray-700 hover:bg-gray-100"
-					active-class="color-primary"
-				>
-					<van-icon name="info-o" class="mr-4" />
-					<span class="text-20">關於</span>
-				</router-link>
-				<router-link
-					to="/transaction"
-					@click="closeMenu"
-					class="flex items-center justify-center rounded-lg text-gray-700 hover:bg-gray-100"
-					active-class="color-primary"
-				>
-					<van-icon name="add-o" class="mr-4" />
-					<span class="text-20">紀錄</span>
-				</router-link>
-				<router-link
-					to="/records"
-					@click="closeMenu"
-					class="flex items-center justify-center rounded-lg text-gray-700 hover:bg-gray-100"
-					active-class="color-primary"
-				>
-					<van-icon name="records" class="mr-4" />
-					<span class="text-20">我的紀錄</span>
-				</router-link>
-				<router-link
-					v-if="!isAuthenticated()"
-					to="/login"
-					@click="closeMenu"
-					class="flex items-center justify-center rounded-lg text-gray-700 hover:bg-gray-100"
-					active-class="color-primary"
-				>
-					<van-icon name="manager-o" class="mr-4" />
-					<span class="text-20">登入</span>
-				</router-link>
-				<router-link
-					v-if="!isAuthenticated()"
-					to="/register"
-					@click="closeMenu"
-					class="flex items-center justify-center rounded-lg text-gray-700 hover:bg-gray-100"
-					active-class="color-primary"
-				>
-					<van-icon name="user-circle-o" class="mr-4" />
-					<span class="text-20">註冊</span>
-				</router-link>
-				<router-link
-					to="/portfolio"
-					@click="closeMenu"
-					class="flex items-center justify-center rounded-lg text-gray-700 hover:bg-gray-100"
-					active-class="color-primary"
-				>
-					<van-icon name="chart-trending-o" class="mr-4" />
-					<span class="text-20">我的投資組合</span>
-				</router-link>
-				<router-link
-					to="/companies"
-					@click="closeMenu"
-					class="flex items-center justify-center rounded-lg text-gray-700 hover:bg-gray-100"
-					active-class="color-primary"
-				>
-					<van-icon name="chart-trending-o" class="mr-4" />
-					<span class="text-20">股票清單</span>
-				</router-link>
+				<template v-for="item in menuItems" :key="item.to">
+					<router-link
+						v-if="
+							item.auth === 'always' ||
+							(item.auth === 'auth' && isAuthenticated()) ||
+							(item.auth === 'guest' && !isAuthenticated())
+						"
+						:to="item.to"
+						@click="closeMenu"
+						class="flex items-center justify-center rounded-lg text-gray-700 hover:bg-gray-100"
+						active-class="color-primary"
+					>
+						<van-icon :name="item.icon" class="mr-4" />
+						<span class="text-20">{{ item.text }}</span>
+					</router-link>
+				</template>
 			</nav>
 		</div>
 	</van-popup>
@@ -93,6 +35,33 @@ import 'vant/lib/popup/style'
 import VanIcon from 'vant/lib/icon'
 import 'vant/lib/icon/style'
 import { isAuthenticated } from '@/modules/auth'
+
+const menuItems = [
+	{ to: '/', icon: 'home-o', text: '首頁', auth: 'always' },
+	{ to: '/about', icon: 'info-o', text: '關於', auth: 'always' },
+	{ to: '/transaction', icon: 'add-o', text: '紀錄', auth: 'auth' },
+	{ to: '/records', icon: 'records', text: '我的紀錄', auth: 'auth' },
+	{ to: '/login', icon: 'manager-o', text: '登入', auth: 'guest' },
+	{ to: '/register', icon: 'user-circle-o', text: '註冊', auth: 'guest' },
+	{
+		to: '/portfolio',
+		icon: 'chart-trending-o',
+		text: '我的投資組合',
+		auth: 'auth',
+	},
+	{
+		to: '/companies',
+		icon: 'chart-trending-o',
+		text: '股票清單',
+		auth: 'always',
+	},
+	{
+		to: '/m7',
+		icon: 'chart-trending-o',
+		text: 'M7',
+		auth: 'auth',
+	}
+]
 
 const props = defineProps<{
 	modelValue: boolean
