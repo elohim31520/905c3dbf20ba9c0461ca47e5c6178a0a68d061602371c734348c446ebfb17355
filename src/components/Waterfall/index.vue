@@ -19,7 +19,6 @@
 	const list = ref([])
 	const loading = ref(false)
 	const finished = ref(false)
-	const total = ref(0)
 	const page = ref(1)
 
 	const props = defineProps({
@@ -41,7 +40,7 @@
 		},
 		finishedText: {
 			type: String,
-			default: 'no more',
+			default: '沒有更多了',
 		},
 		loadingText: {
 			type: String,
@@ -51,10 +50,6 @@
 		dataPath: {
 			type: String,
 			default: 'data',
-		},
-		totalPath: {
-			type: String,
-			default: 'total',
 		},
 	})
 
@@ -67,14 +62,9 @@
 
 		const newData = _get(res, props.dataPath, [])
 
-		// 總數通常只需要在第一頁獲取
-		if (total.value === 0 || page.value === 1) {
-			total.value = _get(res, props.totalPath, 0)
-		}
-
 		list.value = [...list.value, ...newData]
 
-		if (list.value.length >= total.value || !newData.length) {
+		if (!newData.length) {
 			finished.value = true
 		}
 
@@ -86,7 +76,6 @@
 		// 重置所有狀態
 		list.value = []
 		page.value = 0
-		total.value = 0
 		finished.value = false
 		loading.value = false // 讓 van-list 自己管理加載狀態
 

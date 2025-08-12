@@ -1,12 +1,17 @@
 import { httpClient } from '../modules/service'
 import type { ResponseData } from '../types/api'
 
-type Transaction = {
+interface Transaction {
 	stock_id: string
 	transaction_type: 'buy' | 'sell'
 	quantity: number | null
 	price: number | null
 	transaction_date: string
+}
+
+interface PaginationParams {
+	page: number
+	size: number
 }
 
 class TransactionApi {
@@ -27,8 +32,8 @@ class TransactionApi {
 	/**
 	 * 取得所有交易紀錄
 	 */
-	async getAllTransactions(): Promise<ResponseData<any>> {
-		return httpClient.request<any>({ method: 'GET', endpoint: '/transactions' })
+	async getAllTransactions({ page, size }: PaginationParams): Promise<ResponseData<any>> {
+		return httpClient.request<any>({ method: 'GET', endpoint: '/transactions', params: { page, size } })
 	}
 
 	/**
