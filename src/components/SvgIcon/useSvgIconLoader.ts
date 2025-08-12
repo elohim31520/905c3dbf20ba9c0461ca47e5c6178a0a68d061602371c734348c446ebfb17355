@@ -1,8 +1,14 @@
-import { onMounted } from 'vue'
+import { onMounted, type ComputedRef } from 'vue'
 
-const loadedSymbols = []
+const loadedSymbols: string[] = []
 
-export function useSvgIconLoader(props, symbolId) {
+type SvgIconProps = {
+	prefix: string
+	name: string
+	size: string
+}
+
+export function useSvgIconLoader(props: SvgIconProps, symbolId: ComputedRef<string>) {
 	const loadSvg = async () => {
 		if (loadedSymbols.includes(symbolId.value)) return
 		loadedSymbols.push(symbolId.value)
@@ -26,20 +32,23 @@ export function useSvgIconLoader(props, symbolId) {
 		const symbolDom = document.createElementNS('http://www.w3.org/2000/svg', 'symbol')
 		symbolDom.setAttribute('id', symbolId.value)
 		symbolDom.setAttribute('fill', 'none')
-		symbolDom.setAttribute('viewBox', svgElement.getAttribute('viewBox'))
+		if (svgElement.getAttribute('viewBox')) {
+			symbolDom.setAttribute('viewBox', svgElement.getAttribute('viewBox')!)
+		}
 		while (svgElement.firstChild) {
 			symbolDom.appendChild(svgElement.firstChild)
 		}
 
 		// 創建 svg 容器
-		let svgContainerDom = document.getElementById('__svg__icons__dom__')
+		let svgContainerDom: Element | null = document.getElementById('__svg__icons__dom__')
 		if (!svgContainerDom) {
-			svgContainerDom = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
-			svgContainerDom.setAttribute('id', '__svg__icons__dom__')
-			svgContainerDom.setAttribute('style', 'position:absolute; width:0; height:0')
-			svgContainerDom.setAttribute('xmlns', 'http://www.w3.org/2000/svg')
-			svgContainerDom.setAttribute('xmlns:xlink', 'http://www.w3.org/1999/xlink')
-			document.body.insertBefore(svgContainerDom, document.body.firstChild)
+			const newSvgContainer = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+			newSvgContainer.setAttribute('id', '__svg__icons__dom__')
+			newSvgContainer.setAttribute('style', 'position:absolute; width:0; height:0')
+			newSvgContainer.setAttribute('xmlns', 'http://www.w3.org/2000/svg')
+			newSvgContainer.setAttribute('xmlns:xlink', 'http://www.w3.org/1999/xlink')
+			document.body.insertBefore(newSvgContainer, document.body.firstChild)
+			svgContainerDom = newSvgContainer
 		}
 		svgContainerDom.appendChild(symbolDom)
 	}
@@ -47,4 +56,4 @@ export function useSvgIconLoader(props, symbolId) {
 	onMounted(() => {
 		loadSvg()
 	})
-}
+} 

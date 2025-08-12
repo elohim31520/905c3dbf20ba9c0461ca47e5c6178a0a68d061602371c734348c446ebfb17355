@@ -15,7 +15,7 @@
 	</div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 	import { computed } from 'vue'
 	import { useRoute, useRouter } from 'vue-router'
 
@@ -61,7 +61,7 @@
 		},
 	]
 
-	const handleClick = (name) => {
+	const handleClick = (name: string) => {
 		if (activeTab.value !== name) router.push({ name })
 	}
 </script>

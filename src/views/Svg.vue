@@ -26,17 +26,20 @@
 	</van-grid>
 </template>
 
-<script setup>
+<script setup lang="ts">
 	import { truncate } from 'lodash-es'
 	import { ref } from 'vue'
 
 	const icons = import.meta.glob('@/icons/svg/*.svg')
-	const items = Object.keys(icons).map(
-		(vo) => vo.match(/\/icons\/svg\/(.*)\.svg/)[1]
-	)
+	const items = Object.keys(icons)
+		.map((vo) => {
+			const match = vo.match(/\/icons\/svg\/(.*)\.svg/)
+			return match ? match[1] : null
+		})
+		.filter((item): item is string => item !== null)
 	const isDark = ref(false)
 
-	const dolog = (icon) => {
+	const dolog = (icon: string) => {
 		console.log(icon)
 	}
 </script>

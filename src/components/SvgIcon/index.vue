@@ -4,7 +4,7 @@
 	</svg>
 </template>
 
-<script setup>
+<script setup lang="ts">
 	import { computed } from 'vue'
 	import { useSvgIconLoader } from './useSvgIconLoader'
 
@@ -34,5 +34,3 @@
 
 	useSvgIconLoader(props, symbolId)
 </script>
-
-<style lang="scss" scoped></style>

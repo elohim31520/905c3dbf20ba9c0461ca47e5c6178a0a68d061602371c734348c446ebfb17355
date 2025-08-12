@@ -102,7 +102,7 @@
 	</div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 	import { ref, onMounted, onUnmounted, watch, nextTick } from 'vue'
 	import Footer from '@/components/Footer/index.vue'
 	import { useRouter } from 'vue-router'
@@ -111,13 +111,13 @@
 
 	const router = useRouter()
 
-	const goTo = (path) => {
+	const goTo = (path: string) => {
 		if (!path) return
 		router.push(path)
 	}
 
 	const isScrolled = ref(false)
-	const headerWrapper = ref(null)
+	const headerWrapper = ref<HTMLDivElement | null>(null)
 	const headerHeight = ref(0)
 	const isLogin = ref(isAuthenticated())
 
