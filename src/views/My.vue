@@ -68,11 +68,17 @@
 							<SvgIcon class="color-primary ml-5" name="icon_arrow_right" size="1rem" />
 						</div>
 						<div class="flex-y-center gap-2 text-white text-12 font-500">
-							<div class="flex-y-center gap-3 bg-gradient-to-r from-[#FF9021] to-[#FFB60C] rounded-15 px-5 py-4" @click="goTo('/login')">
+							<div
+								class="flex-y-center gap-3 bg-gradient-to-r from-[#FF9021] to-[#FFB60C] rounded-15 px-5 py-4"
+								@click="goTo('/login')"
+							>
 								<SvgIcon name="icon_user" size="1.2rem" color="#fff" />
 								Login
 							</div>
-							<div class="flex-y-center gap-3 ml-5 bg-gradient-to-r from-[#f472b6] to-[#ec4899] rounded-15 px-5 py-4" @click="goTo('/register')">
+							<div
+								class="flex-y-center gap-3 ml-5 bg-gradient-to-r from-[#f472b6] to-[#ec4899] rounded-15 px-5 py-4"
+								@click="goTo('/register')"
+							>
 								<SvgIcon name="icon_room_w" size="1.2rem" />
 								Register
 							</div>
@@ -97,57 +103,57 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted, watch, nextTick } from 'vue'
-import Footer from '@/components/Footer/index.vue'
-import { useRouter } from 'vue-router'
-import PortfolioChart from '@/components/PortfolioChart/index.vue'
-import { isAuthenticated } from '@/modules/auth'
+	import { ref, onMounted, onUnmounted, watch, nextTick } from 'vue'
+	import Footer from '@/components/Footer/index.vue'
+	import { useRouter } from 'vue-router'
+	import PortfolioChart from '@/components/PortfolioChart/index.vue'
+	import { isAuthenticated } from '@/modules/auth'
 
-const router = useRouter()
+	const router = useRouter()
 
-const goTo = (path) => {
-	if (!path) return
-	router.push(path)
-}
-
-const isScrolled = ref(false)
-const headerWrapper = ref(null)
-const headerHeight = ref(0)
-const isLogin = ref(isAuthenticated())
-
-const handleScroll = () => {
-	isScrolled.value = window.scrollY > 50
-}
-
-watch(isScrolled, async (newVal) => {
-	if (newVal) {
-		await nextTick()
-		if (headerWrapper.value) {
-			headerHeight.value = headerWrapper.value.offsetHeight
-		}
+	const goTo = (path) => {
+		if (!path) return
+		router.push(path)
 	}
-})
 
-onMounted(() => {
-	window.addEventListener('scroll', handleScroll, { passive: true })
-	// check on initial load
-	handleScroll()
-})
+	const isScrolled = ref(false)
+	const headerWrapper = ref(null)
+	const headerHeight = ref(0)
+	const isLogin = ref(isAuthenticated())
 
-onUnmounted(() => {
-	window.removeEventListener('scroll', handleScroll)
-})
+	const handleScroll = () => {
+		isScrolled.value = window.scrollY > 50
+	}
 
-const userInfo = ref({
-	username: 'llooepw12',
-	name: 'Amy',
-	level: '99',
-	avatar: 'https://images.unsplash.com/photo-1521119989659-a83eee488004?q=80&w=256&h=256&fit=crop',
-	following: 333,
-	fans: '12.5k',
-	balance: '3,456,456',
-	playCount: 13,
-	totalPlayCount: 133156,
-	gender: 0,
-})
+	watch(isScrolled, async (newVal) => {
+		if (newVal) {
+			await nextTick()
+			if (headerWrapper.value) {
+				headerHeight.value = headerWrapper.value.offsetHeight
+			}
+		}
+	})
+
+	onMounted(() => {
+		window.addEventListener('scroll', handleScroll, { passive: true })
+		// check on initial load
+		handleScroll()
+	})
+
+	onUnmounted(() => {
+		window.removeEventListener('scroll', handleScroll)
+	})
+
+	const userInfo = ref({
+		username: 'llooepw12',
+		name: 'Amy',
+		level: '99',
+		avatar: '/avatar/1.png',
+		following: 333,
+		fans: '12.5k',
+		balance: '3,456,456',
+		playCount: 13,
+		totalPlayCount: 133156,
+		gender: 0,
+	})
 </script>
