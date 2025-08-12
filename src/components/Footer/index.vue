@@ -7,16 +7,16 @@
 			:class="{ 'bg-gradient-to-r from-[#EC09F8] to-[#B732FF] bg-clip-text text-transparent': activeTab === tab.name }"
 			@click="handleClick(tab.name)"
 		>
-			<SvgIcon size="1.5rem" :name="activeTab === tab.name ? tab.activeIcon : tab.inactiveIcon" class="mb-2" />
+			<SvgIcon size="1.5rem" :name="activeTab === tab.name ? tab.activeIcon : tab.defaultIcon" class="mb-2" />
 			<span class="text-12">
-				{{ tab.name }}
+				{{ tab.label }}
 			</span>
 		</div>
 	</div>
 </template>
 
 <script setup>
-	import { computed, ref, watch, onMounted } from 'vue'
+	import { computed } from 'vue'
 	import { useRoute, useRouter } from 'vue-router'
 
 	import SvgIcon from '@/components/SvgIcon/index.vue'
@@ -24,53 +24,44 @@
 	const route = useRoute()
 	const router = useRouter()
 
-	const activeTab = ref('home')
+	const activeTab = computed(() => {
+		return route.name || 'home'
+	})
 
 	const tabItems = [
 		{
 			name: 'home',
-			inactiveIcon: 'icon_voice',
+			label: '首頁',
+			defaultIcon: 'icon_voice',
 			activeIcon: 'icon_voice_a',
 		},
 		{
-			name: 'transaction',
-			inactiveIcon: 'icon_add',
-			activeIcon: 'icon_add',
-		},
-		{
-			name: 'activity',
-			inactiveIcon: 'icon_gift',
+			name: 'portfolio',
+			label: '投資組合',
+			defaultIcon: 'icon_gift',
 			activeIcon: 'icon_gift_a',
 		},
 		{
+			name: 'transaction',
+			label: '紀錄',
+			defaultIcon: 'icon_follow2',
+			activeIcon: 'icon_follow',
+		},
+		{
 			name: 'chat',
-			inactiveIcon: 'icon_message',
+			label: '資訊',
+			defaultIcon: 'icon_message',
 			activeIcon: 'icon_message_a',
 		},
 		{
 			name: 'my',
-			inactiveIcon: 'icon_user',
+			label: '我的',
+			defaultIcon: 'icon_user',
 			activeIcon: 'icon_user_a',
 		},
 	]
 
-	watch(
-		() => route.path,
-		(newPath) => {
-			const [, currentTab] = newPath.split('/')
-			if (currentTab && tabItems.some((tab) => tab.name === currentTab)) {
-				activeTab.value = currentTab
-			}
-		},
-		{ immediate: true }
-	)
-
 	const handleClick = (name) => {
-		if (activeTab.value !== name) {
-			activeTab.value = name
-			router.push({ name })
-		}
+		if (activeTab.value !== name) router.push({ name })
 	}
 </script>
-
-<style lang="scss" scoped></style>
