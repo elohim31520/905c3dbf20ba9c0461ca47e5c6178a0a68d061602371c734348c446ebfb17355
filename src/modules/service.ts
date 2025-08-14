@@ -3,7 +3,7 @@ import type { AxiosInstance, InternalAxiosRequestConfig, AxiosResponse, AxiosErr
 import { showFailToast } from 'vant'
 import { API_CONFIG } from '../config/api'
 import type { ResponseData, FailResponseData, RequestParams } from '../types/api'
-import { getToken } from './auth'
+import { getToken, removeToken } from './auth'
 
 const getHeaders = (): Record<string, string> => {
     const headers: Record<string, string> = {
@@ -56,6 +56,9 @@ class HttpClient {
         this.service.interceptors.response.use(
             (response: AxiosResponse<ResponseData<any>>) => {
                 const res = response.data
+				if(res.code == 401){
+					removeToken()
+				}
                 if (typeof res.success === 'boolean' && !res.success) {
                     const message = res.message || '操作失敗'
                     showFailToast(message)
