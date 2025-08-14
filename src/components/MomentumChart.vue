@@ -27,14 +27,26 @@ import { LineChart } from 'echarts/charts'
 import { TitleComponent, TooltipComponent, GridComponent } from 'echarts/components'
 import VChart from 'vue-echarts'
 import { marketApi } from '../api/market'
+import { isAuthenticated} from '@/modules/auth'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 use([CanvasRenderer, LineChart, TitleComponent, TooltipComponent, GridComponent])
 
-const timeRanges = [3, 7, 30, 60]
-const selectedDays = ref(3)
+const timeRanges = [1, 3, 7, 30]
+const selectedDays = ref(1)
 const option = ref({})
 
 const fetchData = async (days: number): Promise<void> => {
+	if(selectedDays.value == days && !_isEmpty(option.value)) {
+		// 如果選擇的時間範圍相同且已經初始化時，則不重取api
+		return
+	}
+	if (days != 1 && !isAuthenticated()) {
+		router.push('/login')
+		return
+	}
 	selectedDays.value = days
 	try {
 		const res = await marketApi.getMomentumByRange(days)
