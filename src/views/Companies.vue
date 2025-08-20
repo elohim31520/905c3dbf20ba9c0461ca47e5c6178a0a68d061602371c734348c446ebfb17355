@@ -12,18 +12,17 @@
 
 <script setup lang="ts">
 	import { ref, onMounted } from 'vue'
-	import { companiesApi } from '@/api/companies'
-	import type { ResponseData } from '@/types/api'
+	import { marketApi } from '../api/market'
+	import type { Company } from '../types/api'
 
 	defineOptions({
 		name: 'companies',
 	})
 
-	const companies = ref<ResponseData | null>(null)
-	const loading = ref(true)
+	const companies = ref<Company[]>([])
 
 	onMounted(async () => {
-		const response = await companiesApi.getStockSymbols()
+		const response = await marketApi.getStockSymbols()
 		if (response.data) {
 			companies.value = response.data
 		}
