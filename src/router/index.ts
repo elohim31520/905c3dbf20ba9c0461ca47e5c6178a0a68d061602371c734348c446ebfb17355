@@ -70,6 +70,11 @@ const router = createRouter({
 			component: () => import('../views/Svg.vue'),
 		},
 		{
+			path: '/info',
+			name: 'info',
+			component: () => import('../views/Info.vue'),
+		},
+		{
 			path: '/404',
 			name: '404',
 			component: () => import('../views/404.vue'),

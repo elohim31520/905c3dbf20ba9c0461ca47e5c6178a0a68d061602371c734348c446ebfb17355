@@ -48,7 +48,7 @@
 			activeIcon: 'icon_follow',
 		},
 		{
-			name: 'chat',
+			name: 'info',
 			label: '資訊',
 			defaultIcon: 'icon_message',
 			activeIcon: 'icon_message_a',
