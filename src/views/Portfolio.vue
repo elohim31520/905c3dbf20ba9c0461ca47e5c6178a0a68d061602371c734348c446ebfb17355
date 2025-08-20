@@ -28,35 +28,40 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import { portfolioApi } from '../api/portfolio'
-import PortfolioChart from '../components/PortfolioChart/index.vue'
+	import { ref, onMounted } from 'vue'
+	import { portfolioApi } from '../api/portfolio'
+	import PortfolioChart from '../components/PortfolioChart/index.vue'
 
-type PortfolioItem = {
-	stock_id: string
-	quantity: number
-	average_price: number
-	[key: string]: any
-}
+	defineOptions({
+		name: 'portfolio',
+	})
 
-interface PortfolioChartExposed {
-	setChartOptions: (data: PortfolioItem[]) => void
-}
-
-const activeTab = ref(0)
-const portfolioData = ref<PortfolioItem[]>([])
-const portfolioChartRef = ref<PortfolioChartExposed | null>(null)
-
-onMounted(async () => {
-	const res = await portfolioApi.getMyPortfolio()
-	if (res.data && Array.isArray(res.data)) {
-		portfolioData.value = res.data
-		if (res.data.length > 0 && portfolioChartRef.value) {
-			portfolioChartRef.value.setChartOptions(res.data)
-		}
-	} else {
-		console.error('Portfolio data is not in expected format:', res.data)
-		portfolioData.value = []
+	type PortfolioItem = {
+		stock_id: string
+		quantity: number
+		average_price: number
+		[key: string]: any
 	}
-})
+
+	interface PortfolioChartExposed {
+		setChartOptions: (data: PortfolioItem[]) => void
+	}
+
+	const activeTab = ref(0)
+	const portfolioData = ref<PortfolioItem[]>([])
+	const portfolioChartRef = ref<PortfolioChartExposed | null>(null)
+
+	onMounted(async () => {
+		const res = await portfolioApi.getMyPortfolio()
+		if (res.data && Array.isArray(res.data)) {
+			portfolioData.value = res.data
+			if (res.data.length > 0 && portfolioChartRef.value) {
+				portfolioChartRef.value.setChartOptions(res.data)
+			}
+		} else {
+			console.error('Portfolio data is not in expected format:', res.data)
+			portfolioData.value = []
+		}
+		console.log('創建')
+	})
 </script>

@@ -39,19 +39,19 @@ const router = createRouter({
 			path: '/records',
 			name: 'records',
 			component: () => import('../views/Records.vue'),
-			meta: { requiresAuth: true },
+			meta: { requiresAuth: true, keepAlive: true },
 		},
 		{
 			path: '/portfolio',
 			name: 'portfolio',
 			component: () => import('../views/Portfolio.vue'),
-			meta: { requiresAuth: true },
+			meta: { requiresAuth: true, keepAlive: true },
 		},
 		{
 			path: '/companies',
 			name: 'companies',
 			component: () => import('../views/Companies.vue'),
-			meta: { requiresAuth: true },
+			meta: { requiresAuth: true, keepAlive: true },
 		},
 		{
 			path: '/my',
@@ -82,7 +82,7 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-	if (to.matched.some(record => record.meta.requiresAuth) && !isAuthenticated()) {
+	if (to.matched.some((record) => record.meta.requiresAuth) && !isAuthenticated()) {
 		next({ name: 'login' })
 	} else {
 		next()

@@ -46,10 +46,12 @@
 </template>
 
 <script setup lang="ts">
-	import { ref } from 'vue'
-	import { transactionApi } from '@/api/transaction'
-	import type { ResponseData } from '../types/api'
+	import { transactionApi } from '../api/transaction'
 	import Waterfall from '@/components/Waterfall/index.vue'
+
+	defineOptions({
+		name: 'records',
+	})
 
 	type Transaction = {
 		id: string

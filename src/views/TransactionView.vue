@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import { showToast } from 'vant'
 import type { FormInstance } from 'vant'
 import { transactionApi } from '../api/transaction'
+import emitter from '@/modules/emitter'
 
 interface TransactionForm {
 	stock_id: string
@@ -38,6 +39,10 @@ const onSubmit = async () => {
 			type: 'success',
 			message: '交易紀錄已儲存',
 		})
+
+		// 刷新交易紀錄和投資組合頁面
+		emitter.emit('refresh', 'records')
+		emitter.emit('refresh', 'portfolio')
 		form.value = getInitialFormState()
 		formRef.value?.resetValidation()
 	} catch (error) {

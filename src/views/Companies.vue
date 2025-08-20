@@ -11,16 +11,21 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import { marketApi } from '../api/market'
-import type { Company } from '../types/api'
+	import { ref, onMounted } from 'vue'
+	import { companiesApi } from '@/api/companies'
+	import type { ResponseData } from '@/types/api'
 
-const companies = ref<Company[]>([])
+	defineOptions({
+		name: 'companies',
+	})
 
-onMounted(async () => {
-	const response = await marketApi.getStockSymbols()
-	if (response.data) {
-		companies.value = response.data
-	}
-})
+	const companies = ref<ResponseData | null>(null)
+	const loading = ref(true)
+
+	onMounted(async () => {
+		const response = await companiesApi.getStockSymbols()
+		if (response.data) {
+			companies.value = response.data
+		}
+	})
 </script>
