@@ -1,4 +1,4 @@
-import { onMounted, type ComputedRef } from 'vue'
+import { onMounted, type ComputedRef, watchEffect } from 'vue'
 
 const loadedSymbols: string[] = []
 
@@ -53,7 +53,7 @@ export function useSvgIconLoader(props: SvgIconProps, symbolId: ComputedRef<stri
 		svgContainerDom.appendChild(symbolDom)
 	}
 
-	onMounted(() => {
+	watchEffect(() => {
 		loadSvg()
 	})
 } 
