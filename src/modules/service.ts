@@ -56,9 +56,7 @@ class HttpClient {
         this.service.interceptors.response.use(
             (response: AxiosResponse<ResponseData<any>>) => {
                 const res = response.data
-				if(res.code == 401){
-					removeToken()
-				}
+			
                 if (typeof res.success === 'boolean' && !res.success) {
                     const message = res.message || '操作失敗'
                     showFailToast(message)
@@ -76,6 +74,10 @@ class HttpClient {
                     code: error.response?.status || null,
                     message,
                 }
+
+				if(response.code == 401){
+					removeToken()
+				}
                 return Promise.reject(response)
             },
         )
