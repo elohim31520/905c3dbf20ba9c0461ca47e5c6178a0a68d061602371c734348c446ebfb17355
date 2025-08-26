@@ -33,6 +33,10 @@ class MarketApi {
 	async getStockLosers(): Promise<ResponseData<any[]>> {
 		return httpClient.request<any[]>({ method: 'GET', endpoint: '/market/stock/losers' })
 	}
+
+	async getTodayStocks(): Promise<ResponseData<any[]>> {
+		return httpClient.request<any[]>({ method: 'GET', endpoint: '/market/stock/today' })
+	}
 }
 
 export const marketApi = new MarketApi()

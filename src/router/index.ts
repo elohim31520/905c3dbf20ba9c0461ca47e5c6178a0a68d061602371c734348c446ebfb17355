@@ -75,6 +75,11 @@ const router = createRouter({
 			component: () => import('../views/Info.vue'),
 		},
 		{
+			path: '/volatile-stock',
+			name: 'volatile-stock',
+			component: () => import('../views/VolatileStock.vue'),
+		},
+		{
 			path: '/404',
 			name: '404',
 			component: () => import('../views/404.vue'),
