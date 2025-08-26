@@ -42,13 +42,13 @@
 	import { ref } from 'vue'
 
 	const companies = ref([
-		{ id: 'tsla', logo: '/logo/tsla.png' },
-		{ id: 'nvda', logo: '/logo/nvda.jpeg' },
-		{ id: 'pltr', logo: '/logo/pltr.png' },
-		{ id: 'amzn', logo: '/logo/amzn.jpg' },
-		{ id: 'goog', logo: '/logo/goog.png' },
+		{ id: 'tsla', logo: '/logo/tsla.webp' },
+		{ id: 'nvda', logo: '/logo/nvda.webp' },
+		{ id: 'pltr', logo: '/logo/pltr.webp' },
+		{ id: 'amzn', logo: '/logo/amzn.webp' },
+		{ id: 'goog', logo: '/logo/goog.webp' },
 		{ id: 'meta', logo: '/logo/meta.webp' },
-		{ id: 'msft', logo: '/logo/msft.png' },
+		{ id: 'msft', logo: '/logo/msft.webp' },
 	])
 
 	const router = useRouter()

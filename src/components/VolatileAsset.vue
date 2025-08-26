@@ -9,7 +9,7 @@
 							:key="stock.id"
 							class="flex items-center py-2 px-10 py-20 shadow-primary gap-5"
 						>
-							<img :src="`/logo/${stock.symbol || 'default'}.png`" class="w-40 h-40 rounded-5" />
+							<img :src="`/logo/${stock.symbol || 'default'}.webp`" class="w-40 h-40 rounded-5" />
 							<span class="color-gray-600">{{ stock.company }}</span>
 							<span class="text-green-600 ml-auto">{{ stock.dayChg }}%</span>
 						</li>
@@ -26,7 +26,7 @@
 						:key="stock.symbol"
 						class="flex items-center py-2 px-10 py-20 shadow-primary gap-5"
 					>
-						<img :src="`/logo/${stock.symbol || 'default'}.png`" class="w-40 h-40 rounded-5" />
+						<img :src="`/logo/${stock.symbol || 'default'}.webp`" class="w-40 h-40 rounded-5" />
 						<span class="color-gray-600">{{ stock.company }}</span>
 						<span class="text-red-500 ml-auto">{{ stock.dayChg }}%</span>
 					</li>

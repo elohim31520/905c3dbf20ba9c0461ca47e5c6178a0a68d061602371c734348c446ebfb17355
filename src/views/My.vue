@@ -148,7 +148,7 @@
 		username: 'llooepw12',
 		name: 'Amy',
 		level: '99',
-		avatar: '/avatar/1.png',
+		avatar: '/avatar/1.webp',
 		following: 333,
 		fans: '12.5k',
 		balance: '3,456,456',
