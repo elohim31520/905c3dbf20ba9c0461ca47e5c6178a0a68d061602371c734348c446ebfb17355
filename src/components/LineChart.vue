@@ -15,15 +15,17 @@
 
 	provide(THEME_KEY, '#fff')
 
-	const { title, lineColor, chartData, height } = withDefaults(
+	const { title, lineColor, chartData, height, smooth } = withDefaults(
 		defineProps<{
 			title: string
 			lineColor?: string
 			chartData: any[]
 			height?: string
+			smooth?: boolean | number
 		}>(),
 		{
 			height: '400px',
+			smooth: true,
 		}
 	)
 
@@ -54,7 +56,7 @@
 		series: [
 			{
 				type: 'line',
-				smooth: true,
+				smooth,
 				data: seriesData.value,
 				itemStyle: {
 					color: lineColor || '#f472b6',
