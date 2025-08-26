@@ -7,10 +7,11 @@
 						<li
 							v-for="stock in winners"
 							:key="stock.id"
-							class="flex justify-between items-center py-2 px-10 py-20 shadow-primary"
+							class="flex items-center py-2 px-10 py-20 shadow-primary gap-5"
 						>
+							<img :src="`/logo/${stock.symbol || 'default'}.png`" class="w-40 h-40 rounded-5" />
 							<span class="color-gray-600">{{ stock.company }}</span>
-							<span class="text-green-600">{{ stock.dayChg }}%</span>
+							<span class="text-green-600 ml-auto">{{ stock.dayChg }}%</span>
 						</li>
 					</ul>
 				</div>
@@ -22,30 +23,44 @@
 				<ul>
 					<li
 						v-for="stock in losers"
-						:key="stock.id"
-						class="flex justify-between items-center py-2 px-10 py-20 shadow-primary"
+						:key="stock.symbol"
+						class="flex items-center py-2 px-10 py-20 shadow-primary gap-5"
 					>
+						<img :src="`/logo/${stock.symbol || 'default'}.png`" class="w-40 h-40 rounded-5" />
 						<span class="color-gray-600">{{ stock.company }}</span>
-						<span class="text-red-500">{{ stock.dayChg }}%</span>
+						<span class="text-red-500 ml-auto">{{ stock.dayChg }}%</span>
 					</li>
 				</ul>
 			</div>
 		</van-tab>
+
+		<div class="flex-y-center justify-center w-100% h-20 color-pink-300 my-10" @click="router.push('/volatile-stock')">
+			看更多
+			<van-icon name="arrow-down" size="1.5rem" />
+		</div>
 	</van-tabs>
 </template>
 
 <script lang="ts" setup>
-	import { ref, onMounted } from 'vue'
+	import { ref, onMounted, watch } from 'vue'
+	import { useRouter } from 'vue-router'
 	import { marketApi } from '../api/market'
 
 	const winners = ref<any[]>([])
 	const losers = ref<any[]>([])
 	const activeTab = ref(0)
+	const router = useRouter()
 
 	onMounted(async () => {
-		const [winnersRes, losersRes] = await Promise.all([marketApi.getStockWinners(), marketApi.getStockLosers()])
+		const winnersRes = await marketApi.getStockWinners()
+		winners.value = winnersRes.data
+	})
 
-		winners.value = winnersRes.data.slice(0, 5)
-		losers.value = losersRes.data.slice(0, 5)
+	watch(activeTab, async (newTab) => {
+		// 省流：如果弱勢股沒有資料，再獲取弱勢股資料
+		if (newTab === 1 && losers.value.length === 0) {
+			const losersRes = await marketApi.getStockLosers()
+			losers.value = losersRes.data
+		}
 	})
 </script>
