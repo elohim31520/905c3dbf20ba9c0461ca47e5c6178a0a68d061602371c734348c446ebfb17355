@@ -15,7 +15,7 @@
 					class="group relative cursor-pointer overflow-hidden rounded-10 shadow-lg transition-all duration-300 ease-in-out hover:-translate-y-2 hover:shadow-2xl"
 				>
 					<img
-						:src="company.logo"
+						:src="`/logo/${company.id}.webp`"
 						class="h-full w-full transition-transform duration-300 group-hover:scale-110 object-cover"
 					/>
 					<div
@@ -31,6 +31,13 @@
 				</div>
 			</div>
 		</div>
+
+		<div class="flex-y-center justify-center color-primary">
+			點我看更多
+			<SvgIcon name="icon_arrow_right" size="1rem"/>
+
+		</div>
+		<TradingviewGadget symbol="TSLA" />
 	</main>
 </template>
 
@@ -40,15 +47,16 @@
 	import MarketBreadth from '../components/MarketBreath.vue'
 	import { useRouter } from 'vue-router'
 	import { ref } from 'vue'
+	import TradingviewGadget from '../components/TradingviewGadget.vue'
 
 	const companies = ref([
-		{ id: 'tsla', logo: '/logo/tsla.webp' },
-		{ id: 'nvda', logo: '/logo/nvda.webp' },
-		{ id: 'pltr', logo: '/logo/pltr.webp' },
-		{ id: 'amzn', logo: '/logo/amzn.webp' },
-		{ id: 'goog', logo: '/logo/goog.webp' },
-		{ id: 'meta', logo: '/logo/meta.webp' },
-		{ id: 'msft', logo: '/logo/msft.webp' },
+		{ id: 'tsla' },
+		{ id: 'nvda' },
+		{ id: 'pltr' },
+		{ id: 'amzn' },
+		{ id: 'goog' },
+		{ id: 'meta' },
+		{ id: 'msft' },
 	])
 
 	const router = useRouter()
