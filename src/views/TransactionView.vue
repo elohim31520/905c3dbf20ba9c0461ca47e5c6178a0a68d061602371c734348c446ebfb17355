@@ -52,10 +52,11 @@
 					:rules="[{ required: true, message: '請選擇交易日期' }]"
 				/>
 			</van-cell-group>
+			<!-- button要放這裡才能讓van-form的驗證生效 -->
+			<div class="px-10 py-20">
+				<van-button round block type="primary" color="#f472b6" native-type="submit">紀錄</van-button>
+			</div>
 		</van-form>
-		<div class="px-10 py-20">
-			<van-button round block type="primary" color="#f472b6" native-type="submit">紀錄</van-button>
-		</div>
 	</div>
 </template>
 
