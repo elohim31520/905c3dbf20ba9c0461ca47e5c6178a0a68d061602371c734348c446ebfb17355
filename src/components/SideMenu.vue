@@ -19,7 +19,7 @@
 						class="flex items-center justify-center rounded-lg text-gray-700 hover:bg-gray-100"
 						active-class="color-primary"
 					>
-						<van-icon :name="item.icon" class="mr-4" />
+						<SvgIcon :name="item.icon" size="1.2rem" class="mr-5" />
 						<span class="text-20">{{ item.text }}</span>
 					</router-link>
 				</template>
@@ -29,55 +29,54 @@
 </template>
 
 <script setup lang="ts">
-import { RouterLink } from 'vue-router'
-import VanPopup from 'vant/lib/popup'
-import 'vant/lib/popup/style'
-import VanIcon from 'vant/lib/icon'
-import 'vant/lib/icon/style'
-import { isAuthenticated } from '@/modules/auth'
+	import { RouterLink } from 'vue-router'
+	import VanPopup from 'vant/lib/popup'
+	import 'vant/lib/popup/style'
+	import { isAuthenticated } from '@/modules/auth'
 
-const menuItems = [
-	{ to: '/', icon: 'home-o', text: '首頁', auth: 'always' },
-	{ to: '/about', icon: 'info-o', text: '關於', auth: 'always' },
-	{ to: '/transaction', icon: 'add-o', text: '紀錄', auth: 'auth' },
-	{ to: '/records', icon: 'records', text: '我的紀錄', auth: 'auth' },
-	{ to: '/login', icon: 'manager-o', text: '登入', auth: 'guest' },
-	{ to: '/register', icon: 'user-circle-o', text: '註冊', auth: 'guest' },
-	{
-		to: '/portfolio',
-		icon: 'chart-trending-o',
-		text: '我的投資組合',
-		auth: 'auth',
-	},
-	{
-		to: '/companies',
-		icon: 'chart-trending-o',
-		text: '股票清單',
-		auth: 'always',
-	},
-	{
-		to: '/m7',
-		icon: 'chart-trending-o',
-		text: 'M7',
-		auth: 'auth',
+	const menuItems = [
+		{ to: '/', icon: 'icon_settings_Name2', text: '首頁', auth: 'always' },
+		{ to: '/about', icon: 'icon_settings_about_us', text: '關於', auth: 'always' },
+		{ to: '/transaction', icon: 'icon_menu_Opinion', text: '新增紀錄', auth: 'auth' },
+		{ to: '/records', icon: 'money', text: '我的紀錄', auth: 'auth' },
+		{ to: '/login', icon: 'icon_user2', text: '登入', auth: 'guest' },
+		{ to: '/register', icon: 'icon_settings_invite', text: '註冊', auth: 'guest' },
+		{
+			to: '/portfolio',
+			icon: 'icon_gift',
+			text: '我的投資組合',
+			auth: 'auth',
+		},
+		{
+			to: '/companies',
+			icon: 'icon_menu_Query',
+			text: '股票清單',
+			auth: 'always',
+		},
+		{
+			to: '/m7',
+			icon: 'side-bar-no1',
+			text: 'M7',
+			auth: 'auth',
+		},
+		{ to: '/metrics', icon: 'media', text: '市場指標', auth: 'auth' },
+	]
+
+	const props = defineProps<{
+		modelValue: boolean
+	}>()
+
+	const emit = defineEmits<{
+		(e: 'update:modelValue', value: boolean): void
+	}>()
+
+	const closeMenu = () => {
+		emit('update:modelValue', false)
 	}
-]
-
-const props = defineProps<{
-	modelValue: boolean
-}>()
-
-const emit = defineEmits<{
-	(e: 'update:modelValue', value: boolean): void
-}>()
-
-const closeMenu = () => {
-	emit('update:modelValue', false)
-}
 </script>
 
 <style scoped lang="scss">
-.router-link-exact-active {
-	@apply text-pink-500 font-500;
-}
+	.router-link-exact-active {
+		@apply text-pink-500 font-500;
+	}
 </style>
