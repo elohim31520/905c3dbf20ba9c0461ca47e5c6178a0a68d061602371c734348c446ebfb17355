@@ -92,7 +92,7 @@
 				<div class="m-10 pt-20" v-if="isLogin">
 					<h3 class="font-500 mb-20 color-primary">My Portfolio</h3>
 					<div class="w-full h-[300px]">
-						<PortfolioChart />
+						<PortfolioChart/>
 					</div>
 				</div>
 			</div>

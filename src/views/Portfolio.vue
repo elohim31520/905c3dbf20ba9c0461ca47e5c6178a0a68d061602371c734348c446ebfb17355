@@ -4,9 +4,9 @@
 
 		<van-tabs v-model:active="activeTab" color="#F472B6">
 			<van-tab title="持股詳情">
-				<div v-if="portfolioData.length > 0" class="mt-10">
+				<div v-if="portfolioStore.portfolioData.length > 0" class="mt-10">
 					<van-cell-group inset>
-						<van-cell v-for="item in portfolioData" :key="item.stock_id">
+						<van-cell v-for="item in portfolioStore.portfolioData" :key="item.stock_id">
 							<template #title>
 								<span class="font-bold">{{ item.stock_id }}</span>
 							</template>
@@ -20,7 +20,7 @@
 			</van-tab>
 			<van-tab title="圖表分析">
 				<div class="w-full h-[500px]">
-					<PortfolioChart ref="portfolioChartRef" />
+					<PortfolioChart ref="portfolioChartRef"/>
 				</div>
 			</van-tab>
 		</van-tabs>
@@ -29,8 +29,10 @@
 
 <script setup lang="ts">
 	import { ref, onMounted } from 'vue'
-	import { portfolioApi } from '../api/portfolio'
 	import PortfolioChart from '../components/PortfolioChart/index.vue'
+	import { usePortfolioStore } from '@/stores/portfolio'
+
+	const portfolioStore = usePortfolioStore()
 
 	defineOptions({
 		name: 'portfolio',
@@ -52,16 +54,6 @@
 	const portfolioChartRef = ref<PortfolioChartExposed | null>(null)
 
 	onMounted(async () => {
-		const res = await portfolioApi.getMyPortfolio()
-		if (res.data && Array.isArray(res.data)) {
-			portfolioData.value = res.data
-			if (res.data.length > 0 && portfolioChartRef.value) {
-				portfolioChartRef.value.setChartOptions(res.data)
-			}
-		} else {
-			console.error('Portfolio data is not in expected format:', res.data)
-			portfolioData.value = []
-		}
-		console.log('創建')
+		portfolioStore.fetchMyPortfolio()
 	})
 </script>
