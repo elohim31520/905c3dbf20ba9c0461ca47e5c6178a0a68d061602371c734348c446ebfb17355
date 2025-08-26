@@ -1,22 +1,58 @@
 <template>
-	<LineChart v-if="metrics[TSLA].length" title="Tesla 未來市盈率 PE Forwards" :chart-data="metrics[TSLA]" />
+	<div v-for="symbol in allSymbols" :key="symbol">
+		<div :ref="el => setChartRef(el, symbol)" class="min-h-[420px]">
+			<LineChart v-if="metrics[symbol].length" :title="`${symbol} 未來市盈率 PE Forwards`" :chart-data="metrics[symbol]" />
+			<div v-else class="flex-y-center justify-center h-420">
+				Loading {{ symbol }}...
+			</div>
+		</div>
+	</div>
 </template>
 
 <script setup lang="ts">
-	import { onMounted, reactive } from 'vue'
+	import { onMounted, reactive, ref } from 'vue'
+	import { useIntersectionObserver } from '@vueuse/core'
 	import { metricsApi } from '@/api/metrics'
 	import LineChart from '@/components/LineChart.vue'
 
-	const TSLA = 'TSLA' as const
-
 	const metrics = reactive({
 		TSLA: [] as any[],
+		NVDA: [] as any[],
+		MSFT: [] as any[],
+		GOOG: [] as any[],
+		AMZN: [] as any[],
+		PLTR: [] as any[],
 	})
 
-	onMounted(async () => {
-		const response = await metricsApi.getStatementBySymbol(TSLA)
-		metrics[TSLA] = response.data
+	const allSymbols = Object.keys(metrics) as (keyof typeof metrics)[]
+	
+	const getMetrics = async (symbol: keyof typeof metrics, days: number = 60) => {
+		if (metrics[symbol].length > 0) return
+		const response = await metricsApi.getStatementBySymbol(symbol, days)
+		metrics[symbol] = response.data
+	}
+
+	const chartRefs = ref<Record<string, Element | null>>({})
+	const setChartRef = (el: Element | null, symbol: keyof typeof metrics) => {
+		if (el) {
+			chartRefs.value[symbol] = el
+		}
+	}
+
+	onMounted(() => {
+		allSymbols.forEach(symbol => {
+			const target = chartRefs.value[symbol]
+			if (!target) return
+
+			const { stop } = useIntersectionObserver(
+				target,
+				([{ isIntersecting }]) => {
+					if (isIntersecting) {
+						getMetrics(symbol)
+						stop()
+					}
+				}
+			)
+		})
 	})
 </script>
-
-<style scoped></style>
