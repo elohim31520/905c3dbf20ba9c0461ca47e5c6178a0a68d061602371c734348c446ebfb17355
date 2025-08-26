@@ -47,6 +47,7 @@
     "vite": "^7.0.0",
     "vite-plugin-vue-devtools": "^7.7.7",
     "vitest": "^3.2.4",
-    "vue-tsc": "^2.2.10"
+    "vue-tsc": "^2.2.10",
+    "webp-converter": "^2.3.3"
   }
 }
