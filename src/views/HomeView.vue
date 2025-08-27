@@ -12,7 +12,6 @@
 			<SvgIcon name="icon_arrow_right" size="1rem"/>
 
 		</div>
-		<TradingviewGadget symbol="TSLA" :disabled="uiStore.isMenuShown" />
 	</main>
 </template>
 
