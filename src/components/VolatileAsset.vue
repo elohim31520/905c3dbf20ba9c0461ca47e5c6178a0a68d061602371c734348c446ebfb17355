@@ -33,11 +33,6 @@
 				</ul>
 			</div>
 		</van-tab>
-
-		<div class="flex-y-center justify-center w-100% h-20 color-pink-300 my-10" @click="router.push('/volatile-stock')">
-			看更多
-			<van-icon name="arrow-down" size="1.5rem" />
-		</div>
 	</van-tabs>
 </template>
 
