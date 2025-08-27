@@ -37,15 +37,15 @@
 	const menuItems = [
 		{ to: '/', icon: 'icon_settings_Name2', text: '首頁', auth: 'always' },
 		{ to: '/about', icon: 'icon_settings_about_us', text: '關於', auth: 'always' },
-		{ to: '/transaction', icon: 'icon_menu_Opinion', text: '新增紀錄', auth: 'auth' },
-		{ to: '/records', icon: 'money', text: '我的紀錄', auth: 'auth' },
+		{ to: '/transaction', icon: 'icon_menu_Opinion', text: '新增紀錄', auth: 'always' },
+		{ to: '/records', icon: 'money', text: '我的紀錄', auth: 'always' },
 		{ to: '/login', icon: 'icon_user2', text: '登入', auth: 'guest' },
 		{ to: '/register', icon: 'icon_settings_invite', text: '註冊', auth: 'guest' },
 		{
 			to: '/portfolio',
 			icon: 'icon_gift',
 			text: '我的投資組合',
-			auth: 'auth',
+			auth: 'always',
 		},
 		{
 			to: '/companies',
@@ -57,9 +57,9 @@
 			to: '/m7',
 			icon: 'side-bar-no1',
 			text: 'M7',
-			auth: 'auth',
+			auth: 'always',
 		},
-		{ to: '/metrics', icon: 'media', text: '市場指標', auth: 'auth' },
+		{ to: '/metrics', icon: 'media', text: '市場指標', auth: 'always' },
 	]
 
 	const props = defineProps<{
