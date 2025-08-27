@@ -1,8 +1,8 @@
 <template>
 	<div class="min-h-screen flex flex-col max-w-[480px] mx-auto bg-gray-100 pb-100">
-		<AppHeader v-model:show-menu="showMenu" class="mb-10" v-if="showHeader" />
+		<AppHeader class="mb-10" v-if="showHeader" />
 
-		<SideMenu v-model="showMenu" />
+		<SideMenu />
 
 		<main class="flex-grow">
 			<RouterView v-slot="{ Component, route }">
@@ -17,14 +17,13 @@
 </template>
 
 <script setup lang="ts">
-	import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
+	import { computed, onMounted, onUnmounted, nextTick, ref } from 'vue'
 	import { RouterView, useRoute, useRouter } from 'vue-router'
 	import AppHeader from '@/components/AppHeader.vue'
 	import SideMenu from '@/components/SideMenu.vue'
 	import Footer from '@/components/Footer/index.vue'
 	import emitter from '@/modules/emitter'
 
-	const showMenu = ref(false)
 	const route = useRoute()
 	const router = useRouter()
 	const showHeader = computed(() => route.path !== '/my')

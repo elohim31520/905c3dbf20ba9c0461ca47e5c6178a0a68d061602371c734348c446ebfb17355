@@ -1,9 +1,10 @@
 <template>
 	<van-popup
-		:show="props.modelValue"
-		@update:show="emit('update:modelValue', $event)"
+		:show="uiStore.isMenuShown"
+		@update:show="uiStore.isMenuShown = $event"
 		position="left"
 		:style="{ width: '80%', height: '100%' }"
+		z-index="9999"
 	>
 		<div class="pt-20">
 			<nav class="flex flex-col space-y-15">
@@ -33,6 +34,9 @@
 	import VanPopup from 'vant/lib/popup'
 	import 'vant/lib/popup/style'
 	import { isAuthenticated } from '@/modules/auth'
+	import { useUIStore } from '@/stores/ui'
+
+	const uiStore = useUIStore()
 
 	const menuItems = [
 		{ to: '/', icon: 'icon_settings_Name2', text: '首頁', auth: 'always' },
@@ -62,16 +66,8 @@
 		{ to: '/metrics', icon: 'media', text: '市場指標', auth: 'always' },
 	]
 
-	const props = defineProps<{
-		modelValue: boolean
-	}>()
-
-	const emit = defineEmits<{
-		(e: 'update:modelValue', value: boolean): void
-	}>()
-
 	const closeMenu = () => {
-		emit('update:modelValue', false)
+		uiStore.hideMenu()
 	}
 </script>
 

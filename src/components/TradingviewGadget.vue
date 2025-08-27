@@ -1,5 +1,5 @@
 <template>
-	<div class="tradingview-widget-container">
+	<div class="tradingview-widget-container" :class="{ 'pointer-events-none': props.disabled }">
 		<div id="tradingview_12345" class="w-full h-full"></div>
 		<div class="tradingview-widget-copyright">
 			<a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank"
@@ -14,6 +14,7 @@
 
 	const props = defineProps<{
 		symbol: string
+		disabled?: boolean
 	}>()
 
 	onMounted(() => {

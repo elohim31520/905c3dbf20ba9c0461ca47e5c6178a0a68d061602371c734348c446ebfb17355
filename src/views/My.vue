@@ -70,17 +70,15 @@
 						<div class="flex-y-center gap-2 text-white text-12 font-500">
 							<div
 								class="flex-y-center gap-3 bg-gradient-to-r from-[#FF9021] to-[#FFB60C] rounded-15 px-5 py-4"
-								@click="goTo('/login')"
 							>
 								<SvgIcon name="icon_user" size="1.2rem" color="#fff" />
-								Login
+								修改密碼
 							</div>
 							<div
 								class="flex-y-center gap-3 ml-5 bg-gradient-to-r from-[#f472b6] to-[#ec4899] rounded-15 px-5 py-4"
-								@click="goTo('/register')"
 							>
 								<SvgIcon name="icon_room_w" size="1.2rem" />
-								Register
+								登出
 							</div>
 						</div>
 					</div>

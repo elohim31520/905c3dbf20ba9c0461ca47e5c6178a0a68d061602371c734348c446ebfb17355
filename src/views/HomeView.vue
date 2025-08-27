@@ -12,9 +12,12 @@
 			<SvgIcon name="icon_arrow_right" size="1rem"/>
 
 		</div>
-		<TradingviewGadget symbol="TSLA" />
+		<TradingviewGadget symbol="TSLA" :disabled="uiStore.isMenuShown" />
 	</main>
 </template>
 
 <script setup lang="ts">
+	import { useUIStore } from '@/stores/ui'
+
+	const uiStore = useUIStore()
 </script>
