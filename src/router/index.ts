@@ -63,6 +63,7 @@ const router = createRouter({
 			path: '/m7',
 			name: 'm7',
 			component: () => import('../views/M7.vue'),
+			meta: { requiresAuth: true, keepAlive: true },
 		},
 		{
 			path: '/svg',
