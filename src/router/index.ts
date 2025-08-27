@@ -81,6 +81,12 @@ const router = createRouter({
 			component: () => import('../views/VolatileStock.vue'),
 		},
 		{
+			path: '/company-metrics/:symbol',
+			name: 'company-metrics',
+			component: () => import('../views/CompanyMetrics.vue'),
+			meta: { requiresAuth: true },
+		},
+		{
 			path: '/404',
 			name: '404',
 			component: () => import('../views/404.vue'),
