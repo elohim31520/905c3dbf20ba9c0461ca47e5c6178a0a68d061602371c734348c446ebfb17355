@@ -45,6 +45,7 @@
 <script setup lang="ts">
 	import { ref, onMounted } from 'vue'
 	import { usePortfolioStore } from '@/stores/portfolio'
+	import { portfolioApi } from '@/api/portfolio'
 
 	const portfolioStore = usePortfolioStore()
 
@@ -79,6 +80,9 @@
 					message: '確定要刪除嗎？',
 				})
 					.then(() => {
+						portfolioApi.deleteMyPortfolio(item.id).then(res => {
+							
+						})
 						instance.close()
 					})
 					.catch(() => {

@@ -20,10 +20,16 @@ class PortfolioApi {
 
 	/**
 	 * 更新我的投資組合
-	 * @param params 更新的資料
 	 */
 	async updateMyPortfolio(params: UpdatePortfolioParams): Promise<ResponseData<any>> {
-		return httpClient.request<any>({ method: 'POST', endpoint: '/portfolio', params })
+		return httpClient.request<any>({ method: 'PUT', endpoint: '/portfolio', params })
+	}
+
+	/**
+	 * 刪除我的投資組合
+	 */
+	async deleteMyPortfolio(portfolio_id: number): Promise<ResponseData<any>> {
+		return httpClient.request<any>({ method: 'DELETE', endpoint: `/portfolio/${portfolio_id}` })
 	}
 }
 
