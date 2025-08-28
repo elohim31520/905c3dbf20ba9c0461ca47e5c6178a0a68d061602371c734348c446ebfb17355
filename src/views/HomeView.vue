@@ -2,12 +2,12 @@
 	<main class="p-4 space-y-4">
 		<MarketBreadth />
 		<VolatileAsset />
-		<SeeMore :to="'/volatile-stock'" class="my-10"/>
+		<SeeMore :to="'/volatile-stock'" class="my-10" />
 		<MomentumChart />
 
 		<!-- 公司入口 -->
 		<HotCompanies />
-		<SeeMore :to="'/m7'" class="my-10"/>
+		<SeeMore :to="'/m7'" class="my-10" />
 	</main>
 </template>
 

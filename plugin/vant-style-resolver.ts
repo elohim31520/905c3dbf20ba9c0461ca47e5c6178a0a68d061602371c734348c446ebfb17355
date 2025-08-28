@@ -13,6 +13,9 @@ const fixedImports = [
 	"import 'vant/es/toast/style/index.mjs'",
 ]
 
+const DTS_FILE_PATH = './src/components.d.ts'
+const STYLE_IMPORT_FILE_PATH = './src/modules/vantStyleImport.ts'
+
 const createApiMap = (): Map<string, string> => {
 	const apiMap = new Map<string, string>()
 	const api = {
@@ -54,7 +57,10 @@ const createApiMap = (): Map<string, string> => {
  * @returns {string[]} Vant 組件名稱陣列
  */
 const parseDTSFile = (): string[] => {
-	const dtsContent = fs.readFileSync('./types/components.d.ts', 'utf-8')
+	if (!fs.existsSync(DTS_FILE_PATH)) {
+		return []
+	}
+	const dtsContent = fs.readFileSync(DTS_FILE_PATH, 'utf-8')
 	const vantComponents: string[] = []
 
 	// 使用正則表達式匹配 Vant 組件名稱，從 "import('vant/es')['ComponentName']" 中提取 ComponentName
@@ -87,7 +93,7 @@ const addUniqueImport = (importSet: Set<string>, filePath: string): void => {
  */
 const writeImportFile = _debounce((importSet: Set<string>) => {
 	const content = Array.from(importSet).join('\n') + '\n'
-	fs.writeFileSync('./src/modules/vantStyleImport.js', content)
+	fs.writeFileSync(STYLE_IMPORT_FILE_PATH, content)
 }, 300)
 
 // 根據提取出的組件名稱生成匯入文件
@@ -120,7 +126,7 @@ const debouncedGenerateImportFile = _debounce(generateImportFile, 300)
 
 // 監控 components.d.ts 文件變動，並在變動時重新生成匯入文件，僅在開發模式監控
 if (isDevelopment) {
-	fs.watch('./types/components.d.ts', (eventType) => {
+	fs.watch(DTS_FILE_PATH, (eventType) => {
 		if (eventType === 'change') {
 			debouncedGenerateImportFile()
 		}

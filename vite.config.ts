@@ -8,6 +8,7 @@ import Components from 'unplugin-vue-components/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import { VantResolver } from 'unplugin-vue-components/resolvers'
 import { lodashImports } from './config/lodash-imports.js'
+import './plugin/vant-style-resolver.ts'
 
 // https://vite.dev/config/
 export default defineConfig({

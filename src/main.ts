@@ -3,8 +3,6 @@ import 'uno.css'
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import { Lazyload } from 'vant'
-import 'vant/es/image/style'
-import 'vant/es/dialog/style'
 
 import App from './App.vue'
 import router from './router'
