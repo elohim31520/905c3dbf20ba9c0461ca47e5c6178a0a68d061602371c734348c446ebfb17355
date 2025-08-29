@@ -1,3 +1,4 @@
+import 'vant/es/dialog/style/index.mjs'
 import 'vant/es/notify/style/index.mjs'
 import 'vant/es/toast/style/index.mjs'
 import 'vant/es/button/style/index.mjs'
