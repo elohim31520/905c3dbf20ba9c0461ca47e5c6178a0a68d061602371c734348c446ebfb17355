@@ -80,8 +80,8 @@
 					message: '確定要刪除嗎？',
 				})
 					.then(() => {
-						portfolioApi.deleteMyPortfolio(item.id).then(res => {
-							
+						portfolioApi.deleteMyPortfolio(item.id).then(() => {
+							portfolioStore.fetchMyPortfolio()
 						})
 						instance.close()
 					})
