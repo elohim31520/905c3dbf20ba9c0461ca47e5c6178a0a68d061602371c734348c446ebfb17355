@@ -56,6 +56,11 @@
 			<div class="px-10 py-20">
 				<van-button round block type="primary" color="#f472b6" native-type="submit">紀錄</van-button>
 			</div>
+
+			<div class="rounded-30 flex-y-center justify-center color-primary bd-1 border-#f472b6 mt-10 w-95% h-44 mx-auto"
+			@click="$router.push('/image-to-json')">
+				上傳截圖紀錄
+			</div>
 		</van-form>
 	</div>
 </template>
@@ -66,6 +71,9 @@
 	import type { FormInstance } from 'vant'
 	import { transactionApi } from '../api/transaction'
 	import emitter from '@/modules/emitter'
+	import { useRouter } from 'vue-router'
+
+	const router = useRouter()
 
 	interface TransactionForm {
 		stock_id: string
