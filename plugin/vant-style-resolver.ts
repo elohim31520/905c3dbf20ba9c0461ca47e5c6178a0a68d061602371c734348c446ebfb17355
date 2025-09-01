@@ -9,6 +9,7 @@ import {
 
 // 固定要引入的匯入語句，有些組件並非自動引入所以不會寫入 components.d.ts
 const fixedImports = [
+	"import 'vant/es/dialog/style/index.mjs'",
 	"import 'vant/es/notify/style/index.mjs'",
 	"import 'vant/es/toast/style/index.mjs'",
 ]
