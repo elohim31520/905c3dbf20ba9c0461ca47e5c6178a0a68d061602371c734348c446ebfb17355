@@ -95,6 +95,11 @@ const router = createRouter({
 			path: '/:pathMatch(.*)*',
 			redirect: '/404',
 		},
+		{
+			path: '/image-to-json',
+			name: 'image-to-json',
+			component: () => import('../views/ImageToJson.vue'),
+		},
 	],
 })
 
