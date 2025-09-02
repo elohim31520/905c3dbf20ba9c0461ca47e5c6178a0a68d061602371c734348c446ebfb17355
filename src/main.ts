@@ -3,10 +3,12 @@ import 'uno.css'
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import { Lazyload } from 'vant'
-import './modules/vantStyleImport'
 
 import App from './App.vue'
 import router from './router'
+
+import 'vant/es/toast/style'
+import 'vant/es/dialog/style'
 
 const app = createApp(App)
 
