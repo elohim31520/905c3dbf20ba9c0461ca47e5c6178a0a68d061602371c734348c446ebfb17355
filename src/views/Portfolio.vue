@@ -11,8 +11,7 @@
 							:key="item.stock_id"
 							:right-width="65"
 							:left-width="65"
-							async-close
-							@close="(e) => onClose(e, item)"
+							@close="(details) => onClose(details, item)"
 						>
 							<van-cell>
 								<template #title>
@@ -69,7 +68,7 @@
 	})
 
 	type PortfolioItem = {
-		id: number
+		id?: number
 		stock_id: string
 		quantity: number
 		average_price: number
@@ -85,16 +84,15 @@
 	const showUpdatePopup = ref(false)
 	const selectedItemForUpdate = ref<PortfolioItem | null>(null)
 
-	const onClose = (event: any, item: PortfolioItem) => {
-		const { position, instance } = event
+	const onClose = (details: any, item: PortfolioItem) => {
+		const { position } = details
+
 		switch (position) {
 			case 'left':
 				selectedItemForUpdate.value = item
 				showUpdatePopup.value = true
-				instance.close()
 				break
 			case 'cell':
-				instance.close()
 				break
 			case 'right':
 				showConfirmDialog({
@@ -102,13 +100,15 @@
 					message: '確定要刪除嗎？',
 				})
 					.then(() => {
-						portfolioApi.deleteMyPortfolio(item.id).then(() => {
-							portfolioStore.fetchMyPortfolio()
-						})
-						instance.close()
+						if (!item.id) {
+							showToast('缺少項目ID，無法刪除')
+							return Promise.reject('Missing item id')
+						}
+						return portfolioApi.deleteMyPortfolio(item.id)
 					})
-					.catch(() => {
-						instance.close()
+					.then(() => {
+						portfolioStore.fetchMyPortfolio()
+						showToast('刪除成功')
 					})
 				break
 		}

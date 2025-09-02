@@ -9,8 +9,7 @@
 						:key="item.id"
 						:right-width="65"
 						:left-width="65"
-						async-close
-						@close="(e) => onClose(e, item)"
+						@close="(details) => onClose(details, item)"
 					>
 						<div
 							class="mb-15 border border-gray-200 rounded-lg p-4 transition-shadow duration-300 hover:shadow-md"
@@ -79,12 +78,11 @@
 		transaction_date: string
 	}
 
-	const onClose = (event: any, item: Transaction) => {
-		const { position, instance } = event
+	const onClose = (details: any, item: Transaction) => {
+		const { position, instance } = details
 		switch (position) {
 			case 'left':
 			case 'cell':
-				instance.close()
 				break
 			case 'right':
 				showConfirmDialog({
@@ -92,13 +90,10 @@
 					message: '確定要刪除嗎？',
 				})
 					.then(() => {
-						transactionApi.deleteTransaction(item.id).then(() => {
-							waterfallRef.value?.refresh()
-						})
-						instance.close()
+						return transactionApi.deleteTransaction(item.id)
 					})
-					.catch(() => {
-						instance.close()
+					.then(() => {
+						waterfallRef.value?.refresh()
 					})
 				break
 		}
