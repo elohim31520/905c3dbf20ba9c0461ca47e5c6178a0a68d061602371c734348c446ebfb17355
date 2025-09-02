@@ -116,10 +116,7 @@
 			formRef.value?.resetValidation()
 		} catch (error) {
 			console.error(error)
-			showToast({
-				type: 'fail',
-				message: '請檢查輸入資料',
-			})
+			showFailToast('請檢查輸入資料')
 		}
 	}
 </script>

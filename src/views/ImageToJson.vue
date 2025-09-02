@@ -60,7 +60,6 @@
 <script setup lang="ts">
 	import { ref } from 'vue'
 	import { useClipboard } from '@vueuse/core'
-	import { showSuccessToast, showFailToast } from 'vant'
 	import { transactionApi } from '@/api/transaction'
 	import type { Transaction } from '@/types/api'
 

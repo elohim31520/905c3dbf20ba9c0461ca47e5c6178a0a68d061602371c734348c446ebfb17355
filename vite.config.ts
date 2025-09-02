@@ -8,7 +8,6 @@ import Components from 'unplugin-vue-components/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import { VantResolver } from 'unplugin-vue-components/resolvers'
 import { lodashImports } from './config/lodash-imports.js'
-import './plugin/vant-style-resolver.ts'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -17,13 +16,21 @@ export default defineConfig({
 		// vueDevTools(),
 		UnoCSS(),
 		AutoImport({
-			resolvers: [VantResolver()],
+			resolvers: VantResolver({ importStyle: true }),
 			imports: [
 				'vue',
 				'vue-router',
 				{
 					from: 'vant',
-					imports: ['showToast', 'showDialog', 'showConfirmDialog', 'showNotify', 'showImagePreview'],
+					imports: [
+						'showToast',
+						'showFailToast',
+						'showSuccessToast',
+						'showDialog',
+						'showConfirmDialog',
+						'showNotify',
+						'showImagePreview',
+					],
 				},
 				{
 					from: 'lodash-es',
@@ -33,7 +40,7 @@ export default defineConfig({
 			dts: 'src/auto-imports.d.ts',
 		}),
 		Components({
-			resolvers: [VantResolver()],
+			resolvers: [VantResolver({ importStyle: true })],
 			dts: 'src/components.d.ts',
 		}),
 	],
