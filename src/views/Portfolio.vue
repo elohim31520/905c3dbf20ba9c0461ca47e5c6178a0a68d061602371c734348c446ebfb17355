@@ -39,6 +39,20 @@
 				</div>
 			</van-tab>
 		</van-tabs>
+
+		<TransactionFormPopup
+			v-model="showUpdatePopup"
+			:item="selectedItemForUpdate"
+			@submit-success="onUpdateSuccess"
+			:api-function="
+				(payload) =>
+					portfolioApi.updateMyPortfolio({
+						stock_id: payload.stock_id,
+						quantity: payload.quantity,
+						average_price: payload.price,
+					})
+			"
+		/>
 	</div>
 </template>
 
@@ -46,6 +60,7 @@
 	import { ref, onMounted } from 'vue'
 	import { usePortfolioStore } from '@/stores/portfolio'
 	import { portfolioApi } from '@/api/portfolio'
+	import TransactionFormPopup from '@/components/TransactionFormPopup.vue'
 
 	const portfolioStore = usePortfolioStore()
 
@@ -54,6 +69,7 @@
 	})
 
 	type PortfolioItem = {
+		id: number
 		stock_id: string
 		quantity: number
 		average_price: number
@@ -66,11 +82,17 @@
 
 	const activeTab = ref(0)
 	const portfolioChartRef = ref<PortfolioChartExposed | null>(null)
+	const showUpdatePopup = ref(false)
+	const selectedItemForUpdate = ref<PortfolioItem | null>(null)
 
 	const onClose = (event: any, item: PortfolioItem) => {
 		const { position, instance } = event
 		switch (position) {
 			case 'left':
+				selectedItemForUpdate.value = item
+				showUpdatePopup.value = true
+				instance.close()
+				break
 			case 'cell':
 				instance.close()
 				break
@@ -90,6 +112,10 @@
 					})
 				break
 		}
+	}
+
+	const onUpdateSuccess = () => {
+		portfolioStore.fetchMyPortfolio()
 	}
 
 	onMounted(async () => {
