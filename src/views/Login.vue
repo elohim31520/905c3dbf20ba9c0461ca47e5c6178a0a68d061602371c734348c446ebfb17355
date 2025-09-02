@@ -32,7 +32,6 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { showToast } from 'vant'
 import { useRouter } from 'vue-router'
 import { login } from '../api/user'
 

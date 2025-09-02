@@ -67,7 +67,6 @@
 
 <script setup lang="ts">
 	import { ref } from 'vue'
-	import { showToast } from 'vant'
 	import type { FormInstance } from 'vant'
 	import { transactionApi } from '../api/transaction'
 	import emitter from '@/modules/emitter'

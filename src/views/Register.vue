@@ -43,7 +43,6 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { showToast } from 'vant'
 import { useRouter } from 'vue-router'
 import { register } from '../api/user'
 

@@ -108,7 +108,7 @@
 <script setup>
 	import { ref, computed } from 'vue'
 	import { uploadImageAndGenerateAvatar } from '@/api/avatar'
-	import { showToast, showLoadingToast, closeToast } from 'vant'
+	import { showLoadingToast, closeToast } from 'vant'
 
 	const fileInput = ref(null)
 	const uploadedImage = ref(null)
