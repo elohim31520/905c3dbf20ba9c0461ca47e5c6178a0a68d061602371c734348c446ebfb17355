@@ -2,6 +2,20 @@
 	<div class="bg-white p-10">
 		<div class="text-16 font-bold mb-4 color-#656565">我的投資組合</div>
 
+		<van-notice-bar
+			v-if="showNotice"
+			left-icon="info-o"
+			wrapable
+			:scrollable="false"
+			type="warning"
+			class="mb-6"
+			:mode="'closeable'"
+			@close="showNotice = false"
+		>
+			注意：這裡持倉的均價與您的券商計算方式可能不同，券商是以FIFO LIFO計算均價，而我們是以平均成本計算均
+			價。
+		</van-notice-bar>
+
 		<van-tabs v-model:active="activeTab" color="#F472B6">
 			<van-tab title="持股詳情">
 				<div v-if="portfolioStore.portfolioData.length > 0" class="mt-10">
@@ -62,6 +76,8 @@
 	import TransactionFormPopup from '@/components/TransactionFormPopup.vue'
 
 	const portfolioStore = usePortfolioStore()
+
+	const showNotice = ref(true)
 
 	defineOptions({
 		name: 'portfolio',
