@@ -13,30 +13,6 @@ class MarketApi {
 	async getMarketWeights(): Promise<ResponseData<any[]>> {
 		return httpClient.request<any[]>({ method: 'GET', endpoint: '/market/weights' })
 	}
-
-	async getStockSymbols(): Promise<ResponseData<Company[]>> {
-		return httpClient.request<Company[]>({ method: 'GET', endpoint: '/market/stock/symbols' })
-	}
-
-	async getAllCompanies(): Promise<ResponseData<Company[]>> {
-		return httpClient.request<Company[]>({ method: 'GET', endpoint: '/market/stock/symbols' })
-	}
-
-	async getMarketBreadth(): Promise<ResponseData<number>> {
-		return httpClient.request<number>({ method: 'GET', endpoint: '/market/stock/breadth' })
-	}
-
-	async getStockWinners(): Promise<ResponseData<any[]>> {
-		return httpClient.request<any[]>({ method: 'GET', endpoint: '/market/stock/winners' })
-	}
-
-	async getStockLosers(): Promise<ResponseData<any[]>> {
-		return httpClient.request<any[]>({ method: 'GET', endpoint: '/market/stock/losers' })
-	}
-
-	async getTodayStocks(): Promise<ResponseData<any[]>> {
-		return httpClient.request<any[]>({ method: 'GET', endpoint: '/market/stock/today' })
-	}
 }
 
 export const marketApi = new MarketApi()

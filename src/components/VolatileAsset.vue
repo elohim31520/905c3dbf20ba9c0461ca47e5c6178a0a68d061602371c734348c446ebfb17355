@@ -39,7 +39,7 @@
 <script lang="ts" setup>
 	import { ref, onMounted, watch } from 'vue'
 	import { useRouter } from 'vue-router'
-	import { marketApi } from '../api/market'
+	import { stockApi } from '../api/stock'
 
 	const winners = ref<any[]>([])
 	const losers = ref<any[]>([])
@@ -47,14 +47,14 @@
 	const router = useRouter()
 
 	onMounted(async () => {
-		const winnersRes = await marketApi.getStockWinners()
+		const winnersRes = await stockApi.getStockWinners()
 		winners.value = winnersRes.data
 	})
 
 	watch(activeTab, async (newTab) => {
 		// 省流：如果弱勢股沒有資料，再獲取弱勢股資料
 		if (newTab === 1 && losers.value.length === 0) {
-			const losersRes = await marketApi.getStockLosers()
+			const losersRes = await stockApi.getStockLosers()
 			losers.value = losersRes.data
 		}
 	})

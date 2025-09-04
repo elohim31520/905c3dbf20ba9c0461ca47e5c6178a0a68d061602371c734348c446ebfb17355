@@ -13,14 +13,14 @@ import { CanvasRenderer } from 'echarts/renderers'
 import { PieChart } from 'echarts/charts'
 import { TitleComponent, TooltipComponent, LegendComponent } from 'echarts/components'
 import VChart from 'vue-echarts'
-import { marketApi } from '../api/market'
+import { stockApi } from '../api/stock'
 
 use([CanvasRenderer, PieChart, TitleComponent, TooltipComponent, LegendComponent])
 
 const marketBreadth = ref<number>(0)
 
 async function fetchMarketBreadth() {
-	const res = await marketApi.getMarketBreadth()
+	const res = await stockApi.getMarketBreadth()
 	if (res.success) {
 		marketBreadth.value = res.data
 	}

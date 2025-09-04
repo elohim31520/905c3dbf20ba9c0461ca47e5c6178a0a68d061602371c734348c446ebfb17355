@@ -13,7 +13,7 @@
 
 <script setup lang="ts">
 	import { ref, onMounted } from 'vue'
-	import { marketApi } from '../api/market'
+	import { stockApi } from '../api/stock'
 	import type { Company } from '../types/api'
 	import { useRouter } from 'vue-router'
 
@@ -30,7 +30,7 @@
 	}
 
 	onMounted(async () => {
-		const response = await marketApi.getStockSymbols()
+		const response = await stockApi.getStockSymbols()
 		if (response.data) {
 			companies.value = response.data
 		}

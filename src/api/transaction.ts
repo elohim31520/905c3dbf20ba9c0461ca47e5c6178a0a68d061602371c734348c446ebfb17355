@@ -16,20 +16,6 @@ interface PaginationParams {
 
 class TransactionApi {
 	/**
-	 * 取得所有股票價格
-	 */
-	async getStockPrices(): Promise<ResponseData<any>> {
-		return httpClient.request<any>({ method: 'GET', endpoint: '/market/stock/prices' })
-	}
-
-	/**
-	 * 取得所有股票代號
-	 */
-	async getStockSymbols(): Promise<ResponseData<any>> {
-		return httpClient.request<any>({ method: 'GET', endpoint: '/market/stock/symbols' })
-	}
-
-	/**
 	 * 取得所有交易紀錄
 	 */
 	async getAllTransactions({ page, size }: PaginationParams): Promise<ResponseData<any>> {

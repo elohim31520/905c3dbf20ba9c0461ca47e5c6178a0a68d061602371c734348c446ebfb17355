@@ -15,14 +15,14 @@
 <script lang="ts" setup>
 	import { ref, onMounted } from 'vue'
 	import { useRouter } from 'vue-router'
-	import { marketApi } from '../api/market'
+	import { stockApi } from '../api/stock'
 	import CompanyIcon from '../components/CompanyIcon.vue'
 
 	const stocks = ref<any[]>([])
 	const router = useRouter()
 
 	onMounted(async () => {
-		const response = await marketApi.getTodayStocks()
+		const response = await stockApi.getTodayStocks()
 		stocks.value = response.data
 	})
 </script>
