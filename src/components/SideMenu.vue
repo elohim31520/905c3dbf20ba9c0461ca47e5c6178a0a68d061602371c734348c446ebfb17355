@@ -60,10 +60,10 @@
 		{
 			to: '/m7',
 			icon: 'side-bar-no1',
-			text: 'M7',
+			text: '熱門股票',
 			auth: 'always',
 		},
-		{ to: '/metrics', icon: 'media', text: '市場指標', auth: 'always' },
+		{ to: '/market-metrics', icon: 'media', text: '市場指標', auth: 'always' },
 	]
 
 	const closeMenu = () => {
