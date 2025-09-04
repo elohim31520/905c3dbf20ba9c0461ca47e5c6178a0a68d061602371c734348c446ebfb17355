@@ -15,19 +15,19 @@
 
 	provide(THEME_KEY, '#fff')
 
-	const { title, lineColor, chartData, height, smooth } = withDefaults(
-		defineProps<{
-			title: string
-			lineColor?: string
-			chartData: any[]
-			height?: string
-			smooth?: boolean | number
-		}>(),
-		{
-			height: '400px',
-			smooth: true,
-		}
-	)
+	const {
+		title,
+		lineColor,
+		chartData,
+		height = '400px',
+		smooth = true,
+	} = defineProps<{
+		title: string
+		lineColor?: string
+		chartData: any[]
+		height?: string
+		smooth?: boolean | number
+	}>()
 
 	const xAxisData = computed(() => {
 		return chartData.map((item) => new Date(item.createdAt).toLocaleDateString())
