@@ -59,24 +59,21 @@
 					<div
 						class="flex-y-center justify-between transition-all duration-300 ease-in-out bg-white"
 						:class="isScrolled ? 'rounded-t-20 p-10' : 'rounded-full px-12 mx-10 py-9 mb-20'"
+						@click="showUpdateUSDFormPopup = true"
 					>
 						<div class="flex-y-center font-bold">
 							<SvgIcon class="color-primary" name="icon_dollar_fill" size="1.6rem" />
 							<span class="ml-5 font-600 text-20 lh-20 color-primary">
-								{{ userInfo.balance }}
+								{{ portfolioStore.usdBalance }}
 							</span>
 							<SvgIcon class="color-primary ml-5" name="icon_arrow_right" size="1rem" />
 						</div>
 						<div class="flex-y-center gap-2 text-white text-12 font-500">
-							<div
-								class="flex-y-center gap-3 bg-gradient-to-r from-[#FF9021] to-[#FFB60C] rounded-15 px-5 py-4"
-							>
+							<div class="flex-y-center gap-3 bg-gradient-to-r from-[#FF9021] to-[#FFB60C] rounded-15 px-5 py-4">
 								<SvgIcon name="icon_user" size="1.2rem" color="#fff" />
 								修改密碼
 							</div>
-							<div
-								class="flex-y-center gap-3 ml-5 bg-gradient-to-r from-[#f472b6] to-[#ec4899] rounded-15 px-5 py-4"
-							>
+							<div class="flex-y-center gap-3 ml-5 bg-gradient-to-r from-[#f472b6] to-[#ec4899] rounded-15 px-5 py-4">
 								<SvgIcon name="icon_room_w" size="1.2rem" />
 								登出
 							</div>
@@ -90,11 +87,13 @@
 				<div class="m-10 pt-20" v-if="isLogin">
 					<h3 class="font-500 mb-20 color-primary">My Portfolio</h3>
 					<div class="w-full h-[300px]">
-						<PortfolioChart/>
+						<PortfolioChart />
 					</div>
 				</div>
 			</div>
 		</div>
+
+		<UpdateUSDFormPopup v-model="showUpdateUSDFormPopup" />
 
 		<Footer />
 	</div>
@@ -106,7 +105,9 @@
 	import { useRouter } from 'vue-router'
 	import PortfolioChart from '@/components/PortfolioChart/index.vue'
 	import { isAuthenticated } from '@/modules/auth'
+	import { usePortfolioStore } from '@/stores/portfolio'
 
+	const portfolioStore = usePortfolioStore()
 	const router = useRouter()
 
 	const goTo = (path: string) => {
@@ -114,10 +115,19 @@
 		router.push(path)
 	}
 
+	interface PortfolioItem {
+		stock_id: string
+		quantity: number
+		average_price: number
+		id: number
+		[key: string]: any
+	}
+
 	const isScrolled = ref(false)
 	const headerWrapper = ref<HTMLDivElement | null>(null)
 	const headerHeight = ref(0)
 	const isLogin = ref(isAuthenticated())
+	const showUpdateUSDFormPopup = ref(false)
 
 	const handleScroll = () => {
 		isScrolled.value = window.scrollY > 50
@@ -152,6 +162,7 @@
 		balance: '3,456,456',
 		playCount: 13,
 		totalPlayCount: 133156,
-		gender: 0,
 	})
+
+	portfolioStore.fetchMyPortfolio()
 </script>
