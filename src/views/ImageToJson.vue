@@ -1,6 +1,6 @@
 <template>
 	<div class="max-w-800px mx-auto font-sans p-4">
-		<h1 class="text-18 font-bold text-center my-4 text-gray-700">上傳截圖，自動存儲交易紀錄</h1>
+		<h1 class="text-18 font-bold text-center my-4 text-gray-700">上傳您的交易截圖，自動存儲交易紀錄</h1>
 
 		<van-notice-bar left-icon="info-o" wrapable :scrollable="false" type="warning" class="mb-6">
 			請依照以下步驟操作：<br />
