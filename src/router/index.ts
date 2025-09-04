@@ -100,6 +100,11 @@ const router = createRouter({
 			name: 'image-to-json',
 			component: () => import('../views/ImageToJson.vue'),
 		},
+		{
+			path: '/market-metrics',
+			name: 'market-metrics',
+			component: () => import('../views/MarketMetrics.vue'),
+		},
 	],
 })
 
