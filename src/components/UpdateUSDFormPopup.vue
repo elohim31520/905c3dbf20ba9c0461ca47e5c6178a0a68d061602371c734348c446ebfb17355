@@ -7,9 +7,9 @@
 			<van-form ref="formRef" @submit="onSubmit">
 				<van-cell-group class="!rounded-xl overflow-hidden">
 					<van-field
-						v-model="form.price"
+						v-model="form.quantity"
 						type="number"
-						name="price"
+						name="quantity"
 						label="美金餘額"
 						placeholder="請輸入可用美金餘額"
 						:rules="[
@@ -38,16 +38,7 @@
 
 	interface PortfolioForm {
 		stock_id: string
-		quantity: number
-		price: string
-	}
-
-	type PortfolioItem = {
-		stock_id: string
-		quantity: number
-		average_price: number
-		id: number
-		[key: string]: any
+		quantity: string
 	}
 
 	const props = defineProps<{
@@ -67,17 +58,16 @@
 	const formRef = ref<FormInstance>()
 	const form = ref<PortfolioForm>({
 		stock_id: 'USD',
-		quantity: 1,
-		price: '',
+		quantity: '0',
 	})
 
 	watch(
 		usdInfo,
 		(newItem) => {
 			if (newItem) {
-				form.value.price = String(newItem.average_price)
+				form.value.quantity = String(newItem.quantity)
 			} else {
-				form.value.price = ''
+				form.value.quantity = '0'
 			}
 		},
 		{ immediate: true }
@@ -90,8 +80,8 @@
 			await formRef.value?.validate()
 			const payload = {
 				stock_id: form.value.stock_id,
-				quantity: form.value.quantity,
-				average_price: Number(form.value.price),
+				quantity: Number(form.value.quantity),
+				average_price: 1,
 			}
 			if (isUpdateMode.value) {
 				await portfolioApi.updateMyPortfolio(payload)

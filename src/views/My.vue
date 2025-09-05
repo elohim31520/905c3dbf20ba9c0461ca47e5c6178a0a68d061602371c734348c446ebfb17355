@@ -115,14 +115,6 @@
 		router.push(path)
 	}
 
-	interface PortfolioItem {
-		stock_id: string
-		quantity: number
-		average_price: number
-		id: number
-		[key: string]: any
-	}
-
 	const isScrolled = ref(false)
 	const headerWrapper = ref<HTMLDivElement | null>(null)
 	const headerHeight = ref(0)

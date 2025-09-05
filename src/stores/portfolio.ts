@@ -17,7 +17,7 @@ export const usePortfolioStore = defineStore('portfolio', {
 	}),
 	getters: {
 		portfolioList: (state) => state.portfolioData,
-		usdBalance: (state) => state.usdInfo?.average_price ?? 0,
+		usdBalance: (state) => state.usdInfo?.quantity ?? 0,
 	},
 	actions: {
 		async fetchMyPortfolio() {
