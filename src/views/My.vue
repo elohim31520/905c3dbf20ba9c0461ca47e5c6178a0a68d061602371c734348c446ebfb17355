@@ -64,7 +64,7 @@
 						<div class="flex-y-center font-bold">
 							<SvgIcon class="color-primary" name="icon_dollar_fill" size="1.6rem" />
 							<span class="ml-5 font-600 text-20 lh-20 color-primary">
-								{{ portfolioStore.usdBalance }}
+								{{ balanceStore.usdBalance }}
 							</span>
 							<SvgIcon class="color-primary ml-5" name="icon_arrow_right" size="1rem" />
 						</div>
@@ -101,19 +101,12 @@
 
 <script setup lang="ts">
 	import { ref, onMounted, onUnmounted, watch, nextTick } from 'vue'
-	import Footer from '@/components/Footer/index.vue'
-	import { useRouter } from 'vue-router'
-	import PortfolioChart from '@/components/PortfolioChart/index.vue'
 	import { isAuthenticated } from '@/modules/auth'
+	import { useBalanceStore } from '@/stores/balance'
 	import { usePortfolioStore } from '@/stores/portfolio'
 
+	const balanceStore = useBalanceStore()
 	const portfolioStore = usePortfolioStore()
-	const router = useRouter()
-
-	const goTo = (path: string) => {
-		if (!path) return
-		router.push(path)
-	}
 
 	const isScrolled = ref(false)
 	const headerWrapper = ref<HTMLDivElement | null>(null)
@@ -157,4 +150,5 @@
 	})
 
 	portfolioStore.fetchMyPortfolio()
+	balanceStore.fetchMyBalance()
 </script>

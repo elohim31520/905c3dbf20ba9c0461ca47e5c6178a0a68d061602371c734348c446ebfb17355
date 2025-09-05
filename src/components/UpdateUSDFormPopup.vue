@@ -1,15 +1,15 @@
 <template>
 	<van-popup v-model:show="show" position="bottom" round>
 		<div class="p-10">
-			<div class="text-16 font-bold mb-4 color-#656565 text-center">
+			<div class="text-16 font-bold mb-4 color-#656566 text-center">
 				{{ isUpdateMode ? '更新可用美金餘額' : '新增可用美金餘額' }}
 			</div>
 			<van-form ref="formRef" @submit="onSubmit">
 				<van-cell-group class="!rounded-xl overflow-hidden">
 					<van-field
-						v-model="form.quantity"
+						v-model="form.balance"
 						type="number"
-						name="quantity"
+						name="balance"
 						label="美金餘額"
 						placeholder="請輸入可用美金餘額"
 						:rules="[
@@ -31,14 +31,13 @@
 <script setup lang="ts">
 	import { ref, watch, computed } from 'vue'
 	import type { FormInstance } from 'vant'
-	import { portfolioApi } from '@/api/portfolio'
-	import { usePortfolioStore } from '@/stores/portfolio'
+	import { balancesApi } from '@/api/balances'
+	import { useBalanceStore } from '@/stores/balance'
 
-	const portfolioStore = usePortfolioStore()
+	const balanceStore = useBalanceStore()
 
-	interface PortfolioForm {
-		stock_id: string
-		quantity: string
+	interface BalanceForm {
+		balance: string
 	}
 
 	const props = defineProps<{
@@ -52,22 +51,21 @@
 		set: (val) => emit('update:modelValue', val),
 	})
 
-	const usdInfo = computed(() => portfolioStore.usdInfo)
+	const usdInfo = computed(() => balanceStore.usdInfo)
 	const isUpdateMode = computed(() => !!usdInfo.value)
 
 	const formRef = ref<FormInstance>()
-	const form = ref<PortfolioForm>({
-		stock_id: 'USD',
-		quantity: '0',
+	const form = ref<BalanceForm>({
+		balance: '0',
 	})
 
 	watch(
 		usdInfo,
 		(newItem) => {
 			if (newItem) {
-				form.value.quantity = String(newItem.quantity)
+				form.value.balance = String(_get(newItem, 'balance'))
 			} else {
-				form.value.quantity = '0'
+				form.value.balance = '0'
 			}
 		},
 		{ immediate: true }
@@ -78,24 +76,24 @@
 
 		try {
 			await formRef.value?.validate()
+			if (+_get(form.value, 'balance') === +balanceStore.usdBalance) {
+				showFailToast('請輸入要更新的餘額')
+				return
+			}
 			const payload = {
-				stock_id: form.value.stock_id,
-				quantity: Number(form.value.quantity),
-				average_price: 1,
+				balance: Number(form.value.balance),
 			}
 			if (isUpdateMode.value) {
-				await portfolioApi.updateMyPortfolio(payload)
+				await balancesApi.updateMyBalances(payload)
 			} else {
-				await portfolioApi.createMyPortfolio(payload)
+				await balancesApi.createMyBalances(payload)
 			}
 			showToast({
 				type: 'success',
 				message: isUpdateMode.value ? '更新成功' : '新增成功',
 			})
 
-			//更新usdInfo
-			portfolioStore.usdInfo = payload
-
+			await balanceStore.fetchMyBalance()
 			emit('submitSuccess')
 			show.value = false
 		} catch (error) {
