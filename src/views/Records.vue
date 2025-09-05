@@ -11,9 +11,7 @@
 						:left-width="65"
 						@close="(details) => onClose(details, item)"
 					>
-						<div
-							class="mb-15 border border-gray-200 rounded-lg p-4 transition-shadow duration-300 hover:shadow-md"
-						>
+						<div class="mb-15 border border-gray-200 rounded-lg p-4 transition-shadow duration-300 hover:shadow-md">
 							<div class="flex justify-between items-start mb-3">
 								<div>
 									<span class="text-[14px] text-gray-500">股票代號</span>
@@ -41,7 +39,7 @@
 							</div>
 
 							<div class="text-right text-[12px] text-gray-400">
-								{{ item.transaction_date }}
+								{{ format(item.transaction_date, 'yyyy-MM-dd') }}
 							</div>
 						</div>
 						<template #left>
@@ -60,8 +58,8 @@
 <script setup lang="ts">
 	import { ref, useTemplateRef } from 'vue'
 	import { transactionApi } from '../api/transaction'
-	import Waterfall from '@/components/Waterfall/index.vue'
 	import { showConfirmDialog } from 'vant'
+	import { format } from 'date-fns'
 
 	defineOptions({
 		name: 'records',
