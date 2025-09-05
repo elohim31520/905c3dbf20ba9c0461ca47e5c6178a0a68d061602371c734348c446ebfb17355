@@ -45,13 +45,25 @@
 
 				<van-field
 					v-model="form.transaction_date"
-					type="date"
+					is-link
+					readonly
 					name="transaction_date"
 					label="交易日期"
 					placeholder="請選擇交易日期"
 					:rules="[{ required: true, message: '請選擇交易日期' }]"
+					@click="showDatePicker = true"
 				/>
 			</van-cell-group>
+			<van-popup v-model:show="showDatePicker" position="bottom" round>
+				<van-date-picker
+					v-model="currentDate"
+					title="請選擇交易日期"
+					:min-date="minDate"
+					:max-date="maxDate"
+					@confirm="onConfirmDate"
+					@cancel="showDatePicker = false"
+				/>
+			</van-popup>
 			<!-- button要放這裡才能讓van-form的驗證生效 -->
 			<div class="px-10 py-20">
 				<van-button round block type="primary" color="#f472b6" native-type="submit">紀錄</van-button>
@@ -92,6 +104,16 @@
 
 	const formRef = ref<FormInstance>()
 	const form = ref<TransactionForm>(getInitialFormState())
+
+	const showDatePicker = ref(false)
+	const minDate = new Date(new Date().setFullYear(new Date().getFullYear() - 5))
+	const maxDate = new Date()
+	const currentDate = ref(form.value.transaction_date.split('-'))
+
+	const onConfirmDate = ({ selectedValues }: { selectedValues: string[] }) => {
+		form.value.transaction_date = selectedValues.join('-')
+		showDatePicker.value = false
+	}
 
 	const onSubmit = async () => {
 		if (!formRef.value) return
