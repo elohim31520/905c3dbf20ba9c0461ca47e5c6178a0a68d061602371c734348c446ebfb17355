@@ -33,7 +33,7 @@
 								</template>
 								<div>數量: {{ item.quantity }}</div>
 								<div>均價: {{ item.average_price }}</div>
-								<div>總值: {{ item.quantity * item.average_price }}</div>
+								<div>總值: {{ formatNumber(item.quantity * item.average_price) }}</div>
 							</van-cell>
 							<template #left>
 								<div class="h-full flex items-center justify-center bg-primary text-white w-65px">更新</div>
@@ -73,7 +73,7 @@
 	import { ref, onMounted } from 'vue'
 	import { usePortfolioStore } from '@/stores/portfolio'
 	import { portfolioApi } from '@/api/portfolio'
-	import TransactionFormPopup from '@/components/TransactionFormPopup.vue'
+	import { formatNumber } from '@/modules/util'
 
 	const portfolioStore = usePortfolioStore()
 

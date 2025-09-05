@@ -14,6 +14,7 @@
 	import VChart from 'vue-echarts'
 	import type { EChartsOption } from 'echarts'
 	import { usePortfolioStore } from '@/stores/portfolio'
+	import { formatNumber } from '@/modules/util'
 
 	const portfolioStore = usePortfolioStore()
 
@@ -54,7 +55,7 @@
 					center: ['50%', '50%'],
 					data: data.map((item) => ({
 						name: item.stock_id,
-						value: item.quantity * item.average_price,
+						value: formatNumber(item.quantity * item.average_price),
 					})),
 					label: {
 						show: true,
