@@ -47,7 +47,7 @@
 				<div v-else class="text-center text-gray-500 pt-10">正在載入資料或無持股...</div>
 			</van-tab>
 			<van-tab title="圖表分析">
-				<div class="w-full h-[500px]">
+				<div class="w-full">
 					<PortfolioChart ref="portfolioChartRef" />
 				</div>
 			</van-tab>
