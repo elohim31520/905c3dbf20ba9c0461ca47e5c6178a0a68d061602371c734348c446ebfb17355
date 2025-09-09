@@ -24,7 +24,7 @@
 						<div class="ml-12 flex-1 flex-col">
 							<div class="color-white">
 								<div class="flex items-center">
-									<span class="font-500">{{ userInfo.name }}</span>
+									<span class="font-500">{{ username }}</span>
 									<span
 										class="ml-5 bg-#FDE9FF text-#BA05C3 flex-y-center justify-center rounded-full font-500 text-12 px-5 py-1"
 									>
@@ -33,7 +33,7 @@
 								</div>
 								<div class="flex-y-center color-#FAC9FF text-12 mt-1 font-500">
 									<span class="flex-y-center gap-5">
-										ID:{{ userInfo.username }}
+										ID:{{ username }}
 										<SvgIcon name="icon_room" size="1rem" />
 									</span>
 								</div>
@@ -116,6 +116,7 @@
 	import { isAuthenticated } from '@/modules/auth'
 	import { useBalanceStore } from '@/stores/balance'
 	import { usePortfolioStore } from '@/stores/portfolio'
+	import { useStorage } from '@vueuse/core'
 
 	const balanceStore = useBalanceStore()
 	const portfolioStore = usePortfolioStore()
@@ -149,9 +150,9 @@
 		window.removeEventListener('scroll', handleScroll)
 	})
 
+	const username = useStorage('username', '')
+
 	const userInfo = ref({
-		username: 'llooepw12',
-		name: 'Amy',
 		level: '99',
 		avatar: '/avatar/1.webp',
 		following: 333,

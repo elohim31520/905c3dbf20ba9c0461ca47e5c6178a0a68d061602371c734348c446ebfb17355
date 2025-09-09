@@ -20,33 +20,36 @@
 				/>
 			</van-cell-group>
 			<div class="flex-y-center">
-				<div class=" color-primary font-bold px-20 pt-10">註冊</div>
+				<div class="color-primary font-bold px-20 pt-10">註冊</div>
 				<div class="color-primary font-bold px-20 pt-10 ml-auto">忘記密碼？</div>
 			</div>
 			<div style="margin: 16px">
-				<van-button round block type="primary" color="#f472b6" native-type="submit"> 登入 </van-button>
+				<van-button round block type="primary" color="#f472b6" native-type="submit">登入</van-button>
 			</div>
 		</van-form>
 	</div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-import { login } from '../api/user'
+	import { ref } from 'vue'
+	import { useRouter } from 'vue-router'
+	import { login } from '../api/user'
+	import { useStorage } from '@vueuse/core'
 
-const router = useRouter()
-const username = ref('')
-const password = ref('')
+	const router = useRouter()
+	const username = ref('')
+	const password = ref('')
+	const storedUsername = useStorage('username', '')
 
-const onSubmit = async (values: any) => {
-	const res = await login({
-		name: values.username,
-		pwd: values.password,
-	})
-	if (res.success) {
-		showToast('登入成功')
-		router.push('/')
+	const onSubmit = async (values: any) => {
+		const res = await login({
+			name: values.username,
+			pwd: values.password,
+		})
+		if (res.success) {
+			storedUsername.value = values.username
+			showToast('登入成功')
+			router.push('/')
+		}
 	}
-}
 </script>
