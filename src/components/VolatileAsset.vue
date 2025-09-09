@@ -5,8 +5,8 @@
 				<div>
 					<ul>
 						<li
-							v-for="stock in winners"
-							:key="stock.id"
+							v-for="(stock, index) in winners"
+							:key="index"
 							class="flex items-center py-2 px-10 py-20 shadow-primary gap-5"
 						>
 							<img :src="`/logo/${stock.symbol || 'default'}.webp`" class="w-40 h-40 rounded-5" />
@@ -22,8 +22,8 @@
 			<div class="grid grid-cols-1 gap-4 px-5 my-10">
 				<ul>
 					<li
-						v-for="stock in losers"
-						:key="stock.symbol"
+						v-for="(stock, index) in losers"
+						:key="index"
 						class="flex items-center py-2 px-10 py-20 shadow-primary gap-5"
 					>
 						<img :src="`/logo/${stock.symbol || 'default'}.webp`" class="w-40 h-40 rounded-5" />
