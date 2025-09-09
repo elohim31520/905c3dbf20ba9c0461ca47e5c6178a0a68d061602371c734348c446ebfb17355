@@ -39,15 +39,15 @@
 								</div>
 							</div>
 
-							<!-- Followers -->
+							<!-- 持倉比例 -->
 							<div v-show="!isScrolled" class="flex-y-center transition-all duration-300 ease-in-out mt-17">
 								<div class="flex flex-col">
-									<span class="font-500">{{ userInfo.following }}</span>
-									<span class="color-#FAC9FF text-10">Following</span>
+									<span class="font-500">{{ cashPercentage }}%</span>
+									<span class="color-#FAC9FF text-10">現金</span>
 								</div>
 								<div class="flex-y-center flex-col ml-15">
-									<span class="font-500">{{ userInfo.fans }}</span>
-									<span class="color-#FAC9FF text-10">Followers</span>
+									<span class="font-500">{{ portfolioPercentage }}%</span>
+									<span class="color-#FAC9FF text-10">持倉</span>
 								</div>
 							</div>
 						</div>
@@ -112,7 +112,7 @@
 </template>
 
 <script setup lang="ts">
-	import { ref, onMounted, onUnmounted, watch, nextTick } from 'vue'
+	import { ref, onMounted, onUnmounted, watch, nextTick, computed } from 'vue'
 	import { isAuthenticated } from '@/modules/auth'
 	import { useBalanceStore } from '@/stores/balance'
 	import { usePortfolioStore } from '@/stores/portfolio'
@@ -120,6 +120,30 @@
 
 	const balanceStore = useBalanceStore()
 	const portfolioStore = usePortfolioStore()
+
+	const portfolioValue = computed(() => {
+		return portfolioStore.portfolioList.reduce((sum, item) => {
+			return sum + item.quantity * item.average_price
+		}, 0)
+	})
+
+	const totalValue = computed(() => {
+		return +portfolioValue.value + +balanceStore.usdBalance
+	})
+
+	const cashPercentage = computed(() => {
+		if (totalValue.value === 0) {
+			return '0.00'
+		}
+		return ((balanceStore.usdBalance / totalValue.value) * 100).toFixed(2)
+	})
+
+	const portfolioPercentage = computed(() => {
+		if (totalValue.value === 0) {
+			return '0.00'
+		}
+		return ((portfolioValue.value / totalValue.value) * 100).toFixed(2)
+	})
 
 	const isScrolled = ref(false)
 	const headerWrapper = ref<HTMLDivElement | null>(null)
@@ -155,11 +179,6 @@
 	const userInfo = ref({
 		level: '99',
 		avatar: '/avatar/1.webp',
-		following: 333,
-		fans: '12.5k',
-		balance: '3,456,456',
-		playCount: 13,
-		totalPlayCount: 133156,
 	})
 
 	portfolioStore.fetchMyPortfolio()
