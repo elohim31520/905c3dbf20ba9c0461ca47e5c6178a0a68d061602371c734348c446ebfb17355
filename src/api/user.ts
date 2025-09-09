@@ -42,7 +42,16 @@ export const register = async (params: RegisterParams): Promise<ResponseData<Use
     return response
 }
 
+export const changePassword = async (params: any) => {
+	return await httpClient.request({
+		method: 'POST',
+		endpoint: '/users/password',
+		params,
+	})
+}
+
 export default {
     login,
     register,
+    changePassword,
 }
