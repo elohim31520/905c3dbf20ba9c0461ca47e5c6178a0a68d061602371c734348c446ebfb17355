@@ -24,6 +24,15 @@
 						<span class="text-20">{{ item.text }}</span>
 					</router-link>
 				</template>
+				<div
+					v-if="isAuthenticated()"
+					@click="logout"
+					class="flex items-center justify-center rounded-lg text-gray-700 hover:bg-gray-100"
+					active-class="color-primary"
+				>
+					<SvgIcon name="icon_quit" size="1.2rem" class="mr-5" />
+					<span class="text-20">登出</span>
+				</div>
 			</nav>
 		</div>
 	</van-popup>
@@ -33,9 +42,11 @@
 	import { RouterLink } from 'vue-router'
 	import VanPopup from 'vant/lib/popup'
 	import 'vant/lib/popup/style'
-	import { isAuthenticated } from '@/modules/auth'
+	import { isAuthenticated, removeToken } from '@/modules/auth'
 	import { useUIStore } from '@/stores/ui'
+	import { useRouter } from 'vue-router'
 
+	const router = useRouter()
 	const uiStore = useUIStore()
 
 	const menuItems = [
@@ -68,6 +79,14 @@
 
 	const closeMenu = () => {
 		uiStore.hideMenu()
+	}
+
+	const logout = () => {
+		removeToken()
+		closeMenu()
+		router.push('/login').then(() => {
+			window.location.reload()
+		})
 	}
 </script>
 

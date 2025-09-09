@@ -82,13 +82,6 @@
 								<SvgIcon name="icon_room_w" size="1.2rem" />
 								修改密碼
 							</div>
-							<!-- <div
-								@click="logout"
-								class="flex-y-center gap-3 ml-5 bg-gradient-to-r from-[#f472b6] to-[#ec4899] rounded-15 px-5 py-4"
-							>
-								<SvgIcon name="icon_room_w" size="1.2rem" />
-								登出
-							</div> -->
 						</div>
 					</div>
 				</div>
