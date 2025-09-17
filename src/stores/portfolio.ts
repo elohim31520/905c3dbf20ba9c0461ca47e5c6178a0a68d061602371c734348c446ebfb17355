@@ -1,13 +1,6 @@
 import { defineStore } from 'pinia'
 import { portfolioApi } from '../api/portfolio'
-
-type PortfolioItem = {
-	id?: number
-	stock_id: string
-	quantity: number
-	average_price: number
-	[key: string]: any
-}
+import type { PortfolioItem } from '@/types/portfolio'
 
 export const usePortfolioStore = defineStore('portfolio', {
 	state: () => ({

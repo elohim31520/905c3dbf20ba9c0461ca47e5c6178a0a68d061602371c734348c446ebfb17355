@@ -12,8 +12,7 @@
 			:mode="'closeable'"
 			@close="showNotice = false"
 		>
-			注意：這裡持倉的均價與您的券商計算方式可能不同，券商是以FIFO LIFO計算均價，而我們是以平均成本計算均
-			價。
+			注意：這裡持倉的均價與您的券商計算方式可能不同，券商是以FIFO LIFO計算均價，而我們是以平均成本計算均 價。
 		</van-notice-bar>
 
 		<van-tabs v-model:active="activeTab" color="#F472B6">
@@ -74,6 +73,7 @@
 	import { usePortfolioStore } from '@/stores/portfolio'
 	import { portfolioApi } from '@/api/portfolio'
 	import { formatNumber } from '@/modules/util'
+	import type { PortfolioItem } from '@/types/portfolio'
 
 	const portfolioStore = usePortfolioStore()
 
@@ -82,14 +82,6 @@
 	defineOptions({
 		name: 'portfolio',
 	})
-
-	type PortfolioItem = {
-		id?: number
-		stock_id: string
-		quantity: number
-		average_price: number
-		[key: string]: any
-	}
 
 	interface PortfolioChartExposed {
 		setChartOptions: (data: PortfolioItem[]) => void

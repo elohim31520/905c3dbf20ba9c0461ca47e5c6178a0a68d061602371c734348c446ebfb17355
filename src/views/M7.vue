@@ -38,9 +38,9 @@
 		metrics[symbol] = response.data
 	}
 
-	const chartRefs = ref<Record<string, Element | null>>({})
-	const setChartRef = (el: Element | null, symbol: keyof typeof metrics) => {
-		if (el) {
+	const chartRefs = ref<Record<string, HTMLElement | null>>({})
+	const setChartRef = (el: Element | ComponentPublicInstance | null, symbol: keyof typeof metrics) => {
+		if (el instanceof HTMLElement) {
 			chartRefs.value[symbol] = el
 		}
 	}

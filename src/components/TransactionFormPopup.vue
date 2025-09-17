@@ -66,6 +66,7 @@
 <script setup lang="ts">
 	import { ref, watch, computed } from 'vue'
 	import type { FormInstance } from 'vant'
+	import type { PortfolioItem } from '@/types/portfolio'
 
 	interface TransactionForm {
 		stock_id: string
@@ -73,14 +74,6 @@
 		quantity: string
 		price: string
 		transaction_date: string
-	}
-
-	type PortfolioItem = {
-		stock_id: string
-		quantity: number
-		average_price: number
-		id: number
-		[key: string]: any
 	}
 
 	const props = defineProps<{
