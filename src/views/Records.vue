@@ -60,6 +60,7 @@
 	import { transactionApi } from '../api/transaction'
 	import { showConfirmDialog } from 'vant'
 	import { format } from 'date-fns'
+	import Waterfall from '@/components/Waterfall/index.vue'
 
 	defineOptions({
 		name: 'records',
