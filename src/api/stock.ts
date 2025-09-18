@@ -2,14 +2,6 @@ import { httpClient } from '../modules/service'
 import type { ResponseData, Company } from '../types/api'
 
 class StockApi {
-	async getStockSymbols(): Promise<ResponseData<Company[]>> {
-		return httpClient.request<Company[]>({ method: 'GET', endpoint: '/stock/symbols' })
-	}
-
-	async getAllCompanies(): Promise<ResponseData<Company[]>> {
-		return httpClient.request<Company[]>({ method: 'GET', endpoint: '/stock/symbols' })
-	}
-
 	async getMarketBreadth(): Promise<ResponseData<number>> {
 		return httpClient.request<number>({ method: 'GET', endpoint: '/stock/breadth' })
 	}
