@@ -54,8 +54,6 @@
 		{ to: '/about', icon: 'icon_settings_about_us', text: '關於', auth: 'always' },
 		{ to: '/transaction', icon: 'icon_menu_Opinion', text: '新增紀錄', auth: 'always' },
 		{ to: '/records', icon: 'money', text: '我的紀錄', auth: 'always' },
-		{ to: '/login', icon: 'icon_user2', text: '登入', auth: 'guest' },
-		{ to: '/register', icon: 'icon_settings_invite', text: '註冊', auth: 'guest' },
 		{
 			to: '/portfolio',
 			icon: 'icon_gift',
@@ -75,6 +73,8 @@
 			auth: 'always',
 		},
 		{ to: '/market-metrics', icon: 'media', text: '市場指標', auth: 'always' },
+		{ to: '/login', icon: 'icon_user2', text: '登入', auth: 'guest' },
+		{ to: '/register', icon: 'icon_settings_invite', text: '註冊', auth: 'guest' },
 	]
 
 	const closeMenu = () => {
