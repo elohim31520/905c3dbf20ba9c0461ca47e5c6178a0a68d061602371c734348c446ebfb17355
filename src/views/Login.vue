@@ -20,8 +20,10 @@
 				/>
 			</van-cell-group>
 			<div class="flex-y-center">
-				<div class="color-primary font-bold px-20 pt-10">註冊</div>
-				<div class="color-primary font-bold px-20 pt-10 ml-auto">忘記密碼？</div>
+				<div class="color-primary font-bold px-20 pt-10" @click="router.push('/register')">註冊</div>
+				<div class="color-primary font-bold px-20 pt-10 ml-auto" @click="router.push('/change-password')">
+					忘記密碼？
+				</div>
 			</div>
 			<div style="margin: 16px">
 				<van-button round block type="primary" color="#f472b6" native-type="submit">登入</van-button>
