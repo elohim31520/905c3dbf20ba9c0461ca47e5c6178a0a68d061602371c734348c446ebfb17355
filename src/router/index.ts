@@ -51,7 +51,7 @@ const routes = [
 		path: '/my',
 		name: 'my',
 		component: () => import('../views/My.vue'),
-		meta: { requiresAuth: true },
+		meta: {  },
 	},
 	{
 		path: '/change-password',

@@ -68,20 +68,32 @@
 							<SvgIcon class="color-primary ml-5" name="icon_arrow_right" size="1rem" />
 						</div>
 						<div class="flex-y-center gap-2 text-white text-12 font-500">
-							<div
-								class="flex-y-center gap-3 bg-gradient-to-r from-[#FF9021] to-[#FFB60C] rounded-15 px-5 py-4"
-								@click="showUpdateUSDFormPopup = true"
-							>
-								<SvgIcon name="icon_redeem" size="1.2rem" color="#fff" />
-								修改餘額
-							</div>
-							<div
-								@click="$router.push('/change-password')"
-								class="flex-y-center gap-3 ml-5 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-15 px-5 py-4"
-							>
-								<SvgIcon name="icon_room_w" size="1.2rem" />
-								修改密碼
-							</div>
+							
+							<template v-if="isAuthenticated()">
+								<div
+									class="flex-y-center gap-3 bg-gradient-to-r from-[#FF9021] to-[#FFB60C] rounded-15 px-5 py-4"
+									@click="showUpdateUSDFormPopup = true"
+								>
+									<SvgIcon name="icon_redeem" size="1.2rem" color="#fff" />
+									修改餘額
+								</div>
+								<div
+									@click="$router.push('/change-password')"
+									class="flex-y-center gap-3 ml-5 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-15 px-5 py-4"
+								>
+									<SvgIcon name="icon_room_w" size="1.2rem" />
+									修改密碼
+								</div>
+							</template>
+							<template v-else>
+								<div
+									class="flex-y-center gap-3 bg-gradient-to-r from-[#E124AF] to-[#CC0EFB] rounded-15 px-5 py-4"
+									@click="$router.push('/login')"
+								>
+									<SvgIcon name="icon_room_w" size="1.2rem" color="#fff" />
+									登入
+								</div>
+							</template>
 						</div>
 					</div>
 				</div>
