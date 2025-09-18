@@ -1,7 +1,7 @@
 <template>
-	<div class="space-y-4">
-		<div class="text-20 font-bold color-#434343">探索熱門公司</div>
-		<div class="grid grid-cols-3 gap-15 mb-20">
+	<div class="space-y-4 p-10">
+		<div class="text-20 font-bold color-#434343 mb-10">探索熱門公司</div>
+		<div class="grid grid-cols-3 gap-20 mb-20 mx-10">
 			<div
 				v-for="company in companies"
 				:key="company.id"
@@ -10,7 +10,7 @@
 			>
 				<img
 					:src="`/logo/${company.id}.webp`"
-					class="h-full w-full transition-transform duration-300 group-hover:scale-110 object-cover"
+					class="h-full w-full transition-transform duration-300 group-hover:scale-110 object-cover bg-#fff"
 				/>
 				<div
 					class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
