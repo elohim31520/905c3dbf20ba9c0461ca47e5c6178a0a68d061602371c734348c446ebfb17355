@@ -17,7 +17,7 @@ const routes = [
 		path: '/transaction',
 		name: 'transaction',
 		component: () => import('../views/TransactionView.vue'),
-		meta: { requiresAuth: true },
+		meta: { },
 	},
 	{
 		path: '/login',

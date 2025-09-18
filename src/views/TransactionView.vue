@@ -69,8 +69,10 @@
 				<van-button round block type="primary" color="#f472b6" native-type="submit">紀錄</van-button>
 			</div>
 
-			<div class="rounded-30 flex-y-center justify-center color-primary bd-1 border-#f472b6 mt-10 w-95% h-44 mx-auto"
-			@click="$router.push('/image-to-json')">
+			<div
+				class="rounded-30 flex-y-center justify-center color-primary bd-1 border-#f472b6 mt-10 w-95% h-44 mx-auto"
+				@click="$router.push('/image-to-json')"
+			>
 				上傳截圖紀錄
 			</div>
 		</van-form>
@@ -83,6 +85,7 @@
 	import { transactionApi } from '../api/transaction'
 	import emitter from '@/modules/emitter'
 	import { useRouter } from 'vue-router'
+	import { isAuthenticated } from '@/modules/auth'
 
 	const router = useRouter()
 
@@ -117,6 +120,10 @@
 
 	const onSubmit = async () => {
 		if (!formRef.value) return
+		if (!isAuthenticated()) {
+			showToast('請先登入')
+			return
+		}
 
 		try {
 			await formRef.value?.validate()

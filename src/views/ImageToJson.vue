@@ -62,6 +62,7 @@
 	import { useClipboard } from '@vueuse/core'
 	import { transactionApi } from '@/api/transaction'
 	import type { Transaction } from '@/types/api'
+	import { isAuthenticated } from '@/modules/auth'
 
 	const transactionsJsonString = ref('')
 	const isSubmitting = ref(false)
@@ -86,6 +87,10 @@
 	async function submitTransactions() {
 		if (!transactionsJsonString.value) {
 			showToast('請填入交易資料。')
+			return
+		}
+		if (!isAuthenticated()) {
+			showToast('請先登入')
 			return
 		}
 
