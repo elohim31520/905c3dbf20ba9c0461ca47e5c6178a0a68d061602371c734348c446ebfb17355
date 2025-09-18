@@ -45,7 +45,7 @@ const routes = [
 		path: '/companies',
 		name: 'companies',
 		component: () => import('../views/Companies.vue'),
-		meta: { requiresAuth: true, keepAlive: true },
+		meta: { keepAlive: true },
 	},
 	{
 		path: '/my',
