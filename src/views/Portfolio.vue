@@ -79,7 +79,7 @@
 </template>
 
 <script setup lang="ts">
-	import { ref, onMounted } from 'vue'
+	import { ref, onMounted, watch, onActivated } from 'vue'
 	import { usePortfolioStore } from '@/stores/portfolio'
 	import { portfolioApi } from '@/api/portfolio'
 	import { formatNumber } from '@/modules/util'
@@ -102,6 +102,7 @@
 	const portfolioChartRef = ref<PortfolioChartExposed | null>(null)
 	const showUpdatePopup = ref(false)
 	const selectedItemForUpdate = ref<PortfolioItem | null>(null)
+	const isDataRefreshed = ref(false)
 
 	const onClose = (details: any, item: PortfolioItem) => {
 		if (!isAuthenticated()) return
@@ -138,11 +139,30 @@
 		portfolioStore.fetchMyPortfolio()
 	}
 
-	onMounted(async () => {
+	const fetchData = () => {
 		if (isAuthenticated()) {
 			portfolioStore.fetchMyPortfolio()
 		} else {
 			portfolioStore.fetchMockPortfolio()
 		}
+	}
+
+	fetchData()
+
+	onActivated(() => {
+		if (isAuthenticated() && !isDataRefreshed.value) {
+			fetchData()
+			isDataRefreshed.value = true
+		}
 	})
+
+	watch(
+		() => portfolioStore.portfolioData,
+		(newData) => {
+			if (newData && newData.length > 0 && portfolioChartRef.value) {
+				portfolioChartRef.value.setChartOptions(newData)
+			}
+		},
+		{ deep: true, immediate: true }
+	)
 </script>
