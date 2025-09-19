@@ -17,7 +17,7 @@ const routes = [
 		path: '/transaction',
 		name: 'transaction',
 		component: () => import('../views/TransactionView.vue'),
-		meta: { },
+		meta: {},
 	},
 	{
 		path: '/login',
@@ -39,7 +39,7 @@ const routes = [
 		path: '/portfolio',
 		name: 'portfolio',
 		component: () => import('../views/Portfolio.vue'),
-		meta: { requiresAuth: true, keepAlive: true },
+		meta: { keepAlive: true },
 	},
 	{
 		path: '/companies',
@@ -51,7 +51,7 @@ const routes = [
 		path: '/my',
 		name: 'my',
 		component: () => import('../views/My.vue'),
-		meta: {  },
+		meta: {},
 	},
 	{
 		path: '/change-password',

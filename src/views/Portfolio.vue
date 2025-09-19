@@ -3,6 +3,16 @@
 		<div class="text-16 font-bold mb-4 color-#656565">我的投資組合</div>
 
 		<van-notice-bar
+			v-if="!isAuthenticated()"
+			wrapable
+			:scrollable="false"
+			type="warning"
+			class="mb-6"
+			:mode="'closeable'"
+		>
+			以下為示例，登入後創建屬於自己的投資組合。
+		</van-notice-bar>
+		<van-notice-bar
 			v-if="showNotice"
 			left-icon="info-o"
 			wrapable
@@ -74,6 +84,7 @@
 	import { portfolioApi } from '@/api/portfolio'
 	import { formatNumber } from '@/modules/util'
 	import type { PortfolioItem } from '@/types/portfolio'
+	import { isAuthenticated } from '@/modules/auth'
 
 	const portfolioStore = usePortfolioStore()
 
@@ -93,6 +104,7 @@
 	const selectedItemForUpdate = ref<PortfolioItem | null>(null)
 
 	const onClose = (details: any, item: PortfolioItem) => {
+		if (!isAuthenticated()) return
 		const { position } = details
 
 		switch (position) {
@@ -127,6 +139,10 @@
 	}
 
 	onMounted(async () => {
-		portfolioStore.fetchMyPortfolio()
+		if (isAuthenticated()) {
+			portfolioStore.fetchMyPortfolio()
+		} else {
+			portfolioStore.fetchMockPortfolio()
+		}
 	})
 </script>

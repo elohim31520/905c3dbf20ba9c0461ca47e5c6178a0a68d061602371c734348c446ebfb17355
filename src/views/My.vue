@@ -68,7 +68,6 @@
 							<SvgIcon class="color-primary ml-5" name="icon_arrow_right" size="1rem" />
 						</div>
 						<div class="flex-y-center gap-2 text-white text-12 font-500">
-							
 							<template v-if="isAuthenticated()">
 								<div
 									class="flex-y-center gap-3 bg-gradient-to-r from-[#FF9021] to-[#FFB60C] rounded-15 px-5 py-4"
@@ -101,8 +100,9 @@
 
 			<div class="bg-white" :style="{ paddingTop: isScrolled ? headerHeight + 'px' : '0px' }">
 				<!-- My Portfolio -->
-				<div class="m-10 pt-20" v-if="isLogin">
-					<h3 class="font-500 mb-20 color-primary">My Portfolio</h3>
+				<div class="m-10 pt-20">
+					<h3 class="font-500 mb-20 color-primary" v-if="isLogin">我的投資組合</h3>
+					<h3 class="font-500 mb-20 color-primary" v-else>登入以創建我的投資組合</h3>
 					<div class="w-full">
 						<PortfolioChart />
 					</div>
@@ -186,6 +186,10 @@
 		avatar: '/avatar/1.webp',
 	})
 
-	portfolioStore.fetchMyPortfolio()
-	balanceStore.fetchMyBalance()
+	if (isAuthenticated()) {
+		portfolioStore.fetchMyPortfolio()
+		balanceStore.fetchMyBalance()
+	} else {
+		portfolioStore.fetchMockPortfolio()
+	}
 </script>

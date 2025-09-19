@@ -26,5 +26,16 @@ export const usePortfolioStore = defineStore('portfolio', {
 				this.portfolioData = []
 			}
 		},
+		async fetchMockPortfolio() {
+			fetch('/mock/portfolio.json')
+				.then((res) => res.json())
+				.then((data) => {
+					this.portfolioData = _get(data, 'data')
+				})
+				.catch((error) => {
+					console.error('Failed to fetch mock portfolio data:', error)
+					this.portfolioData = []
+				})
+		},
 	},
 })
