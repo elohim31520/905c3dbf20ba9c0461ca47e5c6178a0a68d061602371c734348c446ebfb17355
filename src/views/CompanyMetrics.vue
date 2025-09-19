@@ -22,7 +22,7 @@
 	const symbol = computed(() => {
 		return route.params.symbol as string
 	})
-	
+
 	const bigSymbol = computed(() => {
 		return symbol.value?.toUpperCase()
 	})
@@ -31,7 +31,7 @@
 
 	const getMetrics = async (symbol: string, days: number = 60) => {
 		const response = await metricsApi.getStatementBySymbol(symbol, days)
-		metrics.value = response.data
+		metrics.value = _reverse(_get(response, 'data', []))
 	}
 
 	onMounted(() => {
