@@ -123,6 +123,10 @@
 	import { usePortfolioStore } from '@/stores/portfolio'
 	import { useStorage } from '@vueuse/core'
 
+	defineOptions({
+		name: 'my',
+	})
+
 	const balanceStore = useBalanceStore()
 	const portfolioStore = usePortfolioStore()
 
@@ -173,6 +177,12 @@
 		window.addEventListener('scroll', handleScroll, { passive: true })
 		// check on initial load
 		handleScroll()
+		if (isAuthenticated()) {
+			portfolioStore.fetchMyPortfolio()
+			balanceStore.fetchMyBalance()
+		} else {
+			portfolioStore.fetchMockPortfolio()
+		}
 	})
 
 	onUnmounted(() => {
@@ -182,14 +192,7 @@
 	const username = useStorage('username', '')
 
 	const userInfo = ref({
-		level: '99',
+		level: '1',
 		avatar: '/avatar/1.webp',
 	})
-
-	if (isAuthenticated()) {
-		portfolioStore.fetchMyPortfolio()
-		balanceStore.fetchMyBalance()
-	} else {
-		portfolioStore.fetchMockPortfolio()
-	}
 </script>

@@ -51,7 +51,7 @@ const routes = [
 		path: '/my',
 		name: 'my',
 		component: () => import('../views/My.vue'),
-		meta: {},
+		meta: { keepAlive: true },
 	},
 	{
 		path: '/change-password',
@@ -69,6 +69,7 @@ const routes = [
 		path: '/info',
 		name: 'info',
 		component: () => import('../views/Info.vue'),
+		meta: { keepAlive: true },
 	},
 	{
 		path: '/volatile-stock',
