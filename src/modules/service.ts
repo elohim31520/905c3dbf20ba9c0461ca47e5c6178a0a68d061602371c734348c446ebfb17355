@@ -91,11 +91,18 @@ class HttpClient {
 		)
 	}
 
-	public async request<T>({ method, endpoint, params, quiet = false }: RequestParams): Promise<ResponseData<T>> {
+	public async request<T>({
+		method,
+		endpoint,
+		params,
+		quiet = false,
+		useKV = false,
+	}: RequestParams): Promise<ResponseData<T>> {
 		try {
+			const host = useKV ? import.meta.env.VITE_KV_HOST : import.meta.env.VITE_API_URL
 			const response: AxiosResponse<ResponseData<T>> = await this.service({
 				method,
-				url: import.meta.env.VITE_API_URL + endpoint,
+				url: host + endpoint,
 				...(method.toUpperCase() === 'GET' ? { params } : { data: params }),
 			})
 			return response.data

@@ -15,15 +15,16 @@ export interface ResponseData<T> {
 }
 
 export interface FailResponseData extends Omit<ResponseData<null>, 'code'> {
-    code: number | null
+	code: number | null
 }
 
 export interface RequestParams<T = any> {
-    method: string
-    endpoint: string
-    params?: T
-    quiet?: boolean
-} 
+	method: string
+	endpoint: string
+	params?: T
+	quiet?: boolean
+	useKV?: boolean
+}
 
 export interface Transaction {
 	stock_id: string

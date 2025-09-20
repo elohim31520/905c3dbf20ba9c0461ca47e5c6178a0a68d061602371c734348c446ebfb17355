@@ -7,7 +7,7 @@ class MarketApi {
 	}
 
 	async getMomentumByRange(days: number): Promise<ResponseData<any[]>> {
-		return httpClient.request<any[]>({ method: 'GET', endpoint: `/market/momentum/range/${days}` })
+		return httpClient.request<any[]>({ method: 'GET', endpoint: `/market/momentum/range/${days}`, useKV: true })
 	}
 
 	async getMarketWeights(): Promise<ResponseData<any[]>> {
