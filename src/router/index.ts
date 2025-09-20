@@ -80,7 +80,7 @@ const routes = [
 		path: '/company-metrics/:symbol',
 		name: 'company-metrics',
 		component: () => import('../views/CompanyMetrics.vue'),
-		meta: { requiresAuth: true },
+		meta: { },
 	},
 	{
 		path: '/404',

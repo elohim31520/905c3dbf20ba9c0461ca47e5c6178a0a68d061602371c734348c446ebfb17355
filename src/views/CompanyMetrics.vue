@@ -14,6 +14,7 @@
 	import { useRoute } from 'vue-router'
 	import { metricsApi } from '@/api/metrics'
 	import { useUIStore } from '@/stores/ui'
+	import { isAuthenticated } from '@/modules/auth'
 
 	const uiStore = useUIStore()
 
@@ -30,6 +31,7 @@
 	const metrics = ref<any[]>([])
 
 	const getMetrics = async (symbol: string, days: number = 60) => {
+		if (!isAuthenticated()) return
 		const response = await metricsApi.getStatementBySymbol(symbol, days)
 		metrics.value = _reverse(_get(response, 'data', []))
 	}
