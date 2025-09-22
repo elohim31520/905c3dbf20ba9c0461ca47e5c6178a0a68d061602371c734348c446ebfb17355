@@ -1,9 +1,23 @@
 <template>
 	<div class="p-4 space-y-4">
-		<TradingviewGadget :symbol="symbol" :disabled="uiStore.isMenuShown" />
-		<div class="mt-40">
-			<LineChart v-if="metrics.length" :title="`${bigSymbol} 未來市盈率 PE Forwards`" :chart-data="metrics" />
+		<div class="mb-60">
+			<TradingviewGadget :symbol="symbol" :disabled="uiStore.isMenuShown" />
 		</div>
+
+		<van-notice-bar
+			v-if="showNotice"
+			left-icon="info-o"
+			wrapable
+			:scrollable="false"
+			type="warning"
+			:mode="'closeable'"
+			@close="showNotice = false"
+		>
+			什麼是PE Forwards?
+			未來市盈率(FPE)是預測未來一年公司的市盈率，用以判斷當前股價對於未來一年是高估還是低估。這是一個前瞻性的估值工具，能幫助投資人從「未來」的角度來評估一家公司的股票是否值得投資。
+		</van-notice-bar>
+
+		<LineChart v-if="metrics.length" :title="`${bigSymbol} 未來市盈率 PE Forwards`" :chart-data="metrics" />
 	</div>
 </template>
 
@@ -28,6 +42,8 @@
 	const bigSymbol = computed(() => {
 		return symbol.value?.toUpperCase()
 	})
+
+	const showNotice = ref(true)
 
 	const metrics = ref<any[]>([])
 
