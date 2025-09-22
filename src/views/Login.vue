@@ -28,6 +28,14 @@
 			<div style="margin: 16px">
 				<van-button round block type="primary" color="#f472b6" native-type="submit">登入</van-button>
 			</div>
+			<div class="flex-center m-16">
+				<GoogleSignInButton
+					size="large"
+					type="standard"
+					@success="handleGoogleLogin"
+					@error="handleGoogleLoginError"
+				></GoogleSignInButton>
+			</div>
 		</van-form>
 	</div>
 </template>
@@ -35,8 +43,9 @@
 <script setup lang="ts">
 	import { ref } from 'vue'
 	import { useRouter } from 'vue-router'
-	import { login } from '../api/user'
+	import { login, loginWithGoogle } from '../api/user'
 	import { useStorage } from '@vueuse/core'
+	import { GoogleSignInButton } from 'vue3-google-signin'
 
 	const router = useRouter()
 	const username = ref('')
@@ -53,5 +62,28 @@
 			showToast('登入成功')
 			router.push('/')
 		}
+	}
+
+	const handleGoogleLogin = async (response: any) => {
+		const { credential } = response
+		if (!credential) {
+			return handleGoogleLoginError()
+		}
+		try {
+			const res = await loginWithGoogle(credential)
+			if (res.success) {
+				showToast('Google 登入成功')
+				router.push('/')
+			} else {
+				handleGoogleLoginError()
+			}
+		} catch (error) {
+			handleGoogleLoginError()
+		}
+	}
+
+	const handleGoogleLoginError = () => {
+		console.error('Google 登入失敗')
+		showToast('Google 登入失敗')
 	}
 </script>
