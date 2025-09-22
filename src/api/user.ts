@@ -1,6 +1,6 @@
 import { httpClient } from '../modules/service'
 import type { ResponseData } from '../types/api'
-import { setToken } from '../modules/auth'
+import { useUserStore } from '@/stores/user'
 
 interface LoginParams {
 	name: string
@@ -25,13 +25,15 @@ export const login = async (params: LoginParams): Promise<ResponseData<string>> 
 		params,
 	})
 	if (res.success && res.data) {
-		setToken(res.data)
+		const userStore = useUserStore()
+		userStore.login(res.data)
+		userStore.setUsername(params.name)
 	}
 	return res
 }
 
 export const loginWithGoogle = async (credential: string): Promise<ResponseData<string>> => {
-	const res = await httpClient.request<string>({
+	const res = await httpClient.request<any>({
 		method: 'POST',
 		endpoint: '/users/google/login',
 		params: {
@@ -39,12 +41,12 @@ export const loginWithGoogle = async (credential: string): Promise<ResponseData<
 		},
 	})
 	if (res.success && res.data) {
+		const userStore = useUserStore()
 		const token = _get(res, 'data.token', '')
 		const picture = _get(res, 'data.picture', '')
 		const name = _get(res, 'data.name', '')
-		localStorage.setItem('g_user_picture', picture)
-		localStorage.setItem('g_user_name', name)
-		setToken(token)
+		userStore.login(token)
+		userStore.setGoogleUserInfo(picture, name)
 	}
 	return res
 }
@@ -56,7 +58,9 @@ export const register = async (params: RegisterParams): Promise<ResponseData<Use
 		params,
 	})
 	if (response.success && response.data.token) {
-		setToken(response.data.token)
+		const userStore = useUserStore()
+		userStore.login(response.data.token)
+		userStore.setUsername(response.data.name)
 	}
 	return response
 }

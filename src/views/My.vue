@@ -14,7 +14,7 @@
 					<div class="flex-y-center transition-all duration-300 ease-in-out" :class="{ '-translate-y-40': isScrolled }">
 						<div class="relative">
 							<img
-								:src="userPicture || userInfo.avatar"
+								:src="userStore.userInfo.picture"
 								alt="avatar"
 								class="rounded-full transition-all duration-300 ease-in-out"
 								:class="isScrolled ? 'w-40 h-40' : 'w-70 h-70'"
@@ -24,7 +24,7 @@
 						<div class="ml-12 flex-1 flex-col">
 							<div class="color-white">
 								<div class="flex items-center">
-									<span class="font-500">{{ googleUserName || username }}</span>
+									<span class="font-500">{{ userStore.userInfo.name }}</span>
 									<span
 										class="ml-5 bg-#FDE9FF text-#BA05C3 flex-y-center justify-center rounded-full font-500 text-12 px-5 py-1"
 									>
@@ -32,8 +32,8 @@
 									</span>
 								</div>
 								<div class="flex-y-center color-#FAC9FF text-12 mt-1 font-500">
-									<span class="flex-y-center gap-5" v-if="username">
-										ID:{{ username }}
+									<span class="flex-y-center gap-5" v-if="userStore.username">
+										ID:{{ userStore.username }}
 										<SvgIcon name="icon_room" size="1rem" />
 									</span>
 								</div>
@@ -68,7 +68,7 @@
 							<SvgIcon class="color-primary ml-5" name="icon_arrow_right" size="1rem" />
 						</div>
 						<div class="flex-y-center gap-2 text-white text-12 font-500">
-							<template v-if="isAuthenticated()">
+							<template v-if="userStore.isLogin">
 								<div
 									class="flex-y-center gap-3 bg-gradient-to-r from-[#FF9021] to-[#FFB60C] rounded-15 px-5 py-4"
 									@click="showUpdateUSDFormPopup = true"
@@ -101,7 +101,7 @@
 			<div class="bg-white" :style="{ paddingTop: isScrolled ? headerHeight + 'px' : '0px' }">
 				<!-- My Portfolio -->
 				<div class="m-10 pt-20">
-					<h3 class="font-500 mb-20 color-primary" v-if="isLogin">我的投資組合</h3>
+					<h3 class="font-500 mb-20 color-primary" v-if="userStore.isLogin">我的投資組合</h3>
 					<h3 class="font-500 mb-20 color-primary" v-else>登入以創建我的投資組合</h3>
 					<div class="w-full">
 						<PortfolioChart />
@@ -118,13 +118,13 @@
 
 <script setup lang="ts">
 	import { ref, onMounted, onUnmounted, watch, nextTick, computed } from 'vue'
-	import { isAuthenticated } from '@/modules/auth'
 	import { useBalanceStore } from '@/stores/balance'
 	import { usePortfolioStore } from '@/stores/portfolio'
-	import { useStorage } from '@vueuse/core'
+	import { useUserStore } from '@/stores/user'
 
 	const balanceStore = useBalanceStore()
 	const portfolioStore = usePortfolioStore()
+	const userStore = useUserStore()
 
 	const portfolioValue = computed(() => {
 		return portfolioStore.portfolioList.reduce((sum, item) => {
@@ -153,7 +153,6 @@
 	const isScrolled = ref(false)
 	const headerWrapper = ref<HTMLDivElement | null>(null)
 	const headerHeight = ref(0)
-	const isLogin = ref(isAuthenticated())
 	const showUpdateUSDFormPopup = ref(false)
 
 	const handleScroll = () => {
@@ -173,24 +172,21 @@
 		window.addEventListener('scroll', handleScroll, { passive: true })
 		// check on initial load
 		handleScroll()
-		if (isAuthenticated()) {
+		if (userStore.isLogin) {
 			portfolioStore.fetchMyPortfolio()
 			balanceStore.fetchMyBalance()
 		} else {
 			portfolioStore.fetchMockPortfolio()
 		}
+
+		console.log(userStore.userInfo)
 	})
 
 	onUnmounted(() => {
 		window.removeEventListener('scroll', handleScroll)
 	})
 
-	const username = useStorage('username', '')
-	const userPicture = useStorage('g_user_picture', '')
-	const googleUserName = useStorage('g_user_name', '')
-
 	const userInfo = ref({
 		level: '1',
-		avatar: '/avatar/1.webp',
 	})
 </script>
