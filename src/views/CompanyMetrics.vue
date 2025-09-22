@@ -18,6 +18,12 @@
 		</van-notice-bar>
 
 		<LineChart v-if="metrics.length" :title="`${bigSymbol} 未來市盈率 PE Forwards`" :chart-data="metrics" />
+		<div v-else>
+			<div class="flex-y-center justify-center font-500 mb-10">{{ `${bigSymbol} 未來市盈率 PE Forwards` }}...</div>
+			<div class="flex-y-center justify-center color-primary" @click="$router.push('/login')">
+				點我登入，以查看完整資料
+			</div>
+		</div>
 	</div>
 </template>
 
@@ -25,14 +31,14 @@
 	import { ref, computed, onMounted } from 'vue'
 	import TradingviewGadget from '@/components/TradingviewGadget.vue'
 	import LineChart from '@/components/LineChart.vue'
-	import { useRoute } from 'vue-router'
+	import { useRoute, useRouter } from 'vue-router'
 	import { metricsApi } from '@/api/metrics'
 	import { useUIStore } from '@/stores/ui'
 	import { isAuthenticated } from '@/modules/auth'
 	import { HOT_COMPANIES } from '@/constants/hotCompanies'
 
 	const uiStore = useUIStore()
-
+	const router = useRouter()
 	const route = useRoute()
 
 	const symbol = computed(() => {
