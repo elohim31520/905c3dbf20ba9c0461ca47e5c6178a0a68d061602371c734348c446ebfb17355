@@ -1,7 +1,7 @@
 <template>
 	<div class="bg-white p-10 shadow-primary">
 		<div class="text-18 font-bold mb-4 color-#434343">標普500漲跌佔整體百分比:</div>
-		<div class="text-16 font-bold color-primary">{{ formatNumber(marketBreadth) }}%</div>
+		<div class="text-16 font-bold color-primary">{{ marketBreadth }}%</div>
 		<v-chart class="chart" :option="chartOption" style="height: 400px" />
 	</div>
 </template>
@@ -23,13 +23,13 @@
 	async function fetchMarketBreadth() {
 		const res = await stockApi.getMarketBreadth()
 		if (res.success) {
-			marketBreadth.value = res.data
+			if (_isNumber(res.data)) {
+				marketBreadth.value = formatNumber(res.data * 100)
+			}
 		}
 	}
 
-	onMounted(() => {
-		fetchMarketBreadth()
-	})
+	fetchMarketBreadth()
 
 	const chartOption = computed(() => {
 		return {
@@ -51,7 +51,7 @@
 					color: ['#f472b6', '#FDF3F4'],
 					data: [
 						{ value: formatNumber(marketBreadth.value), name: '上漲' },
-						{ value: formatNumber(1 - marketBreadth.value), name: '下跌' },
+						{ value: formatNumber(100 - marketBreadth.value), name: '下跌' },
 					],
 					emphasis: {
 						itemStyle: {
