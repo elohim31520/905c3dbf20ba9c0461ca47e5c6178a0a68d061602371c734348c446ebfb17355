@@ -15,6 +15,7 @@
 	import { metricsApi } from '@/api/metrics'
 	import { useUIStore } from '@/stores/ui'
 	import { isAuthenticated } from '@/modules/auth'
+	import { HOT_COMPANIES } from '@/constants/hotCompanies'
 
 	const uiStore = useUIStore()
 
@@ -31,7 +32,8 @@
 	const metrics = ref<any[]>([])
 
 	const getMetrics = async (symbol: string, days: number = 60) => {
-		if (!isAuthenticated()) return
+		// 只有熱門股票的資料可以不做認證就可以看
+		if (!HOT_COMPANIES.includes(_toUpper(symbol)) && !isAuthenticated()) return
 		const response = await metricsApi.getStatementBySymbol(symbol, days)
 		metrics.value = _reverse(_get(response, 'data', []))
 	}
