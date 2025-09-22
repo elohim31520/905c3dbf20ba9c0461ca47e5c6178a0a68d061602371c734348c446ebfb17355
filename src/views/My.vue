@@ -14,7 +14,7 @@
 					<div class="flex-y-center transition-all duration-300 ease-in-out" :class="{ '-translate-y-40': isScrolled }">
 						<div class="relative">
 							<img
-								:src="userInfo.avatar"
+								:src="userPicture || userInfo.avatar"
 								alt="avatar"
 								class="rounded-full transition-all duration-300 ease-in-out"
 								:class="isScrolled ? 'w-40 h-40' : 'w-70 h-70'"
@@ -24,7 +24,7 @@
 						<div class="ml-12 flex-1 flex-col">
 							<div class="color-white">
 								<div class="flex items-center">
-									<span class="font-500">{{ username }}</span>
+									<span class="font-500">{{ googleUserName || username }}</span>
 									<span
 										class="ml-5 bg-#FDE9FF text-#BA05C3 flex-y-center justify-center rounded-full font-500 text-12 px-5 py-1"
 									>
@@ -32,7 +32,7 @@
 									</span>
 								</div>
 								<div class="flex-y-center color-#FAC9FF text-12 mt-1 font-500">
-									<span class="flex-y-center gap-5">
+									<span class="flex-y-center gap-5" v-if="username">
 										ID:{{ username }}
 										<SvgIcon name="icon_room" size="1rem" />
 									</span>
@@ -123,10 +123,6 @@
 	import { usePortfolioStore } from '@/stores/portfolio'
 	import { useStorage } from '@vueuse/core'
 
-	defineOptions({
-		name: 'my',
-	})
-
 	const balanceStore = useBalanceStore()
 	const portfolioStore = usePortfolioStore()
 
@@ -190,6 +186,8 @@
 	})
 
 	const username = useStorage('username', '')
+	const userPicture = useStorage('g_user_picture', '')
+	const googleUserName = useStorage('g_user_name', '')
 
 	const userInfo = ref({
 		level: '1',

@@ -39,7 +39,12 @@ export const loginWithGoogle = async (credential: string): Promise<ResponseData<
 		},
 	})
 	if (res.success && res.data) {
-		setToken(res.data)
+		const token = _get(res, 'data.token', '')
+		const picture = _get(res, 'data.picture', '')
+		const name = _get(res, 'data.name', '')
+		localStorage.setItem('g_user_picture', picture)
+		localStorage.setItem('g_user_name', name)
+		setToken(token)
 	}
 	return res
 }
