@@ -101,6 +101,10 @@ class HttpClient {
 		useKV = false,
 	}: RequestParams): Promise<ResponseData<T>> {
 		try {
+			// 開發時可以強制關閉KV
+			if (import.meta.env.VITE_UNUSE_KV === 'true') {
+				useKV = false
+			}
 			const host = useKV ? import.meta.env.VITE_KV_HOST : import.meta.env.VITE_API_URL
 			const response: AxiosResponse<ResponseData<T>> = await this.service({
 				method,
