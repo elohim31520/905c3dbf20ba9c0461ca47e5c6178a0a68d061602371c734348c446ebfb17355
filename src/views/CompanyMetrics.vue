@@ -40,7 +40,7 @@
 		/>
 
 		<van-notice-bar
-			v-if="showNotice"
+			v-if="showNotice && userStore.isAuthenticated"
 			left-icon="info-o"
 			wrapable
 			:scrollable="false"
@@ -85,10 +85,12 @@
 	import { useUIStore } from '@/stores/ui'
 	import { isAuthenticated } from '@/modules/auth'
 	import { HOT_COMPANIES } from '@/constants/hotCompanies'
+	import { useUserStore } from '@/stores/user'
 
 	const uiStore = useUIStore()
 	const router = useRouter()
 	const route = useRoute()
+	const userStore = useUserStore()
 
 	const symbol = computed(() => {
 		return route.params.symbol as string
