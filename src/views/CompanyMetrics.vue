@@ -40,7 +40,7 @@
 		/>
 
 		<van-notice-bar
-			v-if="showNotice && userStore.isAuthenticated"
+			v-if="showNotice && userStore.isLogin"
 			left-icon="info-o"
 			wrapable
 			:scrollable="false"
