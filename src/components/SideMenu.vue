@@ -73,7 +73,8 @@
 			auth: 'always',
 		},
 		{ to: '/market-metrics', icon: 'media', text: '市場指標', auth: 'always' },
-		{ to: '/login', icon: 'icon_user2', text: '登入', auth: 'guest' },
+		{ to: '/volatile-stock', icon: 'icon_ghost', text: '今日股價變動', auth: 'always' },
+		{ to: '/login', icon: 'icon_user2', text: '登入', auth: 'always' },
 		{ to: '/register', icon: 'icon_settings_invite', text: '註冊', auth: 'guest' },
 	]
 

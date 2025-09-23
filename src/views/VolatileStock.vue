@@ -8,8 +8,8 @@
 					class="flex items-center py-2 px-10 py-20 shadow-primary gap-5"
 				>
 					<CompanyIcon :symbol="stock.symbol || ''" />
-					<span class="color-gray-600">{{ stock.company }}</span>
-					<span class="text-green-600 ml-auto" :class="{ 'text-red-600': +stock.dayChg < 0 }">{{ stock.dayChg }}%</span>
+					<span class="color-gray-600">{{ stock.name }}</span>
+					<span class="text-green-600 ml-auto" :class="{ 'text-red-600': +stock.chg < 0 }">{{ stock.chg }}%</span>
 				</li>
 			</ul>
 		</div>
