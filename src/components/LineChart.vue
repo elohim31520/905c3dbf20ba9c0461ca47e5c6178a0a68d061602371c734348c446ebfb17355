@@ -34,11 +34,11 @@
 	}>()
 
 	const xAxisData = computed(() => {
-		return chartData.map((item) => new Date(item[xAxisKey]).toLocaleDateString())
+		return chartData.map((item) => new Date(item[xAxisKey as keyof typeof item]).toLocaleDateString())
 	})
 
 	const seriesData = computed(() => {
-		return chartData.map((item) => parseFloat(item[seriesKey]))
+		return chartData.map((item) => parseFloat(item[seriesKey as keyof typeof item]))
 	})
 
 	const option = computed<EChartsOption>(() => ({
