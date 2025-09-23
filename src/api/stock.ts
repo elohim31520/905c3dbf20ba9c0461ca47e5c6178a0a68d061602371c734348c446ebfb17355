@@ -12,15 +12,15 @@ class StockApi {
 	// }
 
 	async getMarketBreadth(): Promise<ResponseData<number>> {
-		return httpClient.request<number>({ method: 'GET', endpoint: '/stock/breadth' })
+		return httpClient.request<number>({ method: 'GET', endpoint: '/stock/breadth', useKV: true })
 	}
 
 	async getStockWinners(): Promise<ResponseData<any[]>> {
-		return httpClient.request<any[]>({ method: 'GET', endpoint: '/stock/winners' })
+		return httpClient.request<any[]>({ method: 'GET', endpoint: '/stock/winners', useKV: true })
 	}
 
 	async getStockLosers(): Promise<ResponseData<any[]>> {
-		return httpClient.request<any[]>({ method: 'GET', endpoint: '/stock/losers' })
+		return httpClient.request<any[]>({ method: 'GET', endpoint: '/stock/losers', useKV: true })
 	}
 
 	async getTodayStocks(): Promise<ResponseData<any[]>> {
