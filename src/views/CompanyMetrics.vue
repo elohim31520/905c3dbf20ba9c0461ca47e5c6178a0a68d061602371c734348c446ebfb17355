@@ -30,6 +30,51 @@
 				點我登入，以查看完整資料
 			</div>
 		</div>
+
+		<LineChart
+			v-if="metrics.length"
+			:title="`${bigSymbol} 過去12個月市盈率 PE`"
+			:chart-data="metrics"
+			x-axis-key="ct"
+			series-key="pe"
+		/>
+
+		<van-notice-bar
+			v-if="showNotice"
+			left-icon="info-o"
+			wrapable
+			:scrollable="false"
+			type="warning"
+			:mode="'closeable'"
+			@close="showNotice = false"
+		>
+			什麼是EPS(每股盈餘)?
+			EPS(每股盈餘)是公司每股普通股所賺取的盈餘，它是一個財務指標，計算方式為公司淨利潤除以流通在外的普通股數量，用來衡量公司每股股票的盈利能力。
+		</van-notice-bar>
+
+		<LineChart
+			v-if="metrics.length"
+			:title="`${bigSymbol} 未來預估市盈率 EPS`"
+			:chart-data="metrics"
+			x-axis-key="ct"
+			series-key="feps"
+		/>
+
+		<LineChart
+			v-if="metrics.length"
+			:title="`${bigSymbol} 過去12個月每股盈餘 EPS`"
+			:chart-data="metrics"
+			x-axis-key="ct"
+			series-key="eps"
+		/>
+
+		<LineChart
+			v-if="metrics.length"
+			:title="`${bigSymbol} 量能`"
+			:chart-data="metrics"
+			x-axis-key="ct"
+			series-key="v"
+		/>
 	</div>
 </template>
 
