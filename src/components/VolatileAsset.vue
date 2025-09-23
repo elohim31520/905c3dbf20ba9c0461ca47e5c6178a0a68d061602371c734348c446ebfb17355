@@ -9,9 +9,9 @@
 							:key="index"
 							class="flex items-center py-2 px-10 py-20 shadow-primary gap-5"
 						>
-							<img :src="`/logo/${stock.symbol || 'default'}.webp`" class="w-40 h-40 rounded-5" />
-							<span class="color-gray-600">{{ stock.company }}</span>
-							<span class="text-green-600 ml-auto">{{ stock.dayChg }}%</span>
+							<img :src="`/logo/default.webp`" class="w-40 h-40 rounded-5" />
+							<span class="color-gray-600">{{ stock.name }}</span>
+							<span class="text-green-600 ml-auto">{{ stock.chg }}%</span>
 						</li>
 					</ul>
 				</div>
@@ -26,9 +26,9 @@
 						:key="index"
 						class="flex items-center py-2 px-10 py-20 shadow-primary gap-5"
 					>
-						<img :src="`/logo/${stock.symbol || 'default'}.webp`" class="w-40 h-40 rounded-5" />
-						<span class="color-gray-600">{{ stock.company }}</span>
-						<span class="text-red-500 ml-auto">{{ stock.dayChg }}%</span>
+						<img :src="`/logo/default.webp`" class="w-40 h-40 rounded-5" />
+						<span class="color-gray-600">{{ stock.name }}</span>
+						<span class="text-red-500 ml-auto">{{ stock.chg }}%</span>
 					</li>
 				</ul>
 			</div>
@@ -55,7 +55,7 @@
 		// 省流：如果弱勢股沒有資料，再獲取弱勢股資料
 		if (newTab === 1 && losers.value.length === 0) {
 			const losersRes = await stockApi.getStockLosers()
-			losers.value = losersRes.data
+			losers.value = _reverse(losersRes.data)
 		}
 	})
 </script>
