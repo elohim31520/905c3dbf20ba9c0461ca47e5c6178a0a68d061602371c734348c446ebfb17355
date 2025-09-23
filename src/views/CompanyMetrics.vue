@@ -33,7 +33,7 @@
 
 		<LineChart
 			v-if="metrics.length"
-			:title="`${bigSymbol} 過去12個月市盈率 PE`"
+			:title="`${bigSymbol} 歷史市盈率 PE`"
 			:chart-data="metrics"
 			x-axis-key="ct"
 			series-key="pe"
@@ -62,7 +62,7 @@
 
 		<LineChart
 			v-if="metrics.length"
-			:title="`${bigSymbol} 過去12個月每股盈餘 EPS`"
+			:title="`${bigSymbol} 歷史每股盈餘 EPS`"
 			:chart-data="metrics"
 			x-axis-key="ct"
 			series-key="eps"
