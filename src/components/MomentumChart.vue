@@ -20,79 +20,80 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted } from 'vue'
-import { use } from 'echarts/core'
-import { CanvasRenderer } from 'echarts/renderers'
-import { LineChart } from 'echarts/charts'
-import { TitleComponent, TooltipComponent, GridComponent } from 'echarts/components'
-import VChart from 'vue-echarts'
-import { marketApi } from '../api/market'
-import { isAuthenticated} from '@/modules/auth'
-import { useRouter } from 'vue-router'
+	import { ref, onMounted } from 'vue'
+	import { use } from 'echarts/core'
+	import { CanvasRenderer } from 'echarts/renderers'
+	import { LineChart } from 'echarts/charts'
+	import { TitleComponent, TooltipComponent, GridComponent } from 'echarts/components'
+	import VChart from 'vue-echarts'
+	import { marketApi } from '../api/market'
+	import { isAuthenticated } from '@/modules/auth'
+	import { useRouter } from 'vue-router'
 
-const router = useRouter()
+	const router = useRouter()
 
-use([CanvasRenderer, LineChart, TitleComponent, TooltipComponent, GridComponent])
+	use([CanvasRenderer, LineChart, TitleComponent, TooltipComponent, GridComponent])
 
-const timeRanges = [1, 3, 7, 30]
-const selectedDays = ref(1)
-const option = ref({})
+	const timeRanges = [1, 3, 7, 30]
+	const selectedDays = ref(1)
+	const option = ref({})
 
-const fetchData = async (days: number): Promise<void> => {
-	if(selectedDays.value == days && !_isEmpty(option.value)) {
-		// 如果選擇的時間範圍相同且已經初始化時，則不重取api
-		return
-	}
-	if (days != 1 && !isAuthenticated()) {
-		router.push('/login')
-		return
-	}
-	selectedDays.value = days
-	try {
-		const res = await marketApi.getMomentumByRange(days)
-		if (!res.success) return
-		const data = res.data
-		const dates = data.map((item: any) => item.createdAt)
-		const volumes = data.map((item: any) => item.volume)
-
-		option.value = {
-			title: {
-				text: `市場近${days}日動能`,
-				left: 'center',
-			},
-			tooltip: {
-				trigger: 'axis',
-			},
-			grid: {
-				left: '3%',
-				right: '4%',
-				bottom: '3%',
-				containLabel: true,
-			},
-			xAxis: {
-				type: 'category',
-				data: dates,
-			},
-			yAxis: {
-				type: 'value',
-			},
-			series: [
-				{
-					data: volumes,
-					type: 'line',
-					smooth: true,
-					itemStyle: {
-						color: '#f472b6',
-					},
-				},
-			],
+	const fetchData = async (days: number): Promise<void> => {
+		if (selectedDays.value == days && !_isEmpty(option.value)) {
+			// 如果選擇的時間範圍相同且已經初始化時，則不重取api
+			return
 		}
-	} catch (error) {
-		console.error(`Failed to fetch ${days}-day momentum data:`, error)
-	}
-}
+		if (days != 1 && !isAuthenticated()) {
+			router.push('/login')
+			return
+		}
+		selectedDays.value = days
+		try {
+			const res = await marketApi.getMomentumByRange(days)
+			if (!res.success) return
+			const data = res.data
+			//ct: createdAt 為了省流量，後端key直接簡寫	，v: volume
+			const dates = data.map((item: any) => item.ct)
+			const volumes = data.map((item: any) => item.v)
 
-onMounted(() => {
-	fetchData(selectedDays.value)
-})
+			option.value = {
+				title: {
+					text: `市場近${days}日動能`,
+					left: 'center',
+				},
+				tooltip: {
+					trigger: 'axis',
+				},
+				grid: {
+					left: '3%',
+					right: '4%',
+					bottom: '3%',
+					containLabel: true,
+				},
+				xAxis: {
+					type: 'category',
+					data: dates,
+				},
+				yAxis: {
+					type: 'value',
+				},
+				series: [
+					{
+						data: volumes,
+						type: 'line',
+						smooth: true,
+						itemStyle: {
+							color: '#f472b6',
+						},
+					},
+				],
+			}
+		} catch (error) {
+			console.error(`Failed to fetch ${days}-day momentum data:`, error)
+		}
+	}
+
+	onMounted(() => {
+		fetchData(selectedDays.value)
+	})
 </script>
