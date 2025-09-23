@@ -1,5 +1,8 @@
 <template>
-	<div class="min-h-screen flex flex-col max-w-[480px] mx-auto bg-gray-100 pb-100">
+	<div
+		class="min-h-screen flex flex-col max-w-[480px] mx-auto bg-gray-100"
+		:class="{ 'pb-100': route.name !== 'info' }"
+	>
 		<AppHeader class="mb-10" v-if="showHeader" />
 
 		<SideMenu />
