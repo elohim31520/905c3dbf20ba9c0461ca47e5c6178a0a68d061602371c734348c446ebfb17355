@@ -35,7 +35,7 @@
 	const getMetrics = async (symbol: keyof typeof metrics, days: number = 60) => {
 		if (metrics[symbol].length > 0) return
 		const response = await metricsApi.getStatementBySymbol(symbol, days)
-		metrics[symbol] = response.data
+		metrics[symbol] = _reverse(_get(response, 'data', []))
 	}
 
 	const chartRefs = ref<Record<string, HTMLElement | null>>({})

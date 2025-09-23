@@ -29,8 +29,6 @@
 
 <script setup lang="ts">
 	import { ref, computed, onMounted } from 'vue'
-	import TradingviewGadget from '@/components/TradingviewGadget.vue'
-	import LineChart from '@/components/LineChart.vue'
 	import { useRoute, useRouter } from 'vue-router'
 	import { metricsApi } from '@/api/metrics'
 	import { useUIStore } from '@/stores/ui'
