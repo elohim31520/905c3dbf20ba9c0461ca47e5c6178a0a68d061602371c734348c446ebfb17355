@@ -6,6 +6,8 @@
 					v-if="metrics[symbol].length"
 					:title="`${symbol} 未來市盈率 PE Forwards`"
 					:chart-data="metrics[symbol]"
+					x-axis-key="ct"
+					series-key="fpe"
 				/>
 				<div v-else class="flex-y-center justify-center h-420">Loading {{ symbol }}...</div>
 			</div>

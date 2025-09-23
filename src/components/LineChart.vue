@@ -21,20 +21,24 @@
 		chartData,
 		height = '400px',
 		smooth = true,
+		xAxisKey,
+		seriesKey,
 	} = defineProps<{
 		title: string
 		lineColor?: string
 		chartData: any[]
 		height?: string
 		smooth?: boolean | number
+		xAxisKey?: string
+		seriesKey?: string
 	}>()
 
 	const xAxisData = computed(() => {
-		return chartData.map((item) => new Date(item.createdAt).toLocaleDateString())
+		return chartData.map((item) => new Date(item[xAxisKey]).toLocaleDateString())
 	})
 
 	const seriesData = computed(() => {
-		return chartData.map((item) => parseFloat(item.peForward))
+		return chartData.map((item) => parseFloat(item[seriesKey]))
 	})
 
 	const option = computed<EChartsOption>(() => ({
