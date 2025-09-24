@@ -2,6 +2,19 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import { isAuthenticated } from '@/modules/auth'
 
+let adScriptLoaded = false
+function loadAdScript() {
+	if (adScriptLoaded) {
+		return
+	}
+	const script = document.createElement('script')
+	script.async = true
+	script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3738209519931286'
+	script.crossOrigin = 'anonymous'
+	document.head.appendChild(script)
+	adScriptLoaded = true
+}
+
 const routes = [
 	{
 		path: '/',
@@ -10,6 +23,7 @@ const routes = [
 		meta: {
 			title: '首頁 - UrTrade',
 			description: '查看最新的市場動態、熱力圖和市場寬度數據。',
+			requiresAds: true,
 		},
 	},
 	{
@@ -19,6 +33,7 @@ const routes = [
 		meta: {
 			title: '關於我們 - UrTrade',
 			description: '了解 UrTrade 的使命和願景。',
+			requiresAds: true,
 		},
 	},
 	{
@@ -51,6 +66,7 @@ const routes = [
 			title: '投資組合 - UrTrade',
 			description: '追蹤您的投資組合表現和持股詳情。',
 			keepAlive: true,
+			requiresAds: true,
 		},
 	},
 	{
@@ -61,6 +77,7 @@ const routes = [
 			title: '上市公司 - UrTrade',
 			description: '探索所有上市公司列表。',
 			keepAlive: true,
+			requiresAds: true,
 		},
 	},
 	{
@@ -99,6 +116,7 @@ const routes = [
 		meta: {
 			title: '公司指標 - UrTrade',
 			description: '查看特定公司的詳細財務指標和市場數據。',
+			requiresAds: true,
 		},
 	},
 	{
@@ -122,6 +140,7 @@ const routes = [
 		meta: {
 			title: '市場指標 - UrTrade',
 			description: '分析整體市場的關鍵指標和趨勢。',
+			requiresAds: true,
 		},
 	},
 ]
@@ -148,6 +167,12 @@ router.beforeEach((to, from, next) => {
 		next({ name: 'login' })
 	} else {
 		next()
+	}
+})
+
+router.afterEach((to) => {
+	if (to.meta.requiresAds) {
+		loadAdScript()
 	}
 })
 
