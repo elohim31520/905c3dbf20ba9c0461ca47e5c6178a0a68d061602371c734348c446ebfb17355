@@ -7,11 +7,19 @@ const routes = [
 		path: '/',
 		name: 'home',
 		component: HomeView,
+		meta: {
+			title: '首頁 - UrTrade',
+			description: '查看最新的市場動態、熱力圖和市場寬度數據。',
+		},
 	},
 	{
 		path: '/about',
 		name: 'about',
 		component: () => import('../views/About.vue'),
+		meta: {
+			title: '關於我們 - UrTrade',
+			description: '了解 UrTrade 的使命和願景。',
+		},
 	},
 	{
 		path: '/transaction',
@@ -39,13 +47,21 @@ const routes = [
 		path: '/portfolio',
 		name: 'portfolio',
 		component: () => import('../views/Portfolio.vue'),
-		meta: { keepAlive: true },
+		meta: {
+			title: '投資組合 - UrTrade',
+			description: '追蹤您的投資組合表現和持股詳情。',
+			keepAlive: true,
+		},
 	},
 	{
 		path: '/companies',
 		name: 'companies',
 		component: () => import('../views/Companies.vue'),
-		meta: { keepAlive: true },
+		meta: {
+			title: '上市公司 - UrTrade',
+			description: '探索所有上市公司列表。',
+			keepAlive: true,
+		},
 	},
 	{
 		path: '/my',
@@ -80,7 +96,10 @@ const routes = [
 		path: '/company-metrics/:symbol',
 		name: 'company-metrics',
 		component: () => import('../views/CompanyMetrics.vue'),
-		meta: { },
+		meta: {
+			title: '公司指標 - UrTrade',
+			description: '查看特定公司的詳細財務指標和市場數據。',
+		},
 	},
 	{
 		path: '/404',
@@ -100,6 +119,10 @@ const routes = [
 		path: '/market-metrics',
 		name: 'market-metrics',
 		component: () => import('../views/MarketMetrics.vue'),
+		meta: {
+			title: '市場指標 - UrTrade',
+			description: '分析整體市場的關鍵指標和趨勢。',
+		},
 	},
 ]
 
