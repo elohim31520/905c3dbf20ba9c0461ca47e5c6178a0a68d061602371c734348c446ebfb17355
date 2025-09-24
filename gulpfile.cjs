@@ -1,6 +1,7 @@
 const { series } = require('gulp')
 const fs = require('fs')
 const path = require('path')
+const { exec } = require('child_process')
 
 function createRedirectsFile(cb) {
 	const distDir = 'dist'
@@ -15,4 +16,18 @@ function createRedirectsFile(cb) {
 	fs.writeFile(redirectsFilePath, redirectsContent, cb)
 }
 
-exports.default = series(createRedirectsFile)
+function compressDist(cb) {
+	const command = 'cd dist && 7z a ../dist.7z * -r'
+	exec(command, (err, stdout, stderr) => {
+		if (err) {
+			console.error(`Error during compression: ${err.message}`)
+			console.error(`stderr: ${stderr}`)
+			cb(err)
+			return
+		}
+		console.log(`stdout: ${stdout}`)
+		cb()
+	})
+}
+
+exports.default = series(createRedirectsFile, compressDist)
