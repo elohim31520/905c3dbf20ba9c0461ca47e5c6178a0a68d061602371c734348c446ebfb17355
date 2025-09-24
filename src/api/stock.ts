@@ -24,7 +24,7 @@ class StockApi {
 	}
 
 	async getTodayStocks(): Promise<ResponseData<any[]>> {
-		return httpClient.request<any[]>({ method: 'GET', endpoint: '/stock/today' })
+		return httpClient.request<any[]>({ method: 'GET', endpoint: '/stock/today', useKV: true })
 	}
 }
 
