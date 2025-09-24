@@ -6,7 +6,8 @@ const { exec } = require('child_process')
 function createRedirectsFile(cb) {
 	const distDir = 'dist'
 	const redirectsFilePath = path.join(distDir, '_redirects')
-	const redirectsContent = '/* /index.html 200'
+
+	const redirectsContent = '/Ads.txt /Ads.txt 200 	\n/* /index.html 200'
 
 	// Ensure the 'dist' directory exists.
 	if (!fs.existsSync(distDir)) {
