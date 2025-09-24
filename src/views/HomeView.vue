@@ -1,7 +1,7 @@
 <template>
 	<main class="p-4 space-y-4">
 		<header>
-			<h1 class="text-18 font-bold flex-center">美股市場總覽</h1>
+			<h1 class="text-18 font-bold flex-center">{{ $t('home.title') }}</h1>
 		</header>
 		<MomentumChart />
 		<HeatMap class="h-500 my-10" />
@@ -16,14 +16,20 @@
 
 <script setup lang="ts">
 	import { useHead } from '@vueuse/head'
+	import { useI18n } from 'vue-i18n'
+	import { watchEffect } from 'vue'
 
-	useHead({
-		title: '首頁 - UrTrade',
-		meta: [
-			{
-				name: 'description',
-				content: '查看最新的市場動態、熱力圖和市場寬度數據，全面了解美股市場趨勢。',
-			},
-		],
+	const { t } = useI18n()
+
+	watchEffect(() => {
+		useHead({
+			title: t('home.meta_title'),
+			meta: [
+				{
+					name: 'description',
+					content: t('home.meta_description'),
+				},
+			],
+		})
 	})
 </script>

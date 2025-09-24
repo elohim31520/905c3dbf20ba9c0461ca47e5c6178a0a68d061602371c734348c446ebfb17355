@@ -20,12 +20,14 @@
 </template>
 
 <script setup lang="ts">
-	import { computed, onMounted, onUnmounted, nextTick, ref } from 'vue'
+	import { computed, onMounted, onUnmounted, nextTick, ref, watch } from 'vue'
 	import { RouterView, useRoute, useRouter } from 'vue-router'
 	import AppHeader from '@/components/AppHeader.vue'
 	import SideMenu from '@/components/SideMenu.vue'
 	import Footer from '@/components/Footer/index.vue'
 	import emitter from '@/modules/emitter'
+	import { useHead } from '@vueuse/head'
+	import { useI18n } from 'vue-i18n'
 
 	const route = useRoute()
 	const router = useRouter()
@@ -55,4 +57,30 @@
 	onUnmounted(() => {
 		emitter.off('refresh', refreshView)
 	})
+
+	// Add i18n logic
+	const { locale } = useI18n()
+	watch(
+		locale,
+		(newLocale) => {
+			useHead({
+				htmlAttrs: {
+					lang: newLocale === 'zh-TW' ? 'zh-TW' : 'en',
+				},
+			})
+		},
+		{ immediate: true }
+	)
 </script>
+
+<style>
+	.fade-enter-active,
+	.fade-leave-active {
+		transition: opacity 0.2s ease;
+	}
+
+	.fade-enter-from,
+	.fade-leave-to {
+		opacity: 0;
+	}
+</style>
