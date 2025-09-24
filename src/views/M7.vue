@@ -4,7 +4,7 @@
 			<div :ref="(el) => setChartRef(el, symbol)" class="min-h-[420px]">
 				<LineChart
 					v-if="metrics[symbol].length"
-					:title="`${symbol} 未來市盈率 PE Forwards`"
+					:title="`${symbol} ${$t('company_metrics.pe_forwards_title')}`"
 					:chart-data="metrics[symbol]"
 					x-axis-key="ct"
 					series-key="fpe"

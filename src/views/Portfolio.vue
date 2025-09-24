@@ -1,6 +1,6 @@
 <template>
 	<div class="bg-white p-10">
-		<div class="text-16 font-bold mb-4 color-#656565">我的投資組合</div>
+		<div class="text-16 font-bold mb-4 color-#656565">{{ $t('portfolio.my_portfolio') }}</div>
 
 		<van-notice-bar
 			v-if="!isAuthenticated()"
@@ -10,7 +10,7 @@
 			class="mb-6"
 			:mode="'closeable'"
 		>
-			以下為示例，登入後創建屬於自己的投資組合。
+			{{ $t('portfolio.login_for_portfolio') }}
 		</van-notice-bar>
 		<van-notice-bar
 			v-if="showNotice"
@@ -22,11 +22,11 @@
 			:mode="'closeable'"
 			@close="showNotice = false"
 		>
-			注意：這裡持倉的均價與您的券商計算方式可能不同，券商是以FIFO LIFO計算均價，而我們是以平均成本計算均 價。
+			{{ $t('portfolio.notice') }}
 		</van-notice-bar>
 
 		<van-tabs v-model:active="activeTab" color="#F472B6">
-			<van-tab title="持股詳情">
+			<van-tab :title="$t('portfolio.holding_details')">
 				<div v-if="portfolioStore.portfolioData.length > 0" class="mt-10">
 					<van-cell-group>
 						<van-swipe-cell
@@ -40,22 +40,26 @@
 								<template #title>
 									<span class="font-bold">{{ item.stock_id }}</span>
 								</template>
-								<div>數量: {{ item.quantity }}</div>
-								<div>均價: {{ item.average_price }}</div>
-								<div>總值: {{ formatNumber(item.quantity * item.average_price) }}</div>
+								<div>{{ $t('portfolio.quantity') }}: {{ item.quantity }}</div>
+								<div>{{ $t('portfolio.average_price') }}: {{ item.average_price }}</div>
+								<div>{{ $t('portfolio.total_value') }}: {{ formatNumber(item.quantity * item.average_price) }}</div>
 							</van-cell>
 							<template #left>
-								<div class="h-full flex items-center justify-center bg-primary text-white w-65px">更新</div>
+								<div class="h-full flex items-center justify-center bg-primary text-white w-65px">
+									{{ $t('portfolio.update') }}
+								</div>
 							</template>
 							<template #right>
-								<div class="h-full flex items-center justify-center bg-red-500 text-white w-65px">刪除</div>
+								<div class="h-full flex items-center justify-center bg-red-500 text-white w-65px">
+									{{ $t('portfolio.delete') }}
+								</div>
 							</template>
 						</van-swipe-cell>
 					</van-cell-group>
 				</div>
-				<div v-else class="text-center text-gray-500 pt-10">正在載入資料或無持股...</div>
+				<div v-else class="text-center text-gray-500 pt-10">{{ $t('portfolio.loading_or_no_holding') }}</div>
 			</van-tab>
-			<van-tab title="圖表分析">
+			<van-tab :title="$t('portfolio.chart_analysis')">
 				<div class="w-full">
 					<PortfolioChart ref="portfolioChartRef" />
 				</div>
@@ -85,7 +89,9 @@
 	import { formatNumber } from '@/modules/util'
 	import type { PortfolioItem } from '@/types/portfolio'
 	import { isAuthenticated } from '@/modules/auth'
+	import { useI18n } from 'vue-i18n'
 
+	const { t } = useI18n()
 	const portfolioStore = usePortfolioStore()
 
 	const showNotice = ref(true)
@@ -117,19 +123,19 @@
 				break
 			case 'right':
 				showConfirmDialog({
-					title: '確認',
-					message: '確定要刪除嗎？',
+					title: t('portfolio.confirm'),
+					message: t('portfolio.confirm_delete'),
 				})
 					.then(() => {
 						if (!item.id) {
-							showToast('缺少項目ID，無法刪除')
+							showToast(t('portfolio.missing_item_id'))
 							return Promise.reject('Missing item id')
 						}
 						return portfolioApi.deleteMyPortfolio(item.id)
 					})
 					.then(() => {
 						portfolioStore.fetchMyPortfolio()
-						showToast('刪除成功')
+						showToast(t('portfolio.delete_success'))
 					})
 				break
 		}

@@ -1,6 +1,6 @@
 <template>
 	<div class="bg-white p-10 shadow-primary">
-		<div class="text-20 font-bold">公司列表</div>
+		<div class="text-20 font-bold">{{ $t('companies.title') }}</div>
 		<div v-for="(company, index) in companies" :key="index" class="flex-y-center justify-between">
 			<div
 				class="w-100% flex-y-center color-#434343 h-60 px-5 shadow-primary gap-5"

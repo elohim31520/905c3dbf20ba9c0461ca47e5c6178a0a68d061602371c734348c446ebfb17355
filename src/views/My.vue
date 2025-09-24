@@ -43,11 +43,11 @@
 							<div v-show="!isScrolled" class="flex-y-center transition-all duration-300 ease-in-out mt-17">
 								<div class="flex flex-col">
 									<span class="font-500">{{ cashPercentage }}%</span>
-									<span class="color-#FAC9FF text-10">現金</span>
+									<span class="color-#FAC9FF text-10">{{ $t('my.cash') }}</span>
 								</div>
 								<div class="flex-y-center flex-col ml-15">
 									<span class="font-500">{{ portfolioPercentage }}%</span>
-									<span class="color-#FAC9FF text-10">持倉</span>
+									<span class="color-#FAC9FF text-10">{{ $t('my.portfolio') }}</span>
 								</div>
 							</div>
 						</div>
@@ -74,14 +74,14 @@
 									@click="showUpdateUSDFormPopup = true"
 								>
 									<SvgIcon name="icon_redeem" size="1.2rem" color="#fff" />
-									修改餘額
+									{{ $t('my.update_balance') }}
 								</div>
 								<div
 									@click="$router.push('/change-password')"
 									class="flex-y-center gap-3 ml-5 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-15 px-5 py-4"
 								>
 									<SvgIcon name="icon_room_w" size="1.2rem" />
-									修改密碼
+									{{ $t('my.change_password') }}
 								</div>
 							</template>
 							<template v-else>
@@ -90,7 +90,7 @@
 									@click="$router.push('/login')"
 								>
 									<SvgIcon name="icon_room_w" size="1.2rem" color="#fff" />
-									登入
+									{{ $t('my.login') }}
 								</div>
 							</template>
 						</div>
@@ -101,8 +101,8 @@
 			<div class="bg-white" :style="{ paddingTop: isScrolled ? headerHeight + 'px' : '0px' }">
 				<!-- My Portfolio -->
 				<div class="m-10 pt-20">
-					<h3 class="font-500 mb-20 color-primary" v-if="userStore.isLogin">我的投資組合</h3>
-					<h3 class="font-500 mb-20 color-primary" v-else>登入以創建我的投資組合</h3>
+					<h3 class="font-500 mb-20 color-primary" v-if="userStore.isLogin">{{ $t('my.my_portfolio') }}</h3>
+					<h3 class="font-500 mb-20 color-primary" v-else>{{ $t('my.login_to_create_portfolio') }}</h3>
 					<div class="w-full">
 						<PortfolioChart />
 					</div>

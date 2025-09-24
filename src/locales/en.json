@@ -7,5 +7,58 @@
 	"meta": {
 		"default_title": "UrTrade - Your Smart US Stock Investment Partner",
 		"default_description": "UrTrade is a platform that provides US stock market data, portfolio tracking, and real-time market trend analysis."
+	},
+	"company_metrics": {
+		"pe_forwards_notice": "What is PE Forwards? Forward Price-to-Earnings (FPE) is a projection of a company's P/E ratio for the next year, used to determine if the current stock price is overvalued or undervalued for the coming year. It is a forward-looking valuation tool that helps investors assess whether a company's stock is a worthwhile investment from a 'future' perspective.",
+		"pe_forwards_title": "PE Forwards",
+		"login_to_see_data": "Click here to log in and view complete data",
+		"pe_history_title": "Historical PE",
+		"eps_notice": "What is EPS (Earnings Per Share)? EPS is the earnings generated per share of a company's common stock. It is a financial indicator calculated by dividing the company's net profit by the number of outstanding common shares, used to measure the profitability of each share of stock.",
+		"feps_title": "Future Estimated EPS",
+		"eps_history_title": "Historical EPS",
+		"volume_title": "Volume"
+	},
+	"my": {
+		"cash": "Cash",
+		"portfolio": "Portfolio",
+		"update_balance": "Refresh $",
+		"change_password": "Chg Pwd",
+		"login": "Login",
+		"my_portfolio": "My Portfolio",
+		"login_to_create_portfolio": "Login to create your portfolio"
+	},
+	"login": {
+		"login": "Login",
+		"account": "Account",
+		"password": "Password",
+		"enter_account": "Please enter your account",
+		"enter_password": "Please enter your password",
+		"please_fill_account": "Please fill in your account",
+		"please_fill_password": "Please fill in your password",
+		"register": "Register",
+		"forgot_password": "Forgot password?",
+		"login_success": "Login successful",
+		"google_login_success": "Google login successful",
+		"google_login_fail": "Google login failed"
+	},
+	"companies": {
+		"title": "Companies"
+	},
+	"portfolio": {
+		"my_portfolio": "My Portfolio",
+		"login_for_portfolio": "The following is an example. Log in to create your own portfolio.",
+		"notice": "Note: The average price of holdings here may be calculated differently than your brokerage. Brokerages may use FIFO/LIFO, while we use average cost.",
+		"holding_details": "Holding Details",
+		"chart_analysis": "Chart Analysis",
+		"quantity": "Quantity",
+		"average_price": "Average Price",
+		"total_value": "Total Value",
+		"update": "Update",
+		"delete": "Delete",
+		"loading_or_no_holding": "Loading data or no holdings...",
+		"confirm": "Confirm",
+		"confirm_delete": "Are you sure you want to delete?",
+		"missing_item_id": "Missing item ID, cannot delete",
+		"delete_success": "Deleted successfully"
 	}
 }

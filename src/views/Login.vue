@@ -1,32 +1,34 @@
 <template>
 	<div>
-		<van-nav-bar title="登入" />
+		<van-nav-bar :title="$t('login.login')" />
 		<van-form @submit="onSubmit">
 			<van-cell-group inset>
 				<van-field
 					v-model="username"
 					name="username"
-					label="帳號"
-					placeholder="請輸入帳號"
-					:rules="[{ required: true, message: '請填寫帳號' }]"
+					:label="$t('login.account')"
+					:placeholder="$t('login.enter_account')"
+					:rules="[{ required: true, message: $t('login.please_fill_account') }]"
 				/>
 				<van-field
 					v-model="password"
 					type="password"
 					name="password"
-					label="密碼"
-					placeholder="請輸入密碼"
-					:rules="[{ required: true, message: '請填寫密碼' }]"
+					:label="$t('login.password')"
+					:placeholder="$t('login.enter_password')"
+					:rules="[{ required: true, message: $t('login.please_fill_password') }]"
 				/>
 			</van-cell-group>
 			<div class="flex-y-center">
-				<div class="color-primary font-bold px-20 pt-10" @click="router.push('/register')">註冊</div>
+				<div class="color-primary font-bold px-20 pt-10" @click="router.push('/register')">
+					{{ $t('login.register') }}
+				</div>
 				<div class="color-primary font-bold px-20 pt-10 ml-auto" @click="router.push('/change-password')">
-					忘記密碼？
+					{{ $t('login.forgot_password') }}
 				</div>
 			</div>
 			<div style="margin: 16px">
-				<van-button round block type="primary" color="#f472b6" native-type="submit">登入</van-button>
+				<van-button round block type="primary" color="#f472b6" native-type="submit">{{ $t('login.login') }}</van-button>
 			</div>
 			<div class="flex-center m-16">
 				<GoogleSignInButton
@@ -46,7 +48,9 @@
 	import { login, loginWithGoogle } from '../api/user'
 	import { useStorage } from '@vueuse/core'
 	import { GoogleSignInButton } from 'vue3-google-signin'
+	import { useI18n } from 'vue-i18n'
 
+	const { t } = useI18n()
 	const router = useRouter()
 	const username = ref('')
 	const password = ref('')
@@ -59,7 +63,7 @@
 		})
 		if (res.success) {
 			storedUsername.value = values.username
-			showToast('登入成功')
+			showToast(t('login.login_success'))
 			router.push('/')
 		}
 	}
@@ -72,7 +76,7 @@
 		try {
 			const res = await loginWithGoogle(credential)
 			if (res.success) {
-				showToast('Google 登入成功')
+				showToast(t('login.google_login_success'))
 				router.push('/')
 			} else {
 				handleGoogleLoginError()
@@ -84,6 +88,6 @@
 
 	const handleGoogleLoginError = () => {
 		console.error('Google 登入失敗')
-		showToast('Google 登入失敗')
+		showToast(t('login.google_login_fail'))
 	}
 </script>

@@ -13,27 +13,28 @@
 			:mode="'closeable'"
 			@close="showNotice = false"
 		>
-			什麼是PE Forwards?
-			未來市盈率(FPE)是預測未來一年公司的市盈率，用以判斷當前股價對於未來一年是高估還是低估。這是一個前瞻性的估值工具，能幫助投資人從「未來」的角度來評估一家公司的股票是否值得投資。
+			{{ $t('company_metrics.pe_forwards_notice') }}
 		</van-notice-bar>
 
 		<LineChart
 			v-if="metrics.length"
-			:title="`${bigSymbol} 未來市盈率 PE Forwards`"
+			:title="`${bigSymbol} ${$t('company_metrics.pe_forwards_title')}`"
 			:chart-data="metrics"
 			x-axis-key="ct"
 			series-key="fpe"
 		/>
 		<div v-else>
-			<div class="flex-y-center justify-center font-500 mb-10">{{ `${bigSymbol} 未來市盈率 PE Forwards` }}...</div>
+			<div class="flex-y-center justify-center font-500 mb-10">
+				{{ `${bigSymbol} ${$t('company_metrics.pe_forwards_title')}` }}...
+			</div>
 			<div class="flex-y-center justify-center color-primary" @click="$router.push('/login')">
-				點我登入，以查看完整資料
+				{{ $t('company_metrics.login_to_see_data') }}
 			</div>
 		</div>
 
 		<LineChart
 			v-if="metrics.length"
-			:title="`${bigSymbol} 歷史市盈率 PE`"
+			:title="`${bigSymbol} ${$t('company_metrics.pe_history_title')}`"
 			:chart-data="metrics"
 			x-axis-key="ct"
 			series-key="pe"
@@ -48,13 +49,12 @@
 			:mode="'closeable'"
 			@close="showNotice = false"
 		>
-			什麼是EPS(每股盈餘)?
-			EPS(每股盈餘)是公司每股普通股所賺取的盈餘，它是一個財務指標，計算方式為公司淨利潤除以流通在外的普通股數量，用來衡量公司每股股票的盈利能力。
+			{{ $t('company_metrics.eps_notice') }}
 		</van-notice-bar>
 
 		<LineChart
 			v-if="metrics.length"
-			:title="`${bigSymbol} 未來預估市盈率 EPS`"
+			:title="`${bigSymbol} ${$t('company_metrics.feps_title')}`"
 			:chart-data="metrics"
 			x-axis-key="ct"
 			series-key="feps"
@@ -62,7 +62,7 @@
 
 		<LineChart
 			v-if="metrics.length"
-			:title="`${bigSymbol} 歷史每股盈餘 EPS`"
+			:title="`${bigSymbol} ${$t('company_metrics.eps_history_title')}`"
 			:chart-data="metrics"
 			x-axis-key="ct"
 			series-key="eps"
@@ -70,7 +70,7 @@
 
 		<LineChart
 			v-if="metrics.length"
-			:title="`${bigSymbol} 量能`"
+			:title="`${bigSymbol} ${$t('company_metrics.volume_title')}`"
 			:chart-data="metrics"
 			x-axis-key="ct"
 			series-key="v"
