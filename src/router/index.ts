@@ -1,7 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import { isAuthenticated } from '@/modules/auth'
+import i18n from '@/i18n'
 
+let hasPopLazypod = false
 let adScriptLoaded = false
 function loadAdScript() {
 	if (adScriptLoaded) {
@@ -172,7 +174,15 @@ router.beforeEach((to, from, next) => {
 
 router.afterEach((to) => {
 	if (to.meta.requiresAds) {
-		loadAdScript()
+		_delay(loadAdScript, 5000)
+	}
+	if (to.name === 'info' && !hasPopLazypod) {
+		hasPopLazypod = true
+		if (i18n.global.locale.value === 'en') {
+			window.open('https://lazypod.org/info-en', '_blank')
+		} else {
+			window.open('https://lazypod.org/iframe', '_blank')
+		}
 	}
 })
 
