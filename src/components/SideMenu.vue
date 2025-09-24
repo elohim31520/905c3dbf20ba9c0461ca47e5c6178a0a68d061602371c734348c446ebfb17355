@@ -21,7 +21,7 @@
 						active-class="color-primary"
 					>
 						<SvgIcon :name="item.icon" size="1.2rem" class="mr-5" />
-						<span class="text-20">{{ item.text }}</span>
+						<span class="text-20">{{ $t(item.text) }}</span>
 					</router-link>
 				</template>
 				<div
@@ -31,7 +31,7 @@
 					active-class="color-primary"
 				>
 					<SvgIcon name="icon_quit" size="1.2rem" class="mr-5" />
-					<span class="text-20">登出</span>
+					<span class="text-20">{{ $t('sidemenu.logout') }}</span>
 				</div>
 			</nav>
 		</div>
@@ -50,32 +50,32 @@
 	const uiStore = useUIStore()
 
 	const menuItems = [
-		{ to: '/', icon: 'icon_settings_Name2', text: '首頁', auth: 'always' },
-		{ to: '/about', icon: 'icon_settings_about_us', text: '關於', auth: 'always' },
-		{ to: '/transaction', icon: 'icon_menu_Opinion', text: '新增紀錄', auth: 'always' },
-		{ to: '/records', icon: 'money', text: '我的紀錄', auth: 'always' },
+		{ to: '/', icon: 'icon_settings_Name2', text: 'sidemenu.home', auth: 'always' },
+		{ to: '/about', icon: 'icon_settings_about_us', text: 'sidemenu.about', auth: 'always' },
+		{ to: '/transaction', icon: 'icon_menu_Opinion', text: 'sidemenu.add_record', auth: 'always' },
+		{ to: '/records', icon: 'money', text: 'sidemenu.my_records', auth: 'always' },
 		{
 			to: '/portfolio',
 			icon: 'icon_gift',
-			text: '我的投資組合',
+			text: 'sidemenu.my_portfolio',
 			auth: 'always',
 		},
 		{
 			to: '/companies',
 			icon: 'icon_menu_Query',
-			text: '股票清單',
+			text: 'sidemenu.stock_list',
 			auth: 'always',
 		},
 		{
 			to: '/m7',
 			icon: 'side-bar-no1',
-			text: '熱門股票',
+			text: 'sidemenu.hot_stocks',
 			auth: 'always',
 		},
-		{ to: '/market-metrics', icon: 'media', text: '市場指標', auth: 'always' },
-		{ to: '/volatile-stock', icon: 'icon_ghost', text: '今日股價變動', auth: 'always' },
-		{ to: '/login', icon: 'icon_user2', text: '登入', auth: 'always' },
-		{ to: '/register', icon: 'icon_settings_invite', text: '註冊', auth: 'guest' },
+		{ to: '/market-metrics', icon: 'media', text: 'sidemenu.market_indicators', auth: 'always' },
+		{ to: '/volatile-stock', icon: 'icon_ghost', text: 'sidemenu.todays_volatility', auth: 'always' },
+		{ to: '/login', icon: 'icon_user2', text: 'sidemenu.login', auth: 'always' },
+		{ to: '/register', icon: 'icon_settings_invite', text: 'sidemenu.register', auth: 'guest' },
 	]
 
 	const closeMenu = () => {

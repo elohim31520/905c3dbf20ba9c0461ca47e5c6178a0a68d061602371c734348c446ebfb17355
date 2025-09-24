@@ -10,7 +10,7 @@
 					selectedDays === day ? 'bg-primary color-white' : 'bg-gray-200 color-gray-700 hover:bg-gray-300',
 				]"
 			>
-				{{ day }}天
+				{{ $t('momentum_chart.days_unit', { count: day }) }}
 			</div>
 		</div>
 		<div class="h-400">
@@ -29,7 +29,9 @@
 	import { marketApi } from '../api/market'
 	import { isAuthenticated } from '@/modules/auth'
 	import { useRouter } from 'vue-router'
+	import { useI18n } from 'vue-i18n'
 
+	const { t } = useI18n()
 	const router = useRouter()
 
 	use([CanvasRenderer, LineChart, TitleComponent, TooltipComponent, GridComponent])
@@ -58,7 +60,7 @@
 
 			option.value = {
 				title: {
-					text: `市場近${days}日動能`,
+					text: t('momentum_chart.title', { days }),
 					left: 'center',
 				},
 				tooltip: {

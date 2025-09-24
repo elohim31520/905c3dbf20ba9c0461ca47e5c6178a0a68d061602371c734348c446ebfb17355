@@ -1,6 +1,6 @@
 <template>
 	<div class="bg-white p-10 shadow-primary">
-		<div class="text-18 font-bold mb-4 color-#434343">標普500漲跌佔整體百分比:</div>
+		<div class="text-18 font-bold mb-4 color-#434343">{{ $t('market_breadth.title') }}</div>
 		<div class="text-16 font-bold color-primary">{{ marketBreadth }}%</div>
 		<v-chart class="chart" :option="chartOption" style="height: 400px" />
 	</div>
@@ -15,7 +15,9 @@
 	import VChart from 'vue-echarts'
 	import { stockApi } from '../api/stock'
 	import { formatNumber } from '@/modules/util'
+	import { useI18n } from 'vue-i18n'
 
+	const { t } = useI18n()
 	use([CanvasRenderer, PieChart, TitleComponent, TooltipComponent, LegendComponent])
 
 	const marketBreadth = ref<number>(0)
@@ -40,18 +42,18 @@
 			legend: {
 				orient: 'vertical',
 				left: 'left',
-				data: ['上漲', '下跌'],
+				data: [t('market_breadth.advancers'), t('market_breadth.decliners')],
 			},
 			series: [
 				{
-					name: '上漲',
+					name: t('market_breadth.advancers'),
 					type: 'pie',
 					radius: '50%',
 					center: ['50%', '60%'],
 					color: ['#f472b6', '#FDF3F4'],
 					data: [
-						{ value: formatNumber(marketBreadth.value), name: '上漲' },
-						{ value: formatNumber(100 - marketBreadth.value), name: '下跌' },
+						{ value: formatNumber(marketBreadth.value), name: t('market_breadth.advancers') },
+						{ value: formatNumber(100 - marketBreadth.value), name: t('market_breadth.decliners') },
 					],
 					emphasis: {
 						itemStyle: {

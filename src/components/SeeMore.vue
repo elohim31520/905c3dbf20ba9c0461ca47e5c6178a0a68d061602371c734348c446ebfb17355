@@ -1,6 +1,6 @@
 <template>
 	<div class="flex-y-center justify-center color-primary" @click="router.push(to)" v-bind="$attrs">
-		點我看更多
+		{{ $t('see_more.text') }}
 		<SvgIcon name="icon_arrow_right" size="1rem" />
 	</div>
 </template>

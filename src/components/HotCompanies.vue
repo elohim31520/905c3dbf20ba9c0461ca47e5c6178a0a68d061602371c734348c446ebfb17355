@@ -1,6 +1,6 @@
 <template>
 	<div class="space-y-4 p-10">
-		<div class="text-20 font-bold color-#434343 mb-10">探索熱門公司</div>
+		<div class="text-20 font-bold color-#434343 mb-10">{{ $t('hot_companies.explore_hot_companies') }}</div>
 		<div class="grid grid-cols-3 gap-20 mb-20 mx-10">
 			<div
 				v-for="company in companies"

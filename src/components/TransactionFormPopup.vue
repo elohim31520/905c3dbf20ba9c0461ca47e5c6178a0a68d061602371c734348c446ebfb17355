@@ -1,23 +1,29 @@
 <template>
 	<van-popup v-model:show="show" position="bottom" round>
 		<div class="p-10">
-			<div class="text-16 font-bold mb-4 color-#656565 text-center">更新持股</div>
+			<div class="text-16 font-bold mb-4 color-#656565 text-center">
+				{{ $t('transaction_form_popup.update_holding') }}
+			</div>
 			<van-form ref="formRef" @submit="onSubmit">
 				<van-cell-group class="!rounded-xl overflow-hidden">
 					<van-field
 						v-model="form.stock_id"
 						name="stock_id"
-						label="股票代號"
-						placeholder="請輸入股票代號"
-						:rules="[{ required: true, message: '請輸入股票代號' }]"
+						:label="$t('transaction.stock_id')"
+						:placeholder="$t('transaction.enter_stock_id')"
+						:rules="[{ required: true, message: $t('transaction.enter_stock_id') }]"
 						readonly
 					/>
 
-					<van-field name="transaction_type" label="交易類型">
+					<van-field name="transaction_type" :label="$t('transaction.transaction_type')">
 						<template #input>
 							<van-radio-group v-model="form.transaction_type" direction="horizontal">
-								<van-radio name="buy" checked-color="#f472b6"><span class="color-green-600">買入</span></van-radio>
-								<van-radio name="sell" checked-color="#f472b6"><span class="color-red-600">賣出</span></van-radio>
+								<van-radio name="buy" checked-color="#f472b6">
+									<span class="color-green-600">{{ $t('transaction.buy') }}</span>
+								</van-radio>
+								<van-radio name="sell" checked-color="#f472b6">
+									<span class="color-red-600">{{ $t('transaction.sell') }}</span>
+								</van-radio>
 							</van-radio-group>
 						</template>
 					</van-field>
@@ -26,11 +32,11 @@
 						v-model="form.quantity"
 						type="digit"
 						name="quantity"
-						label="數量"
-						placeholder="請輸入交易數量"
+						:label="$t('transaction.quantity')"
+						:placeholder="$t('transaction.enter_quantity')"
 						:rules="[
-							{ required: true, message: '請輸入交易數量' },
-							{ pattern: /^[1-9]\d*$/, message: '請輸入正整數' },
+							{ required: true, message: $t('transaction.enter_quantity') },
+							{ pattern: /^[1-9]\d*$/, message: $t('transaction.enter_positive_integer') },
 						]"
 					/>
 
@@ -38,11 +44,14 @@
 						v-model="form.price"
 						type="number"
 						name="price"
-						label="價格"
-						placeholder="請輸入交易價格"
+						:label="$t('transaction.price')"
+						:placeholder="$t('transaction.enter_price')"
 						:rules="[
-							{ required: true, message: '請輸入交易價格' },
-							{ pattern: /^\d+(\.\d{1,2})?$/, message: '請輸入正確的價格格式' },
+							{ required: true, message: $t('transaction.enter_price') },
+							{
+								pattern: /^\d+(\.\d{1,2})?$/,
+								message: $t('transaction.enter_correct_price_format'),
+							},
 						]"
 					/>
 
@@ -50,13 +59,15 @@
 						v-model="form.transaction_date"
 						type="date"
 						name="transaction_date"
-						label="交易日期"
-						placeholder="請選擇交易日期"
-						:rules="[{ required: true, message: '請選擇交易日期' }]"
+						:label="$t('transaction.transaction_date')"
+						:placeholder="$t('transaction.select_transaction_date')"
+						:rules="[{ required: true, message: $t('transaction.select_transaction_date') }]"
 					/>
 				</van-cell-group>
 				<div class="px-10 py-20">
-					<van-button round block type="primary" color="#f472b6" native-type="submit">紀錄</van-button>
+					<van-button round block type="primary" color="#f472b6" native-type="submit">
+						{{ $t('transaction.record') }}
+					</van-button>
 				</div>
 			</van-form>
 		</div>
@@ -67,6 +78,9 @@
 	import { ref, watch, computed } from 'vue'
 	import type { FormInstance } from 'vant'
 	import type { PortfolioItem } from '@/types/portfolio'
+	import { useI18n } from 'vue-i18n'
+
+	const { t } = useI18n()
 
 	interface TransactionForm {
 		stock_id: string
@@ -124,7 +138,7 @@
 			await props.apiFunction(payload)
 			showToast({
 				type: 'success',
-				message: '交易紀錄已儲存',
+				message: t('transaction.transaction_saved'),
 			})
 
 			emit('submitSuccess')
@@ -133,7 +147,7 @@
 			console.error(error)
 			showToast({
 				type: 'fail',
-				message: '請檢查輸入資料',
+				message: t('transaction.check_input_data'),
 			})
 		}
 	}

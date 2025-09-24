@@ -1,62 +1,66 @@
 <template>
 	<div>
-		<van-nav-bar title="修改密碼" />
+		<van-nav-bar :title="$t('change_password.title')" />
 		<van-form @submit="onSubmit">
 			<van-cell-group inset>
 				<van-field
 					v-model="oldPassword"
 					name="oldPassword"
-					label="舊密碼"
-					placeholder="請輸入舊密碼"
-					:rules="[{ required: true, message: '請填寫舊密碼' }]"
+					:label="$t('change_password.old_password')"
+					:placeholder="$t('change_password.enter_old_password')"
+					:rules="[{ required: true, message: $t('change_password.fill_old_password') }]"
 					type="password"
 				/>
 				<van-field
 					v-model="newPassword"
 					type="password"
 					name="newPassword"
-					label="新密碼"
-					placeholder="請輸入新密碼"
+					:label="$t('change_password.new_password')"
+					:placeholder="$t('change_password.enter_new_password')"
 					:rules="newPasswordRules"
 				/>
 				<van-field
 					v-model="confirmNewPassword"
 					type="password"
 					name="confirmNewPassword"
-					label="確認新密碼"
-					placeholder="請再次輸入新密碼"
+					:label="$t('change_password.confirm_new_password')"
+					:placeholder="$t('change_password.enter_confirm_new_password')"
 					:rules="[
-						{ required: true, message: '請填寫確認新密碼' },
-						{ validator: passwordValidator, message: '確認密碼與新密碼不符' },
+						{ required: true, message: $t('change_password.fill_confirm_new_password') },
+						{ validator: passwordValidator, message: $t('change_password.password_mismatch') },
 					]"
 				/>
 			</van-cell-group>
 			<div style="margin: 16px">
-				<van-button round block type="primary" color="#f472b6" native-type="submit">確認修改</van-button>
+				<van-button round block type="primary" color="#f472b6" native-type="submit">
+					{{ $t('change_password.confirm_change') }}
+				</van-button>
 			</div>
 		</van-form>
 	</div>
 </template>
 
 <script setup lang="ts">
-	import { ref } from 'vue'
+	import { ref, computed } from 'vue'
 	import { useRouter } from 'vue-router'
 	import { changePassword } from '../api/user'
 	import { showToast } from 'vant'
 	import { removeToken } from '../modules/auth'
+	import { useI18n } from 'vue-i18n'
 
+	const { t } = useI18n()
 	const router = useRouter()
 	const oldPassword = ref('')
 	const newPassword = ref('')
 	const confirmNewPassword = ref('')
 
-	const newPasswordRules = [
-		{ required: true, message: '請填寫新密碼' },
+	const newPasswordRules = computed(() => [
+		{ required: true, message: t('change_password.fill_new_password') },
 		{
 			pattern: /^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};:'",.<>/?]{6,30}$/,
-			message: '新密碼長度需為 6-30 個字元，且只能包含英文字母、數字或特殊符號',
+			message: t('change_password.password_rules'),
 		},
-	]
+	])
 
 	const passwordValidator = (val: string) => {
 		return val === newPassword.value
@@ -69,7 +73,7 @@
 			confirmNewPassword: values.confirmNewPassword,
 		})
 		if (res.success) {
-			showToast('密碼修改成功')
+			showToast(t('change_password.change_success'))
 			removeToken()
 			router.push('/login')
 		}

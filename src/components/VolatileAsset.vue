@@ -1,6 +1,6 @@
 <template>
 	<van-tabs v-model:active="activeTab" type="card" class="p-2" color="#f472b6">
-		<van-tab title="強勢股">
+		<van-tab :title="$t('volatile_asset.strong_stocks')">
 			<div class="grid grid-cols-1 gap-4 px-5 mt-8">
 				<div>
 					<ul>
@@ -18,7 +18,7 @@
 			</div>
 		</van-tab>
 
-		<van-tab title="弱勢股">
+		<van-tab :title="$t('volatile_asset.weak_stocks')">
 			<div class="grid grid-cols-1 gap-4 px-5 my-10">
 				<ul>
 					<li

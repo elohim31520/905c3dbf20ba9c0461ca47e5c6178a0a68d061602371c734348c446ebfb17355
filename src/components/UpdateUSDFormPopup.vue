@@ -2,7 +2,7 @@
 	<van-popup v-model:show="show" position="bottom" round>
 		<div class="p-10">
 			<div class="text-16 font-bold mb-4 color-#656566 text-center">
-				{{ isUpdateMode ? '更新可用美金餘額' : '新增可用美金餘額' }}
+				{{ isUpdateMode ? $t('update_usd_form_popup.update_title') : $t('update_usd_form_popup.add_title') }}
 			</div>
 			<van-form ref="formRef" @submit="onSubmit">
 				<van-cell-group class="!rounded-xl overflow-hidden">
@@ -10,17 +10,20 @@
 						v-model="form.balance"
 						type="number"
 						name="balance"
-						label="美金餘額"
-						placeholder="請輸入可用美金餘額"
+						:label="$t('update_usd_form_popup.usd_balance_label')"
+						:placeholder="$t('update_usd_form_popup.usd_balance_placeholder')"
 						:rules="[
-							{ required: true, message: '請輸入可用美金餘額' },
-							{ pattern: /^\d+(\.\d{1,2})?$/, message: '請輸入正確的金額格式' },
+							{ required: true, message: $t('update_usd_form_popup.usd_balance_placeholder') },
+							{
+								pattern: /^\d+(\.\d{1,2})?$/,
+								message: $t('update_usd_form_popup.correct_format_required'),
+							},
 						]"
 					/>
 				</van-cell-group>
 				<div class="px-10 py-20">
 					<van-button round block type="primary" color="#f472b6" native-type="submit">
-						{{ isUpdateMode ? '更新' : '新增' }}
+						{{ isUpdateMode ? $t('update_usd_form_popup.update_button') : $t('update_usd_form_popup.add_button') }}
 					</van-button>
 				</div>
 			</van-form>
@@ -33,7 +36,9 @@
 	import type { FormInstance } from 'vant'
 	import { balancesApi } from '@/api/balances'
 	import { useBalanceStore } from '@/stores/balance'
+	import { useI18n } from 'vue-i18n'
 
+	const { t } = useI18n()
 	const balanceStore = useBalanceStore()
 
 	interface BalanceForm {
@@ -77,7 +82,7 @@
 		try {
 			await formRef.value?.validate()
 			if (+_get(form.value, 'balance') === +balanceStore.usdBalance) {
-				showFailToast('請輸入要更新的餘額')
+				showFailToast(t('update_usd_form_popup.enter_balance_to_update'))
 				return
 			}
 			const payload = {
@@ -90,7 +95,9 @@
 			}
 			showToast({
 				type: 'success',
-				message: isUpdateMode.value ? '更新成功' : '新增成功',
+				message: isUpdateMode.value
+					? t('update_usd_form_popup.update_success')
+					: t('update_usd_form_popup.add_success'),
 			})
 
 			await balanceStore.fetchMyBalance()
@@ -100,7 +107,7 @@
 			console.error(error)
 			showToast({
 				type: 'fail',
-				message: '請檢查輸入資料',
+				message: t('transaction.check_input_data'),
 			})
 		}
 	}

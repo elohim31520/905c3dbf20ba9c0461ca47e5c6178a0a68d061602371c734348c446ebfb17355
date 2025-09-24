@@ -1,7 +1,7 @@
 <template>
 	<div class="bg-gray-50">
 		<div class="mx-10 bg-white p-10 rounded-15 shadow-lg">
-			<h1 class="text-[24px] font-bold mb-6 text-gray-800">交易紀錄</h1>
+			<h1 class="text-[24px] font-bold mb-6 text-gray-800">{{ $t('records.transaction_records') }}</h1>
 			<Waterfall ref="waterfallRef" :apiFunction="transactionApi.getAllTransactions">
 				<template #default="{ list }">
 					<van-swipe-cell
@@ -14,7 +14,7 @@
 						<div class="mb-15 border border-gray-200 rounded-lg p-4 transition-shadow duration-300 hover:shadow-md">
 							<div class="flex justify-between items-start mb-3">
 								<div>
-									<span class="text-[14px] text-gray-500">股票代號</span>
+									<span class="text-[14px] text-gray-500">{{ $t('records.stock_id') }}</span>
 									<p class="font-semibold text-[18px] text-gray-900">{{ item.stock_id }}</p>
 								</div>
 								<span
@@ -23,17 +23,17 @@
 										item.transaction_type === 'buy' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800',
 									]"
 								>
-									{{ item.transaction_type === 'buy' ? '買入' : '賣出' }}
+									{{ item.transaction_type === 'buy' ? $t('records.buy') : $t('records.sell') }}
 								</span>
 							</div>
 
 							<div class="grid grid-cols-2 gap-4 text-[14px] mb-3">
 								<div>
-									<span class="text-gray-500">數量</span>
+									<span class="text-gray-500">{{ $t('records.quantity') }}</span>
 									<p class="text-gray-800">{{ item.quantity }}</p>
 								</div>
 								<div>
-									<span class="text-gray-500">價格</span>
+									<span class="text-gray-500">{{ $t('records.price') }}</span>
 									<p class="text-gray-800">{{ item.price }}</p>
 								</div>
 							</div>
@@ -43,10 +43,14 @@
 							</div>
 						</div>
 						<template #left>
-							<div class="h-full flex items-center justify-center bg-primary text-white w-65px">更新</div>
+							<div class="h-full flex items-center justify-center bg-primary text-white w-65px">
+								{{ $t('records.update') }}
+							</div>
 						</template>
 						<template #right>
-							<div class="h-full flex items-center justify-center bg-red-500 text-white w-65px">刪除</div>
+							<div class="h-full flex items-center justify-center bg-red-500 text-white w-65px">
+								{{ $t('records.delete') }}
+							</div>
 						</template>
 					</van-swipe-cell>
 				</template>
@@ -61,6 +65,9 @@
 	import { showConfirmDialog } from 'vant'
 	import { format } from 'date-fns'
 	import Waterfall from '@/components/Waterfall/index.vue'
+	import { useI18n } from 'vue-i18n'
+
+	const { t } = useI18n()
 
 	defineOptions({
 		name: 'records',
@@ -85,8 +92,8 @@
 				break
 			case 'right':
 				showConfirmDialog({
-					title: '確認',
-					message: '確定要刪除嗎？',
+					title: t('records.confirm_title'),
+					message: t('records.confirm_delete_message'),
 				})
 					.then(() => {
 						return transactionApi.deleteTransaction(item.id)

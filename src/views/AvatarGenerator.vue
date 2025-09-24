@@ -1,28 +1,28 @@
 <template>
 	<div class="avatar-generator-page bg-[#f0f2f5] min-h-screen p-20">
 		<div class="max-w-[600px] mx-auto bg-white rounded-lg shadow-lg p-25">
-			<h1 class="text-24 font-bold text-center mb-5 color-#333">卡通頭像生成器</h1>
-			<p class="text-center text-14 color-#888 mb-20">上傳您的照片，生成專屬的卡通風格虛擬形象</p>
+			<h1 class="text-24 font-bold text-center mb-5 color-#333">{{ $t('avatar_generator.title') }}</h1>
+			<p class="text-center text-14 color-#888 mb-20">{{ $t('avatar_generator.subtitle') }}</p>
 
 			<!-- 步驟指示器 -->
 			<div class="flex justify-between items-center mb-20 text-12 text-center">
 				<div class="flex-1" :class="step >= 1 ? 'text-blue-500 font-bold' : 'text-gray-400'">
-					<div class="mb-5">第一步</div>
-					<div>上傳圖片</div>
+					<div class="mb-5">{{ $t('avatar_generator.step1_title') }}</div>
+					<div>{{ $t('avatar_generator.step1_description') }}</div>
 				</div>
 				<div class="w-50 h-2 bg-gray-200 mx-10">
 					<div class="h-full bg-blue-500 transition-all" :style="{ width: step > 1 ? '100%' : '0' }"></div>
 				</div>
 				<div class="flex-1" :class="step >= 2 ? 'text-blue-500 font-bold' : 'text-gray-400'">
-					<div class="mb-5">第二步</div>
-					<div>生成頭像</div>
+					<div class="mb-5">{{ $t('avatar_generator.step2_title') }}</div>
+					<div>{{ $t('avatar_generator.step2_description') }}</div>
 				</div>
 				<div class="w-50 h-2 bg-gray-200 mx-10">
 					<div class="h-full bg-blue-500 transition-all" :style="{ width: step > 2 ? '100%' : '0' }"></div>
 				</div>
 				<div class="flex-1" :class="step === 3 ? 'text-green-500 font-bold' : 'text-gray-400'">
-					<div class="mb-5">完成</div>
-					<div>下載頭像</div>
+					<div class="mb-5">{{ $t('avatar_generator.step3_title') }}</div>
+					<div>{{ $t('avatar_generator.step3_description') }}</div>
 				</div>
 			</div>
 
@@ -36,8 +36,8 @@
 			>
 				<input ref="fileInput" type="file" class="hidden" accept="image/*" @change="handleFileSelect" />
 				<SvgIcon name="upload" size="3rem" class="mx-auto color-gray-400 mb-10" />
-				<p class="text-16 color-#555">點擊此處或拖曳圖片至此</p>
-				<p class="text-12 color-#999 mt-5">支援 JPG, PNG, WEBP 格式</p>
+				<p class="text-16 color-#555">{{ $t('avatar_generator.upload_area_text') }}</p>
+				<p class="text-12 color-#999 mt-5">{{ $t('avatar_generator.supported_formats') }}</p>
 			</div>
 
 			<!-- 圖片預覽和結果 -->
@@ -47,7 +47,7 @@
 					<div class="relative">
 						<img :src="uploadedImage" alt="Uploaded Preview" class="w-full rounded-lg shadow-md" />
 						<div class="absolute top-0 left-0 bg-black bg-opacity-50 text-white text-12 px-8 py-3 rounded-br-lg">
-							原始圖片
+							{{ $t('avatar_generator.original_image') }}
 						</div>
 					</div>
 
@@ -66,12 +66,12 @@
 						<div v-else-if="generatedAvatar" class="relative">
 							<img :src="generatedAvatar" alt="Generated Avatar" class="w-full rounded-lg shadow-md" />
 							<div class="absolute top-0 left-0 bg-green-500 bg-opacity-80 text-white text-12 px-8 py-3 rounded-br-lg">
-								生成成功
+								{{ $t('avatar_generator.generation_successful') }}
 							</div>
 						</div>
 						<div v-else class="w-full aspect-square bg-gray-100 rounded-lg flex flex-col justify-center items-center">
 							<SvgIcon name="photo" size="3rem" class="mx-auto color-gray-400 mb-10" />
-							<p class="text-14 color-#999">待生成頭像</p>
+							<p class="text-14 color-#999">{{ $t('avatar_generator.avatar_pending') }}</p>
 						</div>
 					</div>
 				</div>
@@ -88,17 +88,25 @@
 					@click="triggerFileInput"
 					icon="photograph"
 				>
-					選擇圖片
+					{{ $t('avatar_generator.select_image') }}
 				</van-button>
 
 				<div v-if="uploadedImage && !generatedAvatar && !isLoading" class="flex gap-15">
-					<van-button type="default" round block size="large" @click="reset">重新選擇</van-button>
-					<van-button type="success" round block size="large" @click="generateAvatar" icon="fire">開始生成</van-button>
+					<van-button type="default" round block size="large" @click="reset">
+						{{ $t('avatar_generator.reselect') }}
+					</van-button>
+					<van-button type="success" round block size="large" @click="generateAvatar" icon="fire">
+						{{ $t('avatar_generator.start_generation') }}
+					</van-button>
 				</div>
 
 				<div v-if="generatedAvatar" class="flex gap-15">
-					<van-button type="default" round block size="large" @click="reset">再試一次</van-button>
-					<van-button type="primary" round block size="large" @click="downloadAvatar" icon="down">下載頭像</van-button>
+					<van-button type="default" round block size="large" @click="reset">
+						{{ $t('avatar_generator.try_again') }}
+					</van-button>
+					<van-button type="primary" round block size="large" @click="downloadAvatar" icon="down">
+						{{ $t('avatar_generator.download_avatar') }}
+					</van-button>
 				</div>
 			</div>
 		</div>
@@ -109,13 +117,15 @@
 	import { ref, computed } from 'vue'
 	import { uploadImageAndGenerateAvatar } from '@/api/avatar'
 	import { showLoadingToast, closeToast } from 'vant'
+	import { useI18n } from 'vue-i18n'
 
+	const { t } = useI18n()
 	const fileInput = ref(null)
 	const uploadedImage = ref(null)
 	const uploadedFile = ref(null)
 	const generatedAvatar = ref(null)
 	const isLoading = ref(false)
-	const loadingText = ref('圖片上傳中...')
+	const loadingText = ref(t('avatar_generator.uploading_image'))
 	const uploadProgress = ref(0)
 
 	const step = computed(() => {
@@ -144,7 +154,7 @@
 
 	const processFile = (file) => {
 		if (!file.type.startsWith('image/')) {
-			showToast('請上傳圖片檔案')
+			showToast(t('avatar_generator.upload_image_file_please'))
 			return
 		}
 		uploadedFile.value = file
@@ -159,11 +169,11 @@
 		if (!uploadedFile.value) return
 		isLoading.value = true
 		uploadProgress.value = 0
-		loadingText.value = '圖片上傳中...'
+		loadingText.value = t('avatar_generator.uploading_image')
 		generatedAvatar.value = null
 
 		const loadingToast = showLoadingToast({
-			message: '處理中...',
+			message: t('avatar_generator.processing'),
 			forbidClick: true,
 			duration: 0,
 		})
@@ -172,19 +182,19 @@
 			const resultUrl = await uploadImageAndGenerateAvatar(uploadedFile.value, (progress) => {
 				uploadProgress.value = progress
 				if (progress >= 100) {
-					loadingText.value = 'AI 正在繪製中...'
+					loadingText.value = t('avatar_generator.ai_drawing')
 				}
 			})
 			generatedAvatar.value = resultUrl
 			showToast({
 				type: 'success',
-				message: '頭像生成成功！',
+				message: t('avatar_generator.avatar_generation_successful'),
 			})
 		} catch (error) {
 			console.error('Avatar generation failed:', error)
 			showToast({
 				type: 'fail',
-				message: error.message || '生成失敗，請稍後再試',
+				message: error.message || t('avatar_generator.generation_failed'),
 			})
 			reset()
 		} finally {
@@ -203,7 +213,7 @@
 		document.body.appendChild(a)
 		a.click()
 		document.body.removeChild(a)
-		showToast('開始下載...')
+		showToast(t('avatar_generator.starting_download'))
 	}
 
 	const reset = () => {

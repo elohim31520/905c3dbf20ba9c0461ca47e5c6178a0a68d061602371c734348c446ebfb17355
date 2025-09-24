@@ -9,7 +9,7 @@
 		>
 			<SvgIcon size="1.5rem" :name="activeTab === tab.name ? tab.activeIcon : tab.defaultIcon" class="mb-2" />
 			<span class="text-12">
-				{{ tab.label }}
+				{{ $t(tab.label) }}
 			</span>
 		</div>
 	</div>
@@ -31,31 +31,31 @@
 	const tabItems = [
 		{
 			name: 'home',
-			label: '首頁',
+			label: 'footer.home',
 			defaultIcon: 'icon_voice',
 			activeIcon: 'icon_voice_a',
 		},
 		{
 			name: 'portfolio',
-			label: '投資組合',
+			label: 'footer.portfolio',
 			defaultIcon: 'icon_gift',
 			activeIcon: 'icon_gift_a',
 		},
 		{
 			name: 'transaction',
-			label: '紀錄',
+			label: 'footer.record',
 			defaultIcon: 'icon_follow2',
 			activeIcon: 'icon_follow',
 		},
 		{
 			name: 'info',
-			label: '資訊',
+			label: 'footer.info',
 			defaultIcon: 'icon_message',
 			activeIcon: 'icon_message_a',
 		},
 		{
 			name: 'my',
-			label: '我的',
+			label: 'footer.my',
 			defaultIcon: 'icon_user',
 			activeIcon: 'icon_user_a',
 		},
