@@ -8,7 +8,6 @@
 
 <script setup lang="ts">
 	import { computed } from 'vue'
-	// const DEFAULT_LOGO_URL = '/logo/default.webp'
 
 	defineOptions({
 		name: 'CompanyIcon',
@@ -25,6 +24,6 @@
 
 	const logoUrl = computed(() => {
 		const symbol = props.symbol?.toLowerCase()
-		return `/logo/${symbol}.webp`
+		return `/logo/${symbol}.svg`
 	})
 </script>

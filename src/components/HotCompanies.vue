@@ -9,7 +9,7 @@
 				class="group relative cursor-pointer overflow-hidden rounded-10 shadow-lg transition-all duration-300 ease-in-out hover:-translate-y-2 hover:shadow-2xl"
 			>
 				<img
-					:src="`/logo/${company.id}.webp`"
+					:src="`/hot/${company.id}.webp`"
 					class="h-full w-full transition-transform duration-300 group-hover:scale-110 object-cover bg-#fff"
 				/>
 				<div

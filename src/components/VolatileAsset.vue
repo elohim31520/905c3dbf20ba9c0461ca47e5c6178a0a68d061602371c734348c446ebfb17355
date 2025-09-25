@@ -9,7 +9,7 @@
 							:key="index"
 							class="flex items-center py-2 px-10 py-20 shadow-primary gap-5"
 						>
-							<img :src="`/logo/default.webp`" class="w-40 h-40 rounded-5" />
+							<SvgIcon name="icon_ghost" size="2.5rem" />
 							<span class="color-gray-600">{{ stock.name }}</span>
 							<span class="text-green-600 ml-auto">{{ stock.chg }}%</span>
 						</li>
@@ -26,7 +26,7 @@
 						:key="index"
 						class="flex items-center py-2 px-10 py-20 shadow-primary gap-5"
 					>
-						<img :src="`/logo/default.webp`" class="w-40 h-40 rounded-5" />
+						<SvgIcon name="icon_ghost" size="2.5rem" />
 						<span class="color-gray-600">{{ stock.name }}</span>
 						<span class="text-red-500 ml-auto">{{ stock.chg }}%</span>
 					</li>
