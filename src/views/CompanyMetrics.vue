@@ -70,6 +70,15 @@
 
 		<LineChart
 			v-if="metrics.length"
+			:title="`${bigSymbol} ${$t('company_metrics.price_title')}`"
+			:chart-data="metrics"
+			x-axis-key="t"
+			series-key="c"
+			line-color="#22c55e"
+		/>
+
+		<BarChart
+			v-if="metrics.length"
 			:title="`${bigSymbol} ${$t('company_metrics.volume_title')}`"
 			:chart-data="metrics"
 			x-axis-key="ct"
