@@ -25,11 +25,3 @@ export interface RequestParams<T = any> {
 	quiet?: boolean
 	useKV?: boolean
 }
-
-export interface Transaction {
-	stock_id: string
-	transaction_type: 'buy' | 'sell'
-	quantity: number | null
-	price: number | null
-	transaction_date: string
-}

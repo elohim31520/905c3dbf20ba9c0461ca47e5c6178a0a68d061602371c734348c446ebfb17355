@@ -1,6 +1,6 @@
 import { httpClient } from '../modules/service'
 import type { ResponseData } from '../types/api'
-import type { Transaction } from '../types/transactions'
+import type { Transaction, TransactionForm } from '../types/transactions'
 
 interface PaginationParams {
 	page: number

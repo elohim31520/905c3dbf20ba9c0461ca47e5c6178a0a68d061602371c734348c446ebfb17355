@@ -75,12 +75,13 @@
 				</van-button>
 			</div>
 
-			<div
+			<!-- TODO: 暫時關閉 -->
+			<!-- <div
 				class="rounded-30 flex-y-center justify-center color-primary bd-1 border-#f472b6 mt-10 w-95% h-44 mx-auto"
 				@click="$router.push('/image-to-json')"
 			>
 				{{ $t('transaction.upload_screenshot') }}
-			</div>
+			</div> -->
 		</van-form>
 	</div>
 </template>
@@ -93,18 +94,11 @@
 	import { useRouter } from 'vue-router'
 	import { useI18n } from 'vue-i18n'
 	import { useUserStore } from '@/stores/user'
+	import type { TransactionForm } from '@/types/transactions'
 
 	const { t } = useI18n()
 	const router = useRouter()
 	const userStore = useUserStore()
-
-	interface TransactionForm {
-		stock_id: string
-		transaction_type: 'buy' | 'sell'
-		quantity: string
-		price: string
-		transaction_date: string
-	}
 
 	const getInitialFormState = (): TransactionForm => ({
 		stock_id: '',

@@ -88,7 +88,9 @@
 					message: t('records.confirm_delete_message'),
 				})
 					.then(() => {
-						return transactionApi.deleteTransaction(item.id)
+						if (item.id) {
+							return transactionApi.deleteTransaction(item.id)
+						}
 					})
 					.then(() => {
 						waterfallRef.value?.refresh()

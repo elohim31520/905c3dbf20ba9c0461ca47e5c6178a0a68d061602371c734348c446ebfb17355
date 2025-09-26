@@ -65,7 +65,7 @@
 	import { ref, computed } from 'vue'
 	import { useClipboard } from '@vueuse/core'
 	import { transactionApi } from '@/api/transaction'
-	import type { Transaction } from '@/types/api'
+	import type { Transaction } from '@/types/transactions'
 	import { useI18n } from 'vue-i18n'
 	import { useUserStore } from '@/stores/user'
 
