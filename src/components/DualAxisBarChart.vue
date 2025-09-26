@@ -10,7 +10,7 @@
 <script setup lang="ts">
 	import { ref, onMounted, watch } from 'vue'
 	import * as echarts from 'echarts'
-	import type { EChartsOption } from 'echarts'
+	import type { EChartsOption, BarSeriesOption } from 'echarts'
 
 	interface Props {
 		title: string
@@ -48,7 +48,7 @@
 		const firstSeriesData = props.chartData.map((item) => item[props.firstSeriesKey])
 		const secondSeriesData = props.chartData.map((item) => item[props.secondSeriesKey])
 
-		const option: EChartsOption = {
+		const option: EChartsOption & { series: BarSeriesOption[] } = {
 			tooltip: {
 				trigger: 'axis',
 				axisPointer: {
