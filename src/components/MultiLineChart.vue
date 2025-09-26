@@ -11,7 +11,7 @@
 	import { LineChart } from 'echarts/charts'
 	import { TitleComponent, TooltipComponent, LegendComponent, GridComponent } from 'echarts/components'
 	import VChart, { THEME_KEY } from 'vue-echarts'
-	import type { EChartsOption } from 'echarts'
+	import type { EChartsOption, LineSeriesOption } from 'echarts'
 
 	use([CanvasRenderer, LineChart, TitleComponent, TooltipComponent, LegendComponent, GridComponent])
 
@@ -36,7 +36,7 @@
 		return props.chartData.map((item) => new Date(item[props.xAxisKey]).toLocaleDateString())
 	})
 
-	const seriesData = computed(() => {
+	const seriesData = computed<LineSeriesOption[]>(() => {
 		return props.series.map((series) => ({
 			name: series.name,
 			type: 'line',

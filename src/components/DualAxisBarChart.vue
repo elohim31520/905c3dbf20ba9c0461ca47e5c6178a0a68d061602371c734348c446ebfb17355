@@ -48,7 +48,7 @@
 		const firstSeriesData = props.chartData.map((item) => item[props.firstSeriesKey])
 		const secondSeriesData = props.chartData.map((item) => item[props.secondSeriesKey])
 
-		const option: EChartsOption & { series: BarSeriesOption[] } = {
+		const option = {
 			tooltip: {
 				trigger: 'axis',
 				axisPointer: {
