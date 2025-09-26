@@ -23,8 +23,8 @@
 	import { ref, onMounted } from 'vue'
 	import { use } from 'echarts/core'
 	import { CanvasRenderer } from 'echarts/renderers'
-	import { LineChart } from 'echarts/charts'
-	import { TitleComponent, TooltipComponent, GridComponent } from 'echarts/components'
+	import { BarChart } from 'echarts/charts'
+	import { TitleComponent, TooltipComponent, GridComponent, DataZoomComponent } from 'echarts/components'
 	import VChart from 'vue-echarts'
 	import { marketApi } from '../api/market'
 	import { useRouter } from 'vue-router'
@@ -35,7 +35,7 @@
 	const router = useRouter()
 	const userStore = useUserStore()
 
-	use([CanvasRenderer, LineChart, TitleComponent, TooltipComponent, GridComponent])
+	use([CanvasRenderer, BarChart, TitleComponent, TooltipComponent, GridComponent, DataZoomComponent])
 
 	const timeRanges = [1, 3, 7, 30]
 	const selectedDays = ref(1)
@@ -83,13 +83,27 @@
 				series: [
 					{
 						data: volumes,
-						type: 'line',
-						smooth: true,
+						type: 'bar',
 						itemStyle: {
 							color: '#f472b6',
+							borderRadius: [4, 4, 0, 0],
+						},
+						animationDelay: function (idx: number) {
+							// 根據當前選擇的天數動態調整延遲時間
+							const days = selectedDays.value
+							const baseDelay = days >= 30 ? 2 : days >= 7 ? 10 : 50
+							return idx * baseDelay
+						},
+						animationDelayUpdate: function (idx: number) {
+							const days = selectedDays.value
+							const baseDelay = days >= 30 ? 2 : days >= 7 ? 10 : 50
+							return idx * baseDelay
 						},
 					},
 				],
+				animation: true,
+				animationDuration: 1000,
+				animationEasing: 'cubicOut',
 			}
 		} catch (error) {
 			console.error(`Failed to fetch ${days}-day momentum data:`, error)
