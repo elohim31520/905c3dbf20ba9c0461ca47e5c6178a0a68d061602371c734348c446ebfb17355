@@ -41,8 +41,8 @@
 									<span class="font-bold">{{ item.stock_id }}</span>
 								</template>
 								<div>{{ $t('portfolio.quantity') }}: {{ item.quantity }}</div>
-								<div>{{ $t('portfolio.average_price') }}: {{ item.average_price }}</div>
-								<div>{{ $t('portfolio.total_value') }}: {{ formatNumber(item.quantity * item.average_price) }}</div>
+								<div>{{ $t('portfolio.average_price') }}: {{ item.avg }}</div>
+								<div>{{ $t('portfolio.total_value') }}: {{ formatNumber(item.quantity * item.avg) }}</div>
 							</van-cell>
 							<template #left>
 								<div class="h-full flex items-center justify-center bg-primary text-white w-65px">

@@ -55,7 +55,7 @@
 					center: ['50%', '40%'],
 					data: data.map((item) => ({
 						name: item.stock_id,
-						value: formatNumber(item.quantity * item.average_price),
+						value: formatNumber(item.quantity * item.avg),
 					})),
 					label: {
 						show: true,

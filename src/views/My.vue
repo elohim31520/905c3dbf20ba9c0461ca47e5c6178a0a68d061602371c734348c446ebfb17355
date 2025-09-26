@@ -128,7 +128,7 @@
 
 	const portfolioValue = computed(() => {
 		return portfolioStore.portfolioList.reduce((sum, item) => {
-			return sum + item.quantity * item.average_price
+			return sum + item.quantity * item.avg
 		}, 0)
 	})
 
