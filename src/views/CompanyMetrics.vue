@@ -55,6 +55,8 @@
 				second-series-key="eps"
 				:first-series-name="$t('company_metrics.feps_title')"
 				:second-series-name="$t('company_metrics.eps_history_title')"
+				firstSeriesColor="#ED6A0C"
+				secondSeriesColor="#00CED1"
 			/>
 
 			<BarChart

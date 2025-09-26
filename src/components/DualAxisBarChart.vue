@@ -20,11 +20,15 @@
 		secondSeriesKey: string
 		firstSeriesName?: string
 		secondSeriesName?: string
+		firstSeriesColor?: string
+		secondSeriesColor?: string
 	}
 
 	const props = withDefaults(defineProps<Props>(), {
 		firstSeriesName: '',
 		secondSeriesName: '',
+		firstSeriesColor: '#5470c6',
+		secondSeriesColor: '#91cc75',
 	})
 
 	const chartRef = ref<HTMLElement>()
@@ -83,12 +87,18 @@
 					name: props.firstSeriesName || props.firstSeriesKey,
 					type: 'bar',
 					data: firstSeriesData,
+					itemStyle: {
+						color: props.firstSeriesColor,
+					},
 				},
 				{
 					name: props.secondSeriesName || props.secondSeriesKey,
 					type: 'bar',
 					yAxisIndex: 1,
 					data: secondSeriesData,
+					itemStyle: {
+						color: props.secondSeriesColor,
+					},
 				},
 			],
 		}
