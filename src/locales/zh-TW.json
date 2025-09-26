@@ -16,7 +16,8 @@
 		"eps_notice": "什麼是EPS(每股盈餘)? EPS(每股盈餘)是公司每股普通股所賺取的盈餘，它是一個財務指標，計算方式為公司淨利潤除以流通在外的普通股數量，用來衡量公司每股股票的盈利能力。",
 		"feps_title": "未來預估市盈率 EPS",
 		"eps_history_title": "歷史每股盈餘 EPS",
-		"volume_title": "量能"
+		"volume_title": "量能",
+		"eps_comparison": "EPS 比較"
 	},
 	"my": {
 		"cash": "現金",

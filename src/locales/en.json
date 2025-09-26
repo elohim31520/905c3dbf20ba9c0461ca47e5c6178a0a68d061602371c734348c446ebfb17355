@@ -16,7 +16,8 @@
 		"eps_notice": "What is EPS (Earnings Per Share)? EPS is the earnings generated per share of a company's common stock. It is a financial indicator calculated by dividing the company's net profit by the number of outstanding common shares, used to measure the profitability of each share of stock.",
 		"feps_title": "Future Estimated EPS",
 		"eps_history_title": "Historical EPS",
-		"volume_title": "Volume"
+		"volume_title": "Volume",
+		"eps_comparison": "EPS Comparison"
 	},
 	"my": {
 		"cash": "Cash",

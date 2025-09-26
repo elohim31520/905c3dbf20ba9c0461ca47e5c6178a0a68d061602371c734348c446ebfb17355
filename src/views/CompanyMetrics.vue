@@ -17,22 +17,26 @@
 		</van-notice-bar>
 
 		<template v-if="metrics.length">
-			<LineChart
-				:title="`${bigSymbol} ${$t('company_metrics.pe_forwards_title')}`"
+			<MultiLineChart
+				:title="`${bigSymbol} PE Ratios`"
 				:chart-data="metrics"
 				x-axis-key="ct"
-				series-key="fpe"
-			/>
-			<LineChart
-				v-if="metrics.length"
-				:title="`${bigSymbol} ${$t('company_metrics.pe_history_title')}`"
-				:chart-data="metrics"
-				x-axis-key="ct"
-				series-key="pe"
+				:series="[
+					{
+						name: $t('company_metrics.pe_forwards_title'),
+						key: 'fpe',
+						color: '#FF5733',
+					},
+					{
+						name: $t('company_metrics.pe_history_title'),
+						key: 'pe',
+						color: '#00CED1',
+					},
+				]"
 			/>
 
 			<van-notice-bar
-				v-if="showNotice && userStore.isLogin"
+				v-if="showNotice"
 				left-icon="info-o"
 				wrapable
 				:scrollable="false"
@@ -44,7 +48,6 @@
 			</van-notice-bar>
 
 			<DualAxisBarChart
-				v-if="metrics.length"
 				:title="`${bigSymbol} ${$t('company_metrics.eps_comparison')}`"
 				:chart-data="metrics"
 				x-axis-key="ct"
@@ -55,7 +58,6 @@
 			/>
 
 			<BarChart
-				v-if="metrics.length"
 				:title="`${bigSymbol} ${$t('company_metrics.volume_title')}`"
 				:chart-data="metrics"
 				x-axis-key="ct"
@@ -81,6 +83,7 @@
 	import { useUIStore } from '@/stores/ui'
 	import { HOT_COMPANIES } from '@/constants/hotCompanies'
 	import { useUserStore } from '@/stores/user'
+	import { toUpper as _toUpper, reverse as _reverse, get as _get } from 'lodash-es'
 
 	const uiStore = useUIStore()
 	const router = useRouter()
