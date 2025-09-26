@@ -19,7 +19,7 @@ class TransactionApi {
 	 * 刪除單筆交易紀錄
 	 * @param id 交易紀錄 ID
 	 */
-	async deleteTransaction(id: string): Promise<ResponseData<any>> {
+	async deleteTransaction(id: number): Promise<ResponseData<any>> {
 		return httpClient.request<any>({ method: 'DELETE', endpoint: `/transactions/${id}` })
 	}
 
