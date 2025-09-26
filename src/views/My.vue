@@ -178,8 +178,6 @@
 		} else {
 			portfolioStore.fetchMockPortfolio()
 		}
-
-		console.log(userStore.userInfo)
 	})
 
 	onUnmounted(() => {

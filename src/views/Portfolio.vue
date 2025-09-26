@@ -3,7 +3,7 @@
 		<div class="text-16 font-bold mb-4 color-#656565">{{ $t('portfolio.my_portfolio') }}</div>
 
 		<van-notice-bar
-			v-if="!isAuthenticated()"
+			v-if="!userStore.isLogin"
 			wrapable
 			:scrollable="false"
 			type="warning"
@@ -88,11 +88,12 @@
 	import { portfolioApi } from '@/api/portfolio'
 	import { formatNumber } from '@/modules/util'
 	import type { PortfolioItem } from '@/types/portfolio'
-	import { isAuthenticated } from '@/modules/auth'
 	import { useI18n } from 'vue-i18n'
+	import { useUserStore } from '@/stores/user'
 
 	const { t } = useI18n()
 	const portfolioStore = usePortfolioStore()
+	const userStore = useUserStore()
 
 	const showNotice = ref(true)
 
@@ -111,7 +112,7 @@
 	const isDataRefreshed = ref(false)
 
 	const onClose = (details: any, item: PortfolioItem) => {
-		if (!isAuthenticated()) return
+		if (!userStore.isLogin) return
 		const { position } = details
 
 		switch (position) {
@@ -146,7 +147,7 @@
 	}
 
 	const fetchData = () => {
-		if (isAuthenticated()) {
+		if (userStore.isLogin) {
 			portfolioStore.fetchMyPortfolio()
 		} else {
 			portfolioStore.fetchMockPortfolio()
@@ -156,7 +157,7 @@
 	fetchData()
 
 	onActivated(() => {
-		if (isAuthenticated() && !isDataRefreshed.value) {
+		if (userStore.isLogin && !isDataRefreshed.value) {
 			fetchData()
 			isDataRefreshed.value = true
 		}

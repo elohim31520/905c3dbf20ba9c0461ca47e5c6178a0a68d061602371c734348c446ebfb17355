@@ -66,10 +66,12 @@
 	import { useClipboard } from '@vueuse/core'
 	import { transactionApi } from '@/api/transaction'
 	import type { Transaction } from '@/types/api'
-	import { isAuthenticated } from '@/modules/auth'
 	import { useI18n } from 'vue-i18n'
+	import { useUserStore } from '@/stores/user'
 
 	const { t } = useI18n()
+
+	const userStore = useUserStore()
 
 	const transactionsJsonString = ref('')
 	const isSubmitting = ref(false)
@@ -98,7 +100,7 @@
 			showToast(t('image_to_json.fill_transaction_data'))
 			return
 		}
-		if (!isAuthenticated()) {
+		if (!userStore.isLogin) {
 			showToast(t('image_to_json.login_first'))
 			return
 		}

@@ -27,12 +27,13 @@
 	import { TitleComponent, TooltipComponent, GridComponent } from 'echarts/components'
 	import VChart from 'vue-echarts'
 	import { marketApi } from '../api/market'
-	import { isAuthenticated } from '@/modules/auth'
 	import { useRouter } from 'vue-router'
 	import { useI18n } from 'vue-i18n'
+	import { useUserStore } from '@/stores/user'
 
 	const { t } = useI18n()
 	const router = useRouter()
+	const userStore = useUserStore()
 
 	use([CanvasRenderer, LineChart, TitleComponent, TooltipComponent, GridComponent])
 
@@ -45,7 +46,7 @@
 			// 如果選擇的時間範圍相同且已經初始化時，則不重取api
 			return
 		}
-		if (days != 1 && !isAuthenticated()) {
+		if (days != 1 && !userStore.isLogin) {
 			router.push('/login')
 			return
 		}

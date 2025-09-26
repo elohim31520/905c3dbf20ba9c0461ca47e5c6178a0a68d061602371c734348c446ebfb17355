@@ -12,8 +12,8 @@
 					<router-link
 						v-if="
 							item.auth === 'always' ||
-							(item.auth === 'auth' && isAuthenticated()) ||
-							(item.auth === 'guest' && !isAuthenticated())
+							(item.auth === 'auth' && userStore.isLogin) ||
+							(item.auth === 'guest' && !userStore.isLogin)
 						"
 						:to="item.to"
 						@click="closeMenu"
@@ -25,7 +25,7 @@
 					</router-link>
 				</template>
 				<div
-					v-if="isAuthenticated()"
+					v-if="userStore.isLogin"
 					@click="logout"
 					class="flex items-center justify-center rounded-lg text-gray-700 hover:bg-gray-100"
 					active-class="color-primary"
@@ -42,12 +42,14 @@
 	import { RouterLink } from 'vue-router'
 	import VanPopup from 'vant/lib/popup'
 	import 'vant/lib/popup/style'
-	import { isAuthenticated, removeToken } from '@/modules/auth'
+	import { removeToken } from '@/modules/auth'
 	import { useUIStore } from '@/stores/ui'
 	import { useRouter } from 'vue-router'
+	import { useUserStore } from '@/stores/user'
 
 	const router = useRouter()
 	const uiStore = useUIStore()
+	const userStore = useUserStore()
 
 	const menuItems = [
 		{ to: '/', icon: 'icon_settings_Name2', text: 'sidemenu.home', auth: 'always' },
@@ -74,7 +76,7 @@
 		},
 		{ to: '/market-metrics', icon: 'media', text: 'sidemenu.market_indicators', auth: 'always' },
 		{ to: '/volatile-stock', icon: 'icon_ghost', text: 'sidemenu.todays_volatility', auth: 'always' },
-		{ to: '/login', icon: 'icon_user2', text: 'sidemenu.login', auth: 'always' },
+		{ to: '/login', icon: 'icon_user2', text: 'sidemenu.login', auth: 'guest' },
 		{ to: '/register', icon: 'icon_settings_invite', text: 'sidemenu.register', auth: 'guest' },
 	]
 

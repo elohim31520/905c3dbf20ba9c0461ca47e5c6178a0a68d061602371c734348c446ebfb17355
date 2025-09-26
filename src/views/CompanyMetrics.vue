@@ -83,7 +83,6 @@
 	import { useRoute, useRouter } from 'vue-router'
 	import { metricsApi } from '@/api/metrics'
 	import { useUIStore } from '@/stores/ui'
-	import { isAuthenticated } from '@/modules/auth'
 	import { HOT_COMPANIES } from '@/constants/hotCompanies'
 	import { useUserStore } from '@/stores/user'
 
@@ -106,7 +105,7 @@
 
 	const getMetrics = async (symbol: string, days: number = 60) => {
 		// 只有熱門股票的資料可以不做認證就可以看
-		if (!HOT_COMPANIES.includes(_toUpper(symbol)) && !isAuthenticated()) return
+		if (!HOT_COMPANIES.includes(_toUpper(symbol)) && !userStore.isLogin) return
 		const response = await metricsApi.getStatementBySymbol(symbol, days)
 		metrics.value = _reverse(_get(response, 'data', []))
 	}

@@ -4,6 +4,7 @@ import { isAuthenticated, removeToken, setToken } from '@/modules/auth'
 import { useStorage } from '@vueuse/core'
 
 export const useUserStore = defineStore('user', () => {
+	console.log('登入狀態', isAuthenticated())
 	const isLogin = ref(isAuthenticated())
 	const username = useStorage('username', '')
 	const userPicture = useStorage('g_user_picture', '')
@@ -17,6 +18,7 @@ export const useUserStore = defineStore('user', () => {
 	})
 
 	function checkLoginStatus() {
+		console.log('登入狀態', isAuthenticated())
 		isLogin.value = isAuthenticated()
 	}
 

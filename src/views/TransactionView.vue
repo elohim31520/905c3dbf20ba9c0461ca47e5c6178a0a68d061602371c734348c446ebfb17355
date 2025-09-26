@@ -91,11 +91,12 @@
 	import { transactionApi } from '../api/transaction'
 	import emitter from '@/modules/emitter'
 	import { useRouter } from 'vue-router'
-	import { isAuthenticated } from '@/modules/auth'
 	import { useI18n } from 'vue-i18n'
+	import { useUserStore } from '@/stores/user'
 
 	const { t } = useI18n()
 	const router = useRouter()
+	const userStore = useUserStore()
 
 	interface TransactionForm {
 		stock_id: string
@@ -128,7 +129,7 @@
 
 	const onSubmit = async () => {
 		if (!formRef.value) return
-		if (!isAuthenticated()) {
+		if (!userStore.isLogin) {
 			showToast(t('transaction.please_login_first'))
 			return
 		}
