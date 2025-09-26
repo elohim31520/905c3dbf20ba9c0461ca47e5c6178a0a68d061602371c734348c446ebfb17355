@@ -16,13 +16,53 @@
 			{{ $t('company_metrics.pe_forwards_notice') }}
 		</van-notice-bar>
 
-		<LineChart
-			v-if="metrics.length"
-			:title="`${bigSymbol} ${$t('company_metrics.pe_forwards_title')}`"
-			:chart-data="metrics"
-			x-axis-key="ct"
-			series-key="fpe"
-		/>
+		<template v-if="metrics.length">
+			<LineChart
+				:title="`${bigSymbol} ${$t('company_metrics.pe_forwards_title')}`"
+				:chart-data="metrics"
+				x-axis-key="ct"
+				series-key="fpe"
+			/>
+			<LineChart
+				v-if="metrics.length"
+				:title="`${bigSymbol} ${$t('company_metrics.pe_history_title')}`"
+				:chart-data="metrics"
+				x-axis-key="ct"
+				series-key="pe"
+			/>
+
+			<van-notice-bar
+				v-if="showNotice && userStore.isLogin"
+				left-icon="info-o"
+				wrapable
+				:scrollable="false"
+				type="warning"
+				:mode="'closeable'"
+				@close="showNotice = false"
+			>
+				{{ $t('company_metrics.eps_notice') }}
+			</van-notice-bar>
+
+			<DualAxisBarChart
+				v-if="metrics.length"
+				:title="`${bigSymbol} ${$t('company_metrics.eps_comparison')}`"
+				:chart-data="metrics"
+				x-axis-key="ct"
+				first-series-key="feps"
+				second-series-key="eps"
+				:first-series-name="$t('company_metrics.feps_title')"
+				:second-series-name="$t('company_metrics.eps_history_title')"
+			/>
+
+			<BarChart
+				v-if="metrics.length"
+				:title="`${bigSymbol} ${$t('company_metrics.volume_title')}`"
+				:chart-data="metrics"
+				x-axis-key="ct"
+				series-key="v"
+			/>
+		</template>
+
 		<div v-else>
 			<div class="flex-y-center justify-center font-500 mb-10">
 				{{ `${bigSymbol} ${$t('company_metrics.pe_forwards_title')}` }}...
@@ -31,59 +71,6 @@
 				{{ $t('company_metrics.login_to_see_data') }}
 			</div>
 		</div>
-
-		<LineChart
-			v-if="metrics.length"
-			:title="`${bigSymbol} ${$t('company_metrics.pe_history_title')}`"
-			:chart-data="metrics"
-			x-axis-key="ct"
-			series-key="pe"
-		/>
-
-		<van-notice-bar
-			v-if="showNotice && userStore.isLogin"
-			left-icon="info-o"
-			wrapable
-			:scrollable="false"
-			type="warning"
-			:mode="'closeable'"
-			@close="showNotice = false"
-		>
-			{{ $t('company_metrics.eps_notice') }}
-		</van-notice-bar>
-
-		<LineChart
-			v-if="metrics.length"
-			:title="`${bigSymbol} ${$t('company_metrics.feps_title')}`"
-			:chart-data="metrics"
-			x-axis-key="ct"
-			series-key="feps"
-		/>
-
-		<LineChart
-			v-if="metrics.length"
-			:title="`${bigSymbol} ${$t('company_metrics.eps_history_title')}`"
-			:chart-data="metrics"
-			x-axis-key="ct"
-			series-key="eps"
-		/>
-
-		<LineChart
-			v-if="metrics.length"
-			:title="`${bigSymbol} ${$t('company_metrics.price_title')}`"
-			:chart-data="metrics"
-			x-axis-key="t"
-			series-key="c"
-			line-color="#22c55e"
-		/>
-
-		<BarChart
-			v-if="metrics.length"
-			:title="`${bigSymbol} ${$t('company_metrics.volume_title')}`"
-			:chart-data="metrics"
-			x-axis-key="ct"
-			series-key="v"
-		/>
 	</div>
 </template>
 
