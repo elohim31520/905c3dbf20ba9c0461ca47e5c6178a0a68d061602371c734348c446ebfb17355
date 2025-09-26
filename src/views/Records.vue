@@ -11,7 +11,7 @@
 						:left-width="65"
 						@close="(details) => onClose(details, item)"
 					>
-						<div class="mb-15 border border-gray-200 rounded-lg p-4 transition-shadow duration-300 hover:shadow-md">
+						<div class="mb-15 rounded-lg p-4 transition-shadow duration-300 hover:shadow-md">
 							<div class="flex justify-between items-start mb-3">
 								<div>
 									<span class="text-[14px] text-gray-500">{{ $t('records.stock_id') }}</span>
@@ -20,10 +20,10 @@
 								<span
 									:class="[
 										'px-3 py-1 rounded-full text-[12px] font-semibold tracking-wide',
-										item.transaction_type === 'buy' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800',
+										item.type === 'buy' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800',
 									]"
 								>
-									{{ item.transaction_type === 'buy' ? $t('records.buy') : $t('records.sell') }}
+									{{ item.type === 'buy' ? $t('records.buy') : $t('records.sell') }}
 								</span>
 							</div>
 
@@ -39,7 +39,7 @@
 							</div>
 
 							<div class="text-right text-[12px] text-gray-400">
-								{{ format(item.transaction_date, 'yyyy-MM-dd') }}
+								{{ format(item.date, 'yyyy-MM-dd') }}
 							</div>
 						</div>
 						<template #left>
@@ -66,6 +66,7 @@
 	import { format } from 'date-fns'
 	import Waterfall from '@/components/Waterfall/index.vue'
 	import { useI18n } from 'vue-i18n'
+	import type { Transaction } from '@/types/transactions'
 
 	const { t } = useI18n()
 
@@ -74,15 +75,6 @@
 	})
 
 	const waterfallRef = useTemplateRef<InstanceType<typeof Waterfall>>('waterfall')
-
-	type Transaction = {
-		id: string
-		stock_id: string
-		transaction_type: 'buy' | 'sell'
-		quantity: number
-		price: number
-		transaction_date: string
-	}
 
 	const onClose = (details: any, item: Transaction) => {
 		const { position, instance } = details
@@ -105,3 +97,10 @@
 		}
 	}
 </script>
+
+<style scoped>
+	.van-swipe-cell {
+		border-bottom: 1px solid #f5f5f5;
+		padding-top: 10px;
+	}
+</style>

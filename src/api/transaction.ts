@@ -1,13 +1,6 @@
 import { httpClient } from '../modules/service'
 import type { ResponseData } from '../types/api'
-
-interface Transaction {
-	stock_id: string
-	transaction_type: 'buy' | 'sell'
-	quantity: number | null
-	price: number | null
-	transaction_date: string
-}
+import type { Transaction } from '../types/transactions'
 
 interface PaginationParams {
 	page: number
