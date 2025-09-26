@@ -39,9 +39,9 @@ const routes = [
 		},
 	},
 	{
-		path: '/transaction',
-		name: 'transaction',
-		component: () => import('../views/TransactionView.vue'),
+		path: '/add-transaction',
+		name: 'AddTransaction',
+		component: () => import('../views/AddTransaction.vue'),
 		meta: {},
 	},
 	{

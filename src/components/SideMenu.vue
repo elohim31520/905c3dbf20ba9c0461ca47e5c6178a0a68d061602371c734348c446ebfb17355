@@ -54,7 +54,7 @@
 	const menuItems = [
 		{ to: '/', icon: 'icon_settings_Name2', text: 'sidemenu.home', auth: 'always' },
 		{ to: '/about', icon: 'icon_settings_about_us', text: 'sidemenu.about', auth: 'always' },
-		{ to: '/transaction', icon: 'icon_menu_Opinion', text: 'sidemenu.add_record', auth: 'always' },
+		{ to: '/add-transaction', icon: 'icon_menu_Opinion', text: 'sidemenu.add_record', auth: 'always' },
 		{ to: '/records', icon: 'money', text: 'sidemenu.my_records', auth: 'always' },
 		{
 			to: '/portfolio',
