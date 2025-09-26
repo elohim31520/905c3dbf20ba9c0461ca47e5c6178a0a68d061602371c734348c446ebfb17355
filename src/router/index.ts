@@ -5,7 +5,7 @@ import i18n from '@/i18n'
 
 let hasPopLazypod = false
 let adScriptLoaded = false
-function loadAdScript() {
+function loadGoogleAdScript() {
 	if (adScriptLoaded) {
 		return
 	}
@@ -173,8 +173,8 @@ router.beforeEach((to, from, next) => {
 })
 
 router.afterEach((to) => {
-	if (to.meta.requiresAds) {
-		_delay(loadAdScript, 5000)
+	if (to.meta.requiresAds && import.meta.env.PROD) {
+		_delay(loadGoogleAdScript, 5000)
 	}
 	if (to.name === 'info' && !hasPopLazypod) {
 		hasPopLazypod = true
