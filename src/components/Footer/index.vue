@@ -42,7 +42,7 @@
 			activeIcon: 'icon_gift_a',
 		},
 		{
-			name: 'transaction',
+			name: 'AddTransaction',
 			label: 'footer.record',
 			defaultIcon: 'icon_follow2',
 			activeIcon: 'icon_follow',
